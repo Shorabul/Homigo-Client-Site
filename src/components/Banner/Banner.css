@@ -1,0 +1,9 @@
+@import "tailwindcss";
+
+.swiper-pagination-bullet {
+    @apply bg-white opacity-100 rounded-full;
+}
+
+.swiper-pagination-bullet-active {
+    @apply bg-red-600 shadow-2xl;
+}
