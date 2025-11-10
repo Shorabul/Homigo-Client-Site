@@ -1,1 +1,30 @@
+/* src/index.css */
 @import "tailwindcss";
+@plugin "daisyui";
+
+/* Optional global styles */
+body {
+    font-family: theme("fontFamily.sans");
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* Gradient button that uses DaisyUI theme vars */
+.btn-gradient {
+    padding: 0.625rem 2rem;
+    border-radius: 9999px;
+    color: white;
+    font-weight: 600;
+    background-image: linear-gradient(to right, var(--p), var(--s));
+    transition: filter 0.3s ease;
+}
+
+.btn-gradient:hover {
+    filter: brightness(1.1);
+}
+
+/* Text gradient using theme vars */
+.text-gradient {
+    background: linear-gradient(to right, var(--p), var(--s));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
