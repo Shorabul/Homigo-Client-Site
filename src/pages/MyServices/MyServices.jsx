@@ -8,7 +8,8 @@ import MyServiceRow from '../../components/MyServiceRow/MyServiceRow';
 const MyServices = () => {
     const { user } = useContext(AuthContext);
     const [myServices, setMyServices] = useState([]);
-    const [loading, setLoading] = useState(true)
+    const [loading, setLoading] = useState(true);
+
     useEffect(() => {
         if (!user?.email) return;
 
@@ -19,9 +20,26 @@ const MyServices = () => {
                 setLoading(false);
             });
     }, [user]);
+
+    const handleDelete = (id) => {
+        fetch(`http://localhost:3000/services/${id}`, {
+            method: "DELETE",
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.deletedCount > 0) {
+                    alert("Service deleted successfully"); // replace with toast
+                    // Update UI by filtering out deleted service
+                    setMyServices(myServices.filter(service => service._id !== id));
+                }
+            })
+            .catch(err => console.error("Error deleting service:", err));
+    };
+
     if (loading) {
         return <div> Please wait ... Loading...</div>
     }
+
     return (
         <div className="overflow-x-auto">
             <table className="table">
@@ -39,7 +57,12 @@ const MyServices = () => {
                     {/* row */}
                     {
                         myServices.map((service, index) => (
-                            <MyServiceRow key={service._id} index={index + 1} service={service}></MyServiceRow>
+                            <MyServiceRow
+                                key={service._id}
+                                index={index + 1}
+                                service={service}
+                                handleDelete={handleDelete}
+                            ></MyServiceRow>
                         ))
                     }
                 </tbody>

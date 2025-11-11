@@ -1,8 +1,9 @@
 import React from 'react';
 
-const MyServiceRow = ({ service, index }) => {
+const MyServiceRow = ({ service, index, handleDelete }) => {
     console.log(service);
-    const { serviceName,
+    const { _id,
+        serviceName,
         category,
         serviceImageURL,
         providerName,
@@ -36,7 +37,10 @@ const MyServiceRow = ({ service, index }) => {
             <th>
                 <button className="btn btn-ghost btn-xs">Details</button>
                 <button className="btn btn-ghost btn-xs">Update</button>
-                <button className="btn btn-ghost btn-xs">Remove</button>
+                <button
+                    onClick={() => handleDelete(_id)}
+                    className="btn btn-ghost btn-xs">
+                    Remove</button>
             </th>
         </tr>
     );
