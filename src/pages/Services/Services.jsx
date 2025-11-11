@@ -63,7 +63,7 @@ const Services = () => {
                                         className="bg-white rounded-xl shadow-md hover:shadow-lg transition p-4 border border-gray-100"
                                     >
                                         <img
-                                            src={service.imageURL}
+                                            src={service.serviceImageURL}
                                             alt={service.serviceName}
                                             className="w-full h-40 object-cover rounded-lg mb-4 transition-transform hover:scale-105"
                                         />

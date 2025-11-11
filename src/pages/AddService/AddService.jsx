@@ -18,7 +18,7 @@ const AddService = () => {
         category: "",
         price: "",
         description: "",
-        imageURL: "",
+        serviceImageURL: "",
         providerName: "",
         providerEmail: "",
         city: "",
@@ -27,6 +27,8 @@ const AddService = () => {
         phone: "",
         availability: [],
         createdAt,
+        ratings: 0,
+        reviews: [],
     });
 
     useEffect(() => {
@@ -63,7 +65,7 @@ const AddService = () => {
         };
 
         try {
-            const res = await fetch("http://localhost:3000/services", {
+            const res = await fetch("http://localhost:3000/service", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(newService),
@@ -77,7 +79,7 @@ const AddService = () => {
                     category: "",
                     price: "",
                     description: "",
-                    imageURL: "",
+                    serviceImageURL: "",
                     providerName: user?.displayName || "",
                     providerEmail: user?.email || "",
                     city: "",
@@ -86,6 +88,8 @@ const AddService = () => {
                     phone: user?.phoneNumber || "",
                     availability: [],
                     createdAt,
+                    ratings: 0,
+                    reviews: [],
                 });
             } else {
                 toast.error("❌ Failed to add service");
@@ -125,7 +129,7 @@ const AddService = () => {
 
                     {/* Form */}
                     <form onSubmit={handleSubmit} className="space-y-8">
-                        {/* Service Info */}
+                        {/* Service Name & Category*/}
                         <Motion.div
                             className="grid md:grid-cols-2 gap-6"
                             initial={{ opacity: 0, y: 10 }}
@@ -163,7 +167,7 @@ const AddService = () => {
                             </div>
                         </Motion.div>
 
-                        {/* Price & Image */}
+                        {/* Service Price Image URL */}
                         <Motion.div
                             className="grid md:grid-cols-2 gap-6"
                             initial={{ opacity: 0, y: 10 }}
@@ -191,8 +195,8 @@ const AddService = () => {
                                 </label>
                                 <input
                                     type="url"
-                                    name="imageURL"
-                                    value={formData.imageURL}
+                                    name="serviceImageURL"
+                                    value={formData.serviceImageURL}
                                     onChange={handleChange}
                                     placeholder="Paste image URL"
                                     className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-orange-400 focus:border-orange-400 transition"
@@ -201,33 +205,27 @@ const AddService = () => {
                             </div>
                         </Motion.div>
 
-                        {/* Description */}
+                        {/* Service Description & Availability*/}
                         <Motion.div
                             initial={{ opacity: 0, y: 10 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.6 }}
                         >
-                            <label className="block text-sm font-semibold text-gray-600 mb-2">
-                                Description
-                            </label>
-                            <textarea
-                                name="description"
-                                value={formData.description}
-                                onChange={handleChange}
-                                rows={4}
-                                placeholder="Describe your service..."
-                                className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-orange-400 focus:border-orange-400 transition"
-                                required
-                            />
-                        </Motion.div>
+                            <div>
+                                <label className="block text-sm font-semibold text-gray-600 mb-2">
+                                    Description
+                                </label>
+                                <textarea
+                                    name="description"
+                                    value={formData.description}
+                                    onChange={handleChange}
+                                    rows={4}
+                                    placeholder="Describe your service..."
+                                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-orange-400 focus:border-orange-400 transition"
+                                    required
+                                />
+                            </div>
 
-                        {/* Availability */}
-                        <Motion.div
-                            className="grid md:grid-cols-3 gap-6"
-                            initial={{ opacity: 0, y: 10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.8 }}
-                        >
                             <div>
                                 <label className="block text-sm font-semibold text-gray-600 mb-3">
                                     Availability
@@ -264,7 +262,7 @@ const AddService = () => {
                             className="grid md:grid-cols-3 gap-6"
                             initial={{ opacity: 0, y: 10 }}
                             animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.8 }}
+                            transition={{ delay: 0.7 }}
                         >
                             <div>
                                 <label className="block text-sm font-semibold text-gray-600 mb-2 flex items-center gap-2">
@@ -277,8 +275,10 @@ const AddService = () => {
                                     onChange={handleChange}
                                     placeholder="City"
                                     className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-orange-400 focus:border-orange-400 transition"
+                                    required
                                 />
                             </div>
+
                             <div>
                                 <label className="block text-sm font-semibold text-gray-600 mb-2">
                                     District
@@ -290,8 +290,10 @@ const AddService = () => {
                                     onChange={handleChange}
                                     placeholder="District"
                                     className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-orange-400 focus:border-orange-400 transition"
+                                    required
                                 />
                             </div>
+
                             <div>
                                 <label className="block text-sm font-semibold text-gray-600 mb-2">
                                     ZIP
@@ -303,6 +305,7 @@ const AddService = () => {
                                     onChange={handleChange}
                                     placeholder="ZIP Code"
                                     className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-orange-400 focus:border-orange-400 transition"
+                                    required
                                 />
                             </div>
                         </Motion.div>
@@ -312,7 +315,7 @@ const AddService = () => {
                             className="text-center pt-4"
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.9 }}
+                            transition={{ delay: 0.8 }}
                         >
                             <Motion.button
                                 type="submit"
