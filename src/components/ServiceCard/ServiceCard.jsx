@@ -10,7 +10,7 @@ const ServiceCard = ({ service }) => {
         >
             {/* Background image */}
             <img
-                src={service?.images[0]}
+                src="https://handyman.homerakshak.up2client.com/assets/paint-services-img2-B59NjlkQ.jpg"
                 alt={serviceName}
                 className="w-full h-72 object-cover transition-transform duration-300 group-hover:scale-105"
             />

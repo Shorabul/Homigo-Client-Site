@@ -9,6 +9,7 @@ import ServiceDetails from "../pages/ServiceDetails/ServiceDetails";
 import MyServices from "../pages/MyServices/MyServices";
 import MyBookings from "../pages/MyBookings/MyBookings";
 import Profile from "../pages/Profile/Profile";
+import AddService from "../pages/AddService/AddService";
 
 export const router = createBrowserRouter([
     {
@@ -25,7 +26,15 @@ export const router = createBrowserRouter([
                 loader: () => fetch('http://localhost:3000/services'),
             },
             {
-                path: '/user/Services',
+                path: '/profile',
+                element: <Profile></Profile>
+            },
+            {
+                path: '/add-service',
+                element: <AddService></AddService>
+            },
+            {
+                path: '/user/services',
                 element: <MyServices></MyServices>
             },
             {
@@ -33,11 +42,7 @@ export const router = createBrowserRouter([
                 element: <MyBookings></MyBookings>
             },
             {
-                path: '/profile',
-                element: <Profile></Profile>
-            },
-            {
-                path: '/ServiceDetails',
+                path: '/serviceDetails',
                 element: <ServiceDetails></ServiceDetails>
             },
 

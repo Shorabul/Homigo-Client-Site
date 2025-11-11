@@ -15,7 +15,8 @@ const Navbar = () => {
         <NavLink to='/services' className="flex justify-center items-center gap-1">Services</NavLink>
         {user && <>
             <NavLink to='/profile' className="flex justify-center items-center gap-1">Profile</NavLink>
-            <NavLink to='/user/Services' className="flex justify-center items-center gap-1">My Services</NavLink>
+            <NavLink to='/add-service' className="flex justify-center items-center gap-1">Add Service</NavLink>
+            <NavLink to='/user/services' className="flex justify-center items-center gap-1">My Services</NavLink>
             <NavLink to='/user/bookings' className="flex justify-center items-center gap-1">My Bookings</NavLink>
         </>}
     </>
