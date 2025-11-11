@@ -4,6 +4,8 @@ import { useEffect } from 'react';
 import { AuthContext } from '../../contexts/AuthContext';
 import { useState } from 'react';
 import MyServiceRow from '../../components/MyServiceRow/MyServiceRow';
+import Swal from "sweetalert2";
+// import toast from "react-hot-toast";
 
 const MyServices = () => {
     const { user } = useContext(AuthContext);
@@ -22,19 +24,35 @@ const MyServices = () => {
     }, [user]);
 
     const handleDelete = (id) => {
-        fetch(`http://localhost:3000/services/${id}`, {
-            method: "DELETE",
-        })
-            .then(res => res.json())
-            .then(data => {
-                if (data.deletedCount > 0) {
-                    alert("Service deleted successfully"); // replace with toast
-                    // Update UI by filtering out deleted service
-                    setMyServices(myServices.filter(service => service._id !== id));
-                }
-            })
-            .catch(err => console.error("Error deleting service:", err));
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                fetch(`http://localhost:3000/services/${id}`, {
+                    method: "DELETE",
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.deletedCount > 0) {
+                            Swal.fire({
+                                title: "Deleted!",
+                                text: "Your service has been deleted.",
+                                icon: "success"
+                            });
+                            setMyServices(myServices.filter(service => service._id !== id));
+                        }
+                    })
+                    .catch(err => console.error("Error deleting service:", err));
+            }
+        });
     };
+
 
     if (loading) {
         return <div> Please wait ... Loading...</div>

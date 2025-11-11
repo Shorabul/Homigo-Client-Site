@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-// import ServiceCard from '../../components/ServiceCard/ServiceCard';
+import ServiceCard from '../../components/ServiceCard/ServiceCard';
 // import { FaTools, FaHouseUser, FaHammer } from "react-icons/fa";
 import { motion as Motion } from "framer-motion";
-
+// import { Link, NavLink } from 'react-router';
 
 const Services = () => {
     const [services, setServices] = useState([]);
@@ -58,23 +58,8 @@ const Services = () => {
                             {/* Service Cards */}
                             <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                                 {groupedServices[category].map((service) => (
-                                    <div
-                                        key={service._id}
-                                        className="bg-white rounded-xl shadow-md hover:shadow-lg transition p-4 border border-gray-100"
-                                    >
-                                        <img
-                                            src={service.serviceImageURL}
-                                            alt={service.serviceName}
-                                            className="w-full h-40 object-cover rounded-lg mb-4 transition-transform hover:scale-105"
-                                        />
-                                        <h3 className="text-lg font-semibold text-gray-800">
-                                            {service.serviceName}
-                                        </h3>
-                                        <p className="text-gray-600 text-sm line-clamp-2 mb-3">
-                                            {service.description}
-                                        </p>
-                                        <p className="font-bold text-orange-600">${service.price}</p>
-                                    </div>
+                                    <ServiceCard key={service._id} service={service}></ServiceCard>
+
                                 ))}
                             </div>
                         </div>
