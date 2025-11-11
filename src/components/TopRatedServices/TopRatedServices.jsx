@@ -1,6 +1,7 @@
 import React from "react";
 import { motion as Motion } from "framer-motion";
 import { Wrench, Brush, Wind } from "lucide-react";
+import { Link } from 'react-router';
 
 const TopRatedServices = () => {
     const services = [
@@ -89,9 +90,16 @@ const TopRatedServices = () => {
 
             {/* View All Button */}
             <div className="text-center mt-16">
-                <button className="flex items-center mx-auto bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 rounded-full font-medium transition">
+                {/* <Link type="button" to='/services' className="flex items-center mx-auto bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 rounded-full font-medium transition">
                     <span className="mr-2">→</span> View All Services
-                </button>
+                </Link> */}
+                <Link
+                    to="/services"
+                    className="items-center bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 rounded-full font-medium transition"
+                >
+                    <span className="mr-2">→</span> View All Services
+                </Link>
+
             </div>
         </section>
     );

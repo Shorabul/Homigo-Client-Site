@@ -15,6 +15,8 @@ const Navbar = () => {
         <NavLink to='/services' className="flex justify-center items-center gap-1">Services</NavLink>
         {user && <>
             <NavLink to='/profile' className="flex justify-center items-center gap-1">Profile</NavLink>
+            <NavLink to='/user/Services' className="flex justify-center items-center gap-1">My Services</NavLink>
+            <NavLink to='/user/bookings' className="flex justify-center items-center gap-1">My Bookings</NavLink>
         </>}
     </>
     const handleLogout = () => {
@@ -113,7 +115,7 @@ const Navbar = () => {
                     menutoggle && (
                         <div
                             className='absolute right-0 top-0 w-[60%]
-                    h-screen text-base flex flex-col md:hidden items-start gap-6 font-medium bg-gray-40 bg-yellow-600'>
+                    h-screen text-base flex flex-col md:hidden items-start gap-6 font-medium bg-gray-40 bg-yellow-600 z-1000'>
                             <button className="absolute top-6 left-4"
                                 onClick={handleMenuToggle}
                             >
