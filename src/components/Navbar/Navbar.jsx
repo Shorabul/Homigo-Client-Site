@@ -64,8 +64,8 @@ const Navbar = () => {
                     >
                         <img
                             className="h-10 w-10 rounded-full"
-                            // src={`${user ? user.photoURL : 'https://i.ibb.co/kgVb18wv/user-icon.jpg'}`}
-                            src='https://i.ibb.co/SXC1MkJy/do.webp'
+                            src={`${user ? user.photoURL : 'https://i.ibb.co/kgVb18wv/user-icon.jpg'}`}
+                            // src='https://i.ibb.co/SXC1MkJy/do.webp'
                             alt={user?.displayName} />
                     </div>
                         : <div className="hidden md:flex items-center gap-4">
@@ -92,7 +92,7 @@ const Navbar = () => {
                     </svg>
                 </div>
                 {
-                    profileToggle && user && <div className="text-sm w-64 p-3 bg-white border border-gray-500/30 text-gray-800/80 rounded-md font-medium absolute top-34 right-0">
+                    profileToggle && user && <div className="text-sm w-64 p-3 bg-white border border-gray-500/30 text-gray-800/80 rounded-md font-medium absolute top-34 right-0 z-2000">
                         <ul className="flex flex-col gap-px">
                             <li className="flex items-center justify-between cursor-pointer">
                                 <Link>{user?.displayName}</Link>

@@ -60,6 +60,7 @@ const MyServices = () => {
 
     return (
         <div className="overflow-x-auto">
+            <h1 className='text-center'>My Services</h1>
             <table className="table">
                 {/* head */}
                 <thead>

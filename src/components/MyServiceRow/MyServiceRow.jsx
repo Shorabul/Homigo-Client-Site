@@ -1,7 +1,6 @@
 import React from 'react';
 
 const MyServiceRow = ({ service, index, handleDelete }) => {
-    console.log(service);
     const { _id,
         serviceName,
         category,
