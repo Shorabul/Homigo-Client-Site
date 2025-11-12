@@ -12,11 +12,13 @@ import Profile from "../pages/Profile/Profile";
 import AddService from "../pages/AddService/AddService";
 import PrivateRoute from "./PrivateRoute";
 import UpdateService from "../pages/UpdateService/UpdateService";
+import Error from "../pages/Error/Error";
 
 export const router = createBrowserRouter([
     {
         path: '/',
         element: <MainLayout></MainLayout>,
+        errorElement: <Error></Error>,
         children: [
             {
                 index: true,
@@ -68,6 +70,7 @@ export const router = createBrowserRouter([
     , {
         path: '/auth',
         element: <AuthLayout></AuthLayout>,
+        errorElement: <Error></Error>,
         children: [
             {
                 path: '/auth/login',
