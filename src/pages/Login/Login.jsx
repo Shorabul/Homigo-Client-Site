@@ -3,20 +3,38 @@ import { Link, useLocation, useNavigate } from 'react-router';
 import { FcGoogle } from "react-icons/fc";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { AuthContext } from '../../contexts/AuthContext';
+import { toast } from 'react-hot-toast';
 
 const Login = () => {
     const navigate = useNavigate();
     const location = useLocation();
+    console.log(location);
     const { setLoading, logIn, setUser, googleAuth, user } = useContext(AuthContext);
     const [passShow, setPassShow] = useState(false);
     const [email, setEmail] = useState('');
-    const [passwordError, setPasswordError] = useState("");
+    const [passwordError, setPasswordError] = useState('');
+
+    // useEffect(() => {
+    //     if (user) {
+    //         navigate('/');
+    //     }
+    // }, [user, navigate]);
+
+    // useEffect(() => {
+    //     if (user) {
+    //         navigate('/', { replace: true });
+    //     }
+    // }, [user, navigate]);
 
     useEffect(() => {
         if (user) {
-            navigate('/');
+            if (!location.state?.from) {
+                navigate('/', { replace: true });
+            }
         }
-    }, [user, navigate]);
+    }, [user, navigate, location.state]);
+
+
 
     const handleLogin = (e) => {
         e.preventDefault();
@@ -30,9 +48,15 @@ const Login = () => {
                 setLoading(false);
                 const user = userCredential.user;
                 setUser(user);
-                navigate(`${location.state ? location.state : '/'}`);
-                alert(`Welcome Back ${user.displayName}`);
-                // <ProfileTost user={user} text="Welcome Back"></ProfileTost>
+                // navigate(`${location.state ?
+                //     location.state : '/'}`);
+
+                // navigate(location.state?.from?.pathname || '/');
+
+                const redirectPath = location.state?.from?.pathname || '/';
+                navigate(redirectPath, { replace: true });
+
+                toast.success(`Welcome Back ${user.displayName || 'User'}`);
             }).catch((error) => {
                 console.log(error);
                 console.log(error.code);
@@ -77,8 +101,9 @@ const Login = () => {
                     }
                 }
                 setUser(user);
-                navigate(location.state ? location.state : '/');
-                alert("Signup successful");
+                const redirectPath = location.state?.from?.pathname || '/';
+                navigate(redirectPath, { replace: true });
+                toast.success(`Welcome Back ${user.displayName || 'User'}`);
             })
             .catch((error) => {
                 setLoading(false);
@@ -113,7 +138,7 @@ const Login = () => {
 
                 const message =
                     errorMessages[error.code] || error.message || 'An unknown error occurred.';
-                alert(message);
+                toast.error(message);
             });
     };
     return (

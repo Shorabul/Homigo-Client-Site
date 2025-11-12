@@ -10,6 +10,7 @@ import MyServices from "../pages/MyServices/MyServices";
 import MyBookings from "../pages/MyBookings/MyBookings";
 import Profile from "../pages/Profile/Profile";
 import AddService from "../pages/AddService/AddService";
+import PrivateRoute from "./PrivateRoute";
 
 export const router = createBrowserRouter([
     {
@@ -27,23 +28,33 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/profile',
-                element: <Profile></Profile>
+                element: (<PrivateRoute>
+                    <Profile></Profile>
+                </PrivateRoute>)
             },
             {
                 path: '/add-service',
-                element: <AddService></AddService>
+                element: (<PrivateRoute>
+                    <AddService></AddService>
+                </PrivateRoute>)
             },
             {
                 path: '/user/services',
-                element: <MyServices></MyServices>
+                element: (<PrivateRoute>
+                    <MyServices></MyServices>
+                </PrivateRoute>)
             },
             {
                 path: '/user/bookings',
-                element: <MyBookings></MyBookings>
+                element: (<PrivateRoute>
+                    <MyBookings></MyBookings>
+                </PrivateRoute>)
             },
             {
                 path: '/serviceDetails/:id',
-                element: <ServiceDetails></ServiceDetails>
+                element: (<PrivateRoute>
+                    <ServiceDetails></ServiceDetails>
+                </PrivateRoute>)
             },
 
         ]
