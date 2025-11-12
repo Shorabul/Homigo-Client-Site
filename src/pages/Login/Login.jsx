@@ -8,7 +8,6 @@ import { toast } from 'react-hot-toast';
 const Login = () => {
     const navigate = useNavigate();
     const location = useLocation();
-    console.log(location);
     const { setLoading, logIn, setUser, googleAuth, user } = useContext(AuthContext);
     const [passShow, setPassShow] = useState(false);
     const [email, setEmail] = useState('');

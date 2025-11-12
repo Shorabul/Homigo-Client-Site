@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router';
 
 const MyServiceRow = ({ service, index, handleDelete }) => {
     const { _id,
@@ -35,7 +36,9 @@ const MyServiceRow = ({ service, index, handleDelete }) => {
             <td>{price}</td>
             <th>
                 <button className="btn btn-ghost btn-xs">Details</button>
-                <button className="btn btn-ghost btn-xs">Update</button>
+                <Link 
+                to={`/update-service/${_id}`}
+                className="btn btn-ghost btn-xs">Update</Link>
                 <button
                     onClick={() => handleDelete(_id)}
                     className="btn btn-ghost btn-xs">

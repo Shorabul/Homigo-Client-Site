@@ -7,7 +7,6 @@ import PageLoader from '../pages/PageLoader/PageLoader';
 const PrivateRoute = ({ children }) => {
     const { user, loading } = useContext(AuthContext);
     const location = useLocation();
-    console.log(location);
     if (loading) {
         return <PageLoader></PageLoader>;
     } else if (user) {

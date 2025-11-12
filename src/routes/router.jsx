@@ -11,6 +11,7 @@ import MyBookings from "../pages/MyBookings/MyBookings";
 import Profile from "../pages/Profile/Profile";
 import AddService from "../pages/AddService/AddService";
 import PrivateRoute from "./PrivateRoute";
+import UpdateService from "../pages/UpdateService/UpdateService";
 
 export const router = createBrowserRouter([
     {
@@ -55,7 +56,12 @@ export const router = createBrowserRouter([
                 element: (<PrivateRoute>
                     <ServiceDetails></ServiceDetails>
                 </PrivateRoute>)
-            },
+            }, {
+                path: '/update-service/:id',
+                element: (<PrivateRoute>
+                    <UpdateService></UpdateService>
+                </PrivateRoute>)
+            }
 
         ]
     }
