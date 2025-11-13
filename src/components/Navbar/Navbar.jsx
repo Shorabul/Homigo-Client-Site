@@ -5,6 +5,7 @@ import { TbLogout } from "react-icons/tb";
 import ThemeToggle from "../ThemToggle/ThemeToggle";
 import { FaFacebookF, FaTwitter, FaLinkedinIn, FaYoutube } from "react-icons/fa";
 import { RxCaretDown, RxCaretUp } from "react-icons/rx";
+import { toast } from 'react-hot-toast';
 const Navbar = () => {
     const [menutoggle, setMenuToggle] = useState(false);
     const [profileToggle, setProfileToggle] = useState(false);
@@ -13,17 +14,19 @@ const Navbar = () => {
 
     const handleLogout = () => {
         signOutUser()
-            .then(() => alert("You logged out successfully"))
+            .then(() => toast.success("You logged out successfully"))
             .catch((error) => console.log(error));
     };
 
     const handleMenuToggle = () => {
         if (profileToggle) setProfileToggle(false);
+        if (dashboardToggle) setDashboardToggle(false);
         setMenuToggle(!menutoggle);
     };
 
     const handleProfileToggle = () => {
         if (menutoggle) setMenuToggle(false);
+        if (dashboardToggle) setDashboardToggle(false);
         setProfileToggle(!profileToggle);
     };
     const handledashboardToggle = () => {
@@ -91,14 +94,14 @@ const Navbar = () => {
             </div>
 
             {/* Main navbar */}
-            <nav className="py-4 bg-base-100 dark:bg-base-200 transition-colors duration-500">
+            <nav className="bg-base-100 dark:bg-base-200 transition-colors duration-500">
                 <div className="container mx-auto flex justify-between items-center px-4">
                     {/* Logo */}
                     <Link to="/" className="flex items-center gap-2">
                         <img
-                            src="https://i.ibb.co/TqtQSf4Z/logo.webp"
-                            alt="Logo"
-                            className="w-10 h-10"
+                            src="https://i.ibb.co/Y4pSn57k/Homigo-logo.png"
+                            alt="Homigo Logo"
+                            className="w-24 h-24"
                         />
                         <h2 className="text-lg font-bold text-secondary-content dark:text-white">
                             Homigo
@@ -177,7 +180,7 @@ const Navbar = () => {
                             >
                                 ✕
                             </button>
-                            <div className="flex flex-col gap-4">
+                            <div className="flex flex-col items-center text-center justify-center gap-4">
                                 {links}
                                 {user ? (
                                     <button
@@ -210,139 +213,6 @@ const Navbar = () => {
                 </div>
             </nav>
         </header>
-
-        // <header className="w-full shadow-md transition-all duration-500 ease-in-out">
-        //     {/*Top bar */}
-        //     <div className="bg-primary dark:bg-primary-conten text-white text-sm py-2">
-        //         <div className="container mx-auto flex justify-between items-center px-4">
-        //             <p>Welcome to Our Homigo</p>
-        //             <div className="flex items-center gap-3">
-        //                 <span>Follow Us On:</span>
-        //                 <FaLinkedinIn className="hover:scale-110 transition-transform" />
-        //                 <FaTwitter className="hover:scale-110 transition-transform" />
-        //                 <FaYoutube className="hover:scale-110 transition-transform" />
-        //                 <FaFacebookF className="hover:scale-110 transition-transform" />
-        //             </div>
-        //         </div>
-        //     </div>
-
-        //     {/* Main navbar */}
-        //     <nav className="py-4 transition-colors duration-500">
-        //         <div className="container mx-auto flex justify-between items-center px-4">
-        //             {/* Logo */}
-        //             <Link to="/" className="flex items-center gap-2">
-        //                 <img src="https://i.ibb.co/TqtQSf4Z/logo.webp" alt="Logo" className="w-10 h-10" />
-        //                 <div>
-        //                     <h2 className="text-lg font-bold text-secondary-content dark:text-white">Homigo</h2>
-
-        //                 </div>
-        //             </Link>
-
-        //             {/* Links */}
-        //             <div className="hidden md:flex items-center gap-6 text-secondary-content font-medium">
-        //                 {links}
-        //             </div>
-
-        //             {/* Right side */}
-        //             <div className="hidden md:flex items-center gap-4">
-        //                 {user ? (
-        //                     <div onClick={handleProfileToggle} className="cursor-pointer">
-        //                         <img
-        //                             src={user?.photoURL || "https://i.ibb.co/kgVb18wv/user-icon.jpg"}
-        //                             alt={user?.displayName}
-        //                             className="w-10 h-10 rounded-full border-2 border-primary transition-transform duration-500 hover:scale-105"
-        //                         />
-        //                     </div>
-        //                 ) : (
-        //                     <>
-        //                         <Link
-        //                             to="/auth/login"
-        //                             className="px-5 py-2 rounded-full font-semibold text-white bg-primary hover:bg-primary-content transition-all duration-500"
-        //                         >
-        //                             Login
-        //                         </Link>
-        //                     </>
-        //                 )}
-        //                 <ThemeToggle />
-        //             </div>
-
-        //             {
-        //                 profileToggle && user && <div className="text-sm w-64 p-3 bg-white border border-gray-500/30 text-gray-800/80 rounded-md font-medium absolute top-34 right-0 z-2000">
-        //                     <ul className="flex flex-col gap-px">
-        //                         <li className="flex items-center justify-between cursor-pointer">
-        //                             <Link>{user?.displayName}</Link>
-        //                         </li>
-        //                         <li className="flex items-center justify-between cursor-pointer rounded">
-        //                             <p className="-mr-px">{user?.email}</p>
-        //                         </li>
-
-        //                         <li>
-        //                             <button
-        //                                 onClick={handleLogout}
-        //                                 className="-mr-px">
-        //                                 Logout
-        //                             </button>
-        //                         </li>
-        //                     </ul>
-        //                 </div>
-        //             }
-
-        //             {/* Mobile Menu Icon */}
-        //             <div className="block md:hidden items-center gap-3">
-
-        //                 <svg
-        //                     onClick={handleMenuToggle}
-        //                     className="h-7 w-7 cursor-pointer"
-        //                     fill="none"
-        //                     stroke="currentColor"
-        //                     strokeWidth="2"
-        //                     viewBox="0 0 24 24"
-        //                 >
-        //                     <line x1="4" y1="6" x2="20" y2="6" />
-        //                     <line x1="4" y1="12" x2="20" y2="12" />
-        //                     <line x1="4" y1="18" x2="20" y2="18" />
-        //                 </svg>
-        //             </div>
-
-        //             {/* manu toggle for small */}
-        //             {
-        //                 menutoggle && (
-        //                     <div
-        //                         className='absolute right-0 top-14 w-full 
-        //             h-97 text-base flex flex-col md:hidden font-medium bg-gray-40 bg-primary z-1000 justify-center items-center'>
-        //                         <button className="absolute top-6 left-4"
-        //                             onClick={handleMenuToggle}
-        //                         >
-        //                             <svg className="h-6 w-6"
-        //                                 fill="none"
-        //                                 stroke="currentColor"
-        //                                 strokeWidth="2"
-        //                                 viewBox="0 0 24 24">
-        //                                 <line x1="18" y1="6" x2="6" y2="18" />
-        //                                 <line x1="6" y1="6" x2="18" y2="18" />
-        //                             </svg>
-        //                         </button>
-
-        //                         <div className='flex flex-col'>
-        //                             {links}
-
-        //                             {user ? <button
-        //                                 onClick={handleLogout}
-        //                                 className="">
-        //                                 Logout
-        //                             </button> : <Link
-        //                                 to="/auth/login"
-        //                                 className=""
-        //                             >
-        //                                 Login
-        //                             </Link>}
-        //                             <ThemeToggle />
-        //                         </div>
-        //                     </div>)
-        //             }
-        //         </div>
-        //     </nav>
-        // </header>
     );
 };
 

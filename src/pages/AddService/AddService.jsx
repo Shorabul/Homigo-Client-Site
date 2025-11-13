@@ -67,7 +67,10 @@ const AddService = () => {
         try {
             const res = await fetch("http://localhost:3000/service", {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
+                headers: {
+                    "Content-Type": "application/json",
+                    authorization: `Bearer ${user.accessToken}`,
+                },
                 body: JSON.stringify(newService),
             });
 

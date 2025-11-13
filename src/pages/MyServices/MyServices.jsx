@@ -1,11 +1,9 @@
-import React from 'react';
-import { useContext } from 'react';
-import { useEffect } from 'react';
-import { AuthContext } from '../../contexts/AuthContext';
-import { useState } from 'react';
-import MyServiceRow from '../../components/MyServiceRow/MyServiceRow';
+import React, { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../../contexts/AuthContext";
+import MyServiceRow from "../../components/MyServiceRow/MyServiceRow";
 import Swal from "sweetalert2";
-// import toast from "react-hot-toast";
+import { motion as Motion } from "framer-motion";
+import PageLoader from "../PageLoader/PageLoader";
 
 const MyServices = () => {
     const { user } = useContext(AuthContext);
@@ -15,9 +13,14 @@ const MyServices = () => {
     useEffect(() => {
         if (!user?.email) return;
 
-        fetch(`http://localhost:3000/my-services?email=${user.email}`)
-            .then(res => res.json())
-            .then(services => {
+        fetch(`http://localhost:3000/my-services?email=${user.email}`, {
+            headers: {
+                authorization: `Bearer ${user.
+                    accessToken}`
+            }
+        })
+            .then((res) => res.json())
+            .then((services) => {
                 setMyServices(services);
                 setLoading(false);
             });
@@ -29,41 +32,55 @@ const MyServices = () => {
             text: "You won't be able to revert this!",
             icon: "warning",
             showCancelButton: true,
-            confirmButtonColor: "#3085d6",
+            confirmButtonColor: "#2563eb", // brand primary
             cancelButtonColor: "#d33",
-            confirmButtonText: "Yes, delete it!"
+            confirmButtonText: "Yes, delete it!",
         }).then((result) => {
             if (result.isConfirmed) {
                 fetch(`http://localhost:3000/services/${id}`, {
                     method: "DELETE",
+                    headers: {
+                        authorization: `Bearer ${user.
+                            accessToken}`,
+                    }
                 })
-                    .then(res => res.json())
-                    .then(data => {
+                    .then((res) => res.json())
+                    .then((data) => {
                         if (data.deletedCount > 0) {
                             Swal.fire({
                                 title: "Deleted!",
                                 text: "Your service has been deleted.",
-                                icon: "success"
+                                icon: "success",
                             });
-                            setMyServices(myServices.filter(service => service._id !== id));
+                            setMyServices(myServices.filter((service) => service._id !== id));
                         }
                     })
-                    .catch(err => console.error("Error deleting service:", err));
+                    .catch((err) => console.error("Error deleting service:", err));
             }
         });
     };
 
-
     if (loading) {
-        return <div> Please wait ... Loading...</div>
+        return (
+            <div className="flex justify-center items-center h-64">
+                <PageLoader></PageLoader>
+            </div>
+        );
     }
 
     return (
-        <div className="overflow-x-auto">
-            <h1 className='text-center'>My Services</h1>
-            <table className="table">
+        <Motion.div
+            className="overflow-x-auto max-w-5xl mx-auto mt-10 p-6 rounded-xl shadow-lg"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6 }}
+        >
+            <h1 className="text-center text-3xl font-bold text-primary mb-6">
+                My Services
+            </h1>
+            <table className="table table-zebra w-full">
                 {/* head */}
-                <thead>
+                <thead className="bg-primary text-white">
                     <tr>
                         <th>SL No.</th>
                         <th>Service</th>
@@ -73,20 +90,16 @@ const MyServices = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {/* row */}
-                    {
-                        myServices.map((service, index) => (
-                            <MyServiceRow
-                                key={service._id}
-                                index={index + 1}
-                                service={service}
-                                handleDelete={handleDelete}
-                            ></MyServiceRow>
-                        ))
-                    }
+                    {myServices.map((service, index) => (
+                        <MyServiceRow
+                            key={service._id}
+                            index={index + 1}
+                            service={service}
+                            handleDelete={handleDelete}
+                        />
+                    ))}
                 </tbody>
-                {/* foot */}
-                <tfoot>
+                <tfoot className="">
                     <tr>
                         <th>Total</th>
                         <th>{myServices.length}</th>
@@ -96,7 +109,7 @@ const MyServices = () => {
                     </tr>
                 </tfoot>
             </table>
-        </div>
+        </Motion.div>
     );
 };
 

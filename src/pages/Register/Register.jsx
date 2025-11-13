@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router';
 import { AuthContext } from '../../contexts/AuthContext';
 import { FcGoogle } from "react-icons/fc";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { toast } from 'react-hot-toast';
 
 
 const Register = () => {
@@ -68,11 +69,11 @@ const Register = () => {
                         });
 
                         navigate('/');
-                        alert('Signup successful');
+                        toast.s('Signup successful');
                     })
                     .catch((error) => {
                         console.error(error);
-                        alert(error.message || 'Failed to update user profile.');
+                        toast.error(error.message || 'Failed to update user profile.');
                     });
             })
             .catch((error) => {
@@ -96,7 +97,7 @@ const Register = () => {
 
                 const message =
                     errorMessages[error.code] || error.message || 'Signup failed. Please try again.';
-                alert(message);
+                toast.error(message);
             });
 
     };
@@ -131,7 +132,7 @@ const Register = () => {
                 });
                 setUser(user);
                 navigate(location.state ? location.state : '/');
-                alert("Signup successful");
+                toast.success("Signup successful");
             })
             .catch((error) => {
                 setLoading(false);
@@ -166,7 +167,7 @@ const Register = () => {
 
                 const message =
                     errorMessages[error.code] || error.message || 'An unknown error occurred.';
-                alert(message);
+                toast.error(message);
             });
     };
     return (

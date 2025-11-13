@@ -1,8 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router';
+import { motion as Motion } from 'framer-motion';
 
 const MyServiceRow = ({ service, index, handleDelete }) => {
-    const { _id,
+    const {
+        _id,
         serviceName,
         category,
         serviceImageURL,
@@ -10,16 +12,20 @@ const MyServiceRow = ({ service, index, handleDelete }) => {
         providerEmail,
         price,
     } = service;
+
     return (
-        <tr>
+        <Motion.tr
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
+            whileHover={{ scale: 1.02, }}
+        >
             <th>{index}</th>
             <td>
                 <div className="flex items-center gap-3">
                     <div className="avatar">
                         <div className="mask mask-squircle h-12 w-12">
-                            <img
-                                src={serviceImageURL}
-                                alt={serviceName} />
+                            <img src={serviceImageURL} alt={serviceName} />
                         </div>
                     </div>
                     <div>
@@ -31,20 +37,25 @@ const MyServiceRow = ({ service, index, handleDelete }) => {
             <td>
                 {providerName}
                 <br />
-                <span className="badge badge-ghost badge-sm">{providerEmail}</span>
+                <span className="badge badge-primary badge-sm">{providerEmail}</span>
             </td>
-            <td>{price}</td>
-            <th>
-                <button className="btn btn-ghost btn-xs">Details</button>
-                <Link 
-                to={`/update-service/${_id}`}
-                className="btn btn-ghost btn-xs">Update</Link>
+            <td className="text-primary font-semibold">${price}</td>
+            <th className="flex gap-2">
+                <button className="btn btn-primary btn-xs">Details</button>
+                <Link
+                    to={`/update-service/${_id}`}
+                    className="btn btn-primary btn-xs"
+                >
+                    Update
+                </Link>
                 <button
                     onClick={() => handleDelete(_id)}
-                    className="btn btn-ghost btn-xs">
-                    Remove</button>
+                    className="btn btn-error btn-xs"
+                >
+                    Remove
+                </button>
             </th>
-        </tr>
+        </Motion.tr>
     );
 };
 

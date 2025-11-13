@@ -9,9 +9,8 @@ const AuthLayout = () => {
     const [showLoader, setShowLoader] = useState(false);
 
     useEffect(() => {
-        // Show loader briefly on every route change
         setShowLoader(true);
-        const timer = setTimeout(() => setShowLoader(false), 500); // 0.5s splash
+        const timer = setTimeout(() => setShowLoader(false), 500);
         return () => clearTimeout(timer);
     }, [location.pathname]);
 
@@ -21,7 +20,8 @@ const AuthLayout = () => {
             {(navigation.state === "loading" || showLoader) && <PageLoader />}
             <div className="flex items-center gap-3 absolute top-5 left-5">
                 <Link to='/'>
-                    <img className='w-10 h-10 rounded-lg' src="https://i.ibb.co/5h8s3J5M/homigo-logo.png" alt="" />
+                    <img className='w-20 h-20 rounded-lg' src="https://i.ibb.co/Y4pSn57k/Homigo-logo.png" alt="Homigo Logo"
+                    />
                 </Link>
             </div>
             {state === "loading" ? <p>loging</p> : <Outlet></Outlet>}
