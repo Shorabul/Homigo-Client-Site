@@ -57,7 +57,7 @@ const Register = () => {
                         setLoading(false);
                         setUser(user);
 
-                        fetch("http://localhost:3000/users", {
+                        fetch("https://homigo-server-new.vercel.app/users", {
                             method: "POST",
                             headers: { "Content-Type": "application/json" },
                             body: JSON.stringify({
@@ -120,7 +120,7 @@ const Register = () => {
                         }
                     }
                 }
-                fetch("http://localhost:3000/users", {
+                fetch("https://homigo-server-new.vercel.app/users", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({

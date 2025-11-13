@@ -15,7 +15,7 @@
 //     useEffect(() => {
 //         if (!user?.email) return;
 
-//         fetch(`http://localhost:3000/my-bookings?email=${user.email}`)
+//         fetch(`https://homigo-server-new.vercel.app/my-bookings?email=${user.email}`)
 //             .then(res => res.json())
 //             .then(bookings => {
 //                 setMyBookings(bookings);
@@ -34,7 +34,7 @@
 //             confirmButtonText: "Yes, delete it!"
 //         }).then((result) => {
 //             if (result.isConfirmed) {
-//                 fetch(`http://localhost:3000/bookings/${id}`, {
+//                 fetch(`https://homigo-server-new.vercel.app/bookings/${id}`, {
 //                     method: "DELETE",
 //                 })
 //                     .then(res => res.json())
@@ -116,7 +116,7 @@ const MyBookings = () => {
     useEffect(() => {
         if (!user?.email) return;
 
-        fetch(`http://localhost:3000/my-bookings?email=${user.email}`, {
+        fetch(`https://homigo-server-new.vercel.app/my-bookings?email=${user.email}`, {
             headers: {
                 authorization: `Bearer ${user.
                     accessToken}`
@@ -140,7 +140,7 @@ const MyBookings = () => {
             confirmButtonText: "Yes, delete it!",
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`http://localhost:3000/bookings/${id}`, {
+                fetch(`https://homigo-server-new.vercel.app/bookings/${id}`, {
                     method: "DELETE",
                     headers: {
                         authorization: `Bearer ${user.

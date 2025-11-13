@@ -17,7 +17,7 @@ const CustomersReview = () => {
 
     // Fetch reviews from backend
     useEffect(() => {
-        fetch("http://localhost:3000/reviews")
+        fetch("https://homigo-server-new.vercel.app/reviews")
             .then(res => res.json())
             .then(data => setReviews(data))
             .catch(err => console.error("Error fetching reviews:", err));

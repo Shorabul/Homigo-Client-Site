@@ -12,7 +12,7 @@ const Banner = () => {
     const [slides, setSlides] = useState([]);
 
     useEffect(() => {
-        fetch("http://localhost:3000/services/banner") // adjust port if needed
+        fetch("https://homigo-server-new.vercel.app/services/banner") // adjust port if needed
             .then((res) => res.json())
             .then((data) => setSlides(data));
     }, []);

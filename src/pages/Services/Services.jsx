@@ -10,7 +10,7 @@ const Services = () => {
     const [sortOrder, setSortOrder] = useState(null);
 
     useEffect(() => {
-        fetch("http://localhost:3000/services")
+        fetch("https://homigo-server-new.vercel.app/services")
             .then((res) => res.json())
             .then((data) => {
                 setServices(data);

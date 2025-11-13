@@ -65,7 +65,7 @@ const AddService = () => {
         };
 
         try {
-            const res = await fetch("http://localhost:3000/service", {
+            const res = await fetch("https://homigo-server-new.vercel.app/service", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

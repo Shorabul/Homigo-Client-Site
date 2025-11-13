@@ -11,7 +11,7 @@
 //     } = booking;
 //     const [service, setService] = useState(null);
 //     useEffect(() => {
-//         fetch(`http://localhost:3000/services/${serviceId}`)
+//         fetch(`https://homigo-server-new.vercel.app/services/${serviceId}`)
 //             .then(res => res.json())
 //             .then(data => setService(data))
 //             .catch(err => console.error("Error loading service details:", err));
@@ -63,7 +63,7 @@ const MyBookingsRow = ({ booking, index, handleDelete }) => {
     const [service, setService] = useState(null);
     const { user } = useContext(AuthContext);
     useEffect(() => {
-        fetch(`http://localhost:3000/services/${serviceId}`, {
+        fetch(`https://homigo-server-new.vercel.app/services/${serviceId}`, {
             headers: {
                 authorization: `Bearer ${user.
                     accessToken}`

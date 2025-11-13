@@ -13,7 +13,7 @@ const MyServices = () => {
     useEffect(() => {
         if (!user?.email) return;
 
-        fetch(`http://localhost:3000/my-services?email=${user.email}`, {
+        fetch(`https://homigo-server-new.vercel.app/my-services?email=${user.email}`, {
             headers: {
                 authorization: `Bearer ${user.
                     accessToken}`
@@ -37,7 +37,7 @@ const MyServices = () => {
             confirmButtonText: "Yes, delete it!",
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`http://localhost:3000/services/${id}`, {
+                fetch(`https://homigo-server-new.vercel.app/services/${id}`, {
                     method: "DELETE",
                     headers: {
                         authorization: `Bearer ${user.

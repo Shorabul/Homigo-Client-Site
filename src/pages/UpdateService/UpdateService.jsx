@@ -33,7 +33,7 @@ const UpdateService = () => {
 
 
     useEffect(() => {
-        fetch(`http://localhost:3000/services/${id}`, {
+        fetch(`https://homigo-server-new.vercel.app/services/${id}`, {
             headers: {
                 "Content-Type": "application/json",
                 authorization: `Bearer ${user.
@@ -55,7 +55,7 @@ const UpdateService = () => {
             serviceImageURL: form.serviceImageURL.value,
         };
 
-        fetch(`http://localhost:3000/services/${id}`, {
+        fetch(`https://homigo-server-new.vercel.app/services/${id}`, {
             method: "PATCH",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(updatedService),

@@ -7,7 +7,7 @@ const TopRatedServices = () => {
     const [services, setServices] = useState([]);
 
     useEffect(() => {
-        fetch("http://localhost:3000/services/top-rated")
+        fetch("https://homigo-server-new.vercel.app/services/top-rated")
             .then(res => res.json())
             .then(data => setServices(data))
             .catch(err => console.error("Error fetching top-rated services:", err));

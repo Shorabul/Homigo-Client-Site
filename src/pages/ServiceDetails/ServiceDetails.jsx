@@ -29,7 +29,7 @@ const ServiceDetails = () => {
         const fetchService = async () => {
             try {
                 const token = await auth.currentUser.getIdToken();
-                const res = await fetch(`http://localhost:3000/services/${id}`, {
+                const res = await fetch(`https://homigo-server-new.vercel.app/services/${id}`, {
                     headers: {
                         authorization: `Bearer ${token}`,
                     },
@@ -68,7 +68,7 @@ const ServiceDetails = () => {
                 price: service.price,
             };
 
-            const res = await fetch("http://localhost:3000/bookings", {
+            const res = await fetch("https://homigo-server-new.vercel.app/bookings", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -110,7 +110,7 @@ const ServiceDetails = () => {
                 createdAt: new Date(),
             };
 
-            await fetch(`http://localhost:3000/services/${service._id}/reviews`, {
+            await fetch(`https://homigo-server-new.vercel.app/services/${service._id}/reviews`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -120,7 +120,7 @@ const ServiceDetails = () => {
             });
 
 
-            const refreshed = await fetch(`http://localhost:3000/services/${id}`, {
+            const refreshed = await fetch(`https://homigo-server-new.vercel.app/services/${id}`, {
                 headers: {
                     authorization: `Bearer ${token}`,
                 },
