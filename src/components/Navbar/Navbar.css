@@ -1,0 +1,86 @@
+/* Smooth transition for light/dark mode */
+html,
+body {
+    transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+/* Navigation link styling */
+.nav-link {
+    @apply text-gray-700 dark:text-gray-200 font-medium transition-all duration-300 relative;
+}
+
+.nav-link:hover {
+    color: #ff6600;
+}
+
+.nav-link::after {
+    content: "";
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background: linear-gradient(to right, #ff6600, #ff3300);
+    transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+/* Gradient Button */
+.btn-gradient {
+    background: linear-gradient(90deg, #ff6600, #ff3300);
+    transition: all 0.3s ease;
+}
+
+.btn-gradient:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 4px 15px rgba(255, 100, 0, 0.3);
+}
+
+/* Profile Dropdown */
+.profile-dropdown {
+    @apply absolute top-14 right-0 bg-white dark:bg-gray-800 shadow-lg rounded-lg p-4 z-50 w-56;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+/* Mobile Menu */
+.mobile-menu {
+    @apply fixed right-0 top-0 w-3/5 h-screen bg-white dark:bg-gray-900 shadow-2xl z-50;
+    padding: 1rem;
+    overflow-y: auto;
+}
+
+/* Animations */
+@keyframes slide-right {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.animate-slide-right {
+    animation: slide-right 0.4s ease forwards;
+}
+
+@keyframes slide-down {
+    from {
+        transform: translateY(-10px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.animate-slide-down {
+    animation: slide-down 0.3s ease forwards;
+}

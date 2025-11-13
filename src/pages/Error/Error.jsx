@@ -6,11 +6,7 @@ const Error = () => {
     const navigate = useNavigate();
 
     const handleGoBack = () => {
-        if (window.history.length > 1) {
-            navigate(-1); // go back
-        } else {
-            navigate("/", { replace: true }); // fallback to home
-        }
+        navigate('/');
     };
 
     return (
@@ -26,7 +22,7 @@ const Error = () => {
                 onClick={handleGoBack}
                 className="group flex items-center gap-2 bg-white hover:bg-gray-200 px-7 py-2.5 text-gray-800 rounded-full mt-10 font-medium active:scale-95 transition-all"
             >
-                Go Back
+                Back to Home
                 <LuArrowRight className="group-hover:translate-x-0.5 transition" size={22} />
             </button>
         </div>

@@ -21,7 +21,7 @@ const steps = [
 
 const HowItWorks = () => {
     return (
-        <section className="py-16 px-4 md:px-8 bg-white text-gray-800">
+        <section className="py-16 px-4 md:px-8 text-primary">
             <div className="text-center mb-12">
                 <h2 className="text-4xl font-bold">How It Works</h2>
                 <p className="mt-4 text-gray-600 max-w-xl mx-auto">
@@ -39,7 +39,7 @@ const HowItWorks = () => {
                         viewport={{ once: true }}
                         className="bg-blue-50 rounded-xl p-6 shadow-md text-center"
                     >
-                        <div className="text-blue-600 mb-4">{step.icon}</div>
+                        <div className="text-primary mb-4">{step.icon}</div>
                         <h3 className="text-xl font-semibold mb-2">{step.title}</h3>
                         <p className="text-gray-600">{step.description}</p>
                     </Motion.div>

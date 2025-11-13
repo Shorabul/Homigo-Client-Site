@@ -1,28 +1,24 @@
-// src/components/ThemeToggle.jsx
+// ThemeToggle.jsx
 import { useEffect, useState } from "react";
 
 export default function ThemeToggle() {
-    const [theme, setTheme] = useState(
-        localStorage.getItem("theme") ||
-        (window.matchMedia("(prefers-color-scheme: dark)").matches
-            ? "dark"
-            : "light")
-    );
+    const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
+
 
     useEffect(() => {
-        // Set on <html>
-        document.documentElement.setAttribute("data-theme", theme);
+        const html = document.querySelector("html");
+        html.setAttribute("data-theme", theme);
         localStorage.setItem("theme", theme);
     }, [theme]);
+    const handleTheme = (checked) => {
+        setTheme(checked ? "dark" : "light");
+    };
 
     return (
-        <button
-            className="btn btn-ghost"
-            onClick={() => setTheme(theme === "light" ? "dark" : "light")}
-        >
-            {theme === "light" ? "🌙 Dark Mode" : "🌞 Light Mode"}
-        </button>
+        <input
+            onChange={(e) => handleTheme(e.target.checked)}
+            type="checkbox"
+            defaultChecked={localStorage.getItem('theme') === "dark"}
+            className="toggle" />
     );
 }
-
-

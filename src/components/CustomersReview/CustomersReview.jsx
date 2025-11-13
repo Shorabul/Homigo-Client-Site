@@ -35,139 +35,52 @@ const CustomersReview = () => {
         return () => clearInterval(timer);
     }, []);
     return (
-        <section className="bg-blue-950 text-white py-16 px-4 md:px-8">
-            <div className="text-center mb-12">
-                <div className="flex justify-center items-center gap-2 text-orange-500 text-2xl font-bold">
-                    🔥 What Our Customers Say
+        <>
+            <section className="text-primary py-16 px-4 md:px-8">
+                <div className="text-center mb-12">
+                    <div className="flex justify-center items-center gap-2 text-primary-content text-2xl font-bold">
+                        🔥 What Our Customers Say
+                    </div>
+                    <h2 className="text-4xl font-bold mt-2">
+                        Hear From Our <span className="text-primary-content">Satisfied</span> Customers
+                    </h2>
+                    <p className="mt-4 max-w-2xl mx-auto text-secondary-content">
+                        Integer varius ornare commodo. Aenean faucibus tortor dictum, luctus purus id, imperdiet purus.
+                    </p>
                 </div>
-                <h2 className="text-4xl font-bold mt-2">
-                    Hear From Our <span className="text-orange-400">Satisfied</span> Customers
-                </h2>
-                <p className="mt-4 max-w-2xl mx-auto text-gray-300">
-                    Integer varius ornare commodo. Aenean faucibus tortor dictum, luctus purus id, imperdiet purus.
-                </p>
-            </div>
 
-            <div className="flex justify-center">
-                <AnimatePresence mode="wait">
-                    <Motion.div
-                        key={index}
-                        initial={{ opacity: 0, x: 100 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: -100 }}
-                        transition={{ duration: 0.6, ease: 'easeOut' }}
-                        className="bg-white text-gray-800 rounded-xl shadow-lg p-6 max-w-xl w-full"
-                    >
-                        <div className="flex items-center gap-2 text-orange-500 mb-2">
-                            {[...Array(5)].map((_, i) => (
-                                <FaStar key={i} />
-                            ))}
-                        </div>
-                        <p className="italic text-gray-700 mb-4">“ {testimonials[index].quote} ”</p>
-                        <div className="flex items-center gap-4">
-                            <img
-                                src={testimonials[index].avatar}
-                                alt={testimonials[index].name}
-                                className="w-12 h-12 rounded-full object-cover border-2 border-orange-400"
-                            />
-                            <div>
-                                <p className="font-bold text-orange-600">{testimonials[index].name}</p>
-                                <p className="text-sm text-gray-500">{testimonials[index].role}</p>
+                <div className="flex justify-center">
+                    <AnimatePresence mode="wait">
+                        <Motion.div
+                            key={index}
+                            initial={{ opacity: 0, x: 100 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            exit={{ opacity: 0, x: -100 }}
+                            transition={{ duration: 0.6, ease: 'easeOut' }}
+                            className="bg-white text-gray-800 rounded-xl shadow-lg p-6 max-w-xl w-full"
+                        >
+                            <div className="flex items-center gap-2 text-primary mb-2">
+                                {[...Array(5)].map((_, i) => (
+                                    <FaStar key={i} />
+                                ))}
                             </div>
-                        </div>
-                    </Motion.div>
-                </AnimatePresence>
-            </div>
-        </section>
-        // <section className="bg-blue-950 text-white py-16 px-4 md:px-8">
-        //     <div className="text-center mb-12">
-        //         <div className="flex justify-center items-center gap-2 text-orange-500 text-2xl font-bold">
-        //             🔥 What Our Customers Say
-        //         </div>
-        //         <h2 className="text-4xl font-bold mt-2">
-        //             Hear From Our <span className="text-orange-400">Satisfied</span> Customers
-        //         </h2>
-        //         <p className="mt-4 max-w-2xl mx-auto text-gray-300">
-        //             Integer varius ornare commodo. Aenean faucibus tortor dictum, luctus purus id, imperdiet purus.
-        //         </p>
-        //     </div>
-
-        //     <div className="flex justify-center">
-        //         <AnimatePresence mode="wait">
-        //             <Motion.div
-        //                 key={index}
-        //                 initial={{ opacity: 0, x: 100 }}
-        //                 animate={{ opacity: 1, x: 0 }}
-        //                 exit={{ opacity: 0, x: -100 }}
-        //                 transition={{ duration: 0.6, ease: 'easeOut' }}
-
-        //                 className="bg-white text-gray-800 rounded-xl shadow-lg p-6 max-w-xl w-full"
-        //             >
-        //                 <div className="flex items-center gap-2 text-orange-500 mb-2">
-        //                     {[...Array(5)].map((_, i) => (
-        //                         <FaStar key={i} />
-        //                     ))}
-        //                 </div>
-        //                 <p className="italic text-gray-700 mb-4">“ {testimonials[index].quote} ”</p>
-        //                 <div className="flex items-center gap-4">
-        //                     <img
-        //                         src={testimonials[index].avatar}
-        //                         alt={testimonials[index].name}
-        //                         className="w-12 h-12 rounded-full object-cover border-2 border-orange-400"
-        //                     />
-        //                     <div>
-        //                         <p className="font-bold text-orange-600">{testimonials[index].name}</p>
-        //                         <p className="text-sm text-gray-500">{testimonials[index].role}</p>
-        //                     </div>
-        //                 </div>
-        //             </Motion.div>
-        //         </AnimatePresence>
-        //     </div>
-        // </section>
-        // <section className="bg-blue-950 text-white py-16 px-4 md:px-8">
-        //     <div className="text-center mb-12">
-        //         <div className="flex justify-center items-center gap-2 text-orange-500 text-2xl font-bold">
-        //             🔥 What Our Customers Say
-        //         </div>
-        //         <h2 className="text-4xl font-bold mt-2">
-        //             Hear From Our <span className="text-orange-400">Satisfied</span> Customers
-        //         </h2>
-        //         <p className="mt-4 max-w-2xl mx-auto text-gray-300">
-        //             Integer varius ornare commodo. Aenean faucibus tortor dictum, luctus purus id, imperdiet purus.
-        //         </p>
-        //     </div>
-
-        //     <div className="grid md:grid-cols-3 gap-8">
-        //         {testimonials.map((t, i) => (
-        //             <Motion.div
-        //                 key={i}
-        //                 initial={{ opacity: 0, y: 20 }}
-        //                 whileInView={{ opacity: 1, y: 0 }}
-        //                 transition={{ duration: 0.5, delay: i * 0.2 }}
-        //                 viewport={{ once: true }}
-        //                 className="bg-white text-gray-800 rounded-xl shadow-lg p-6"
-        //             >
-        //                 <div className="flex items-center gap-2 text-orange-500 mb-2">
-        //                     {[...Array(5)].map((_, i) => (
-        //                         <FaStar key={i} />
-        //                     ))}
-        //                 </div>
-        //                 <p className="italic text-gray-700 mb-4">“ {t.quote} ”</p>
-        //                 <div className="flex items-center gap-4">
-        //                     <img
-        //                         src={t.avatar}
-        //                         alt={t.name}
-        //                         className="w-12 h-12 rounded-full object-cover border-2 border-orange-400"
-        //                     />
-        //                     <div>
-        //                         <p className="font-bold text-orange-600">{t.name}</p>
-        //                         <p className="text-sm text-gray-500">{t.role}</p>
-        //                     </div>
-        //                 </div>
-        //             </Motion.div>
-        //         ))}
-        //     </div>
-        // </section>
+                            <p className="italic text-gray-700 mb-4">“ {testimonials[index].quote} ”</p>
+                            <div className="flex items-center gap-4">
+                                <img
+                                    src={testimonials[index].avatar}
+                                    alt={testimonials[index].name}
+                                    className="w-12 h-12 rounded-full object-cover border-2 border-primary"
+                                />
+                                <div>
+                                    <p className="font-bold text-primary">{testimonials[index].name}</p>
+                                    <p className="text-sm text-gray-500">{testimonials[index].role}</p>
+                                </div>
+                            </div>
+                        </Motion.div>
+                    </AnimatePresence>
+                </div>
+            </section>
+        </>
     );
 };
 

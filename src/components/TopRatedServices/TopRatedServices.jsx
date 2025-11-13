@@ -14,15 +14,15 @@ const TopRatedServices = () => {
     }, []);
 
     return (
-        <section className="bg-black text-white py-20 overflow-hidden">
+        <section className="text-white py-20 overflow-hidden">
             <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center">
                 {/* Left Text Block */}
                 <div>
-                    <p className="text-sm font-semibold text-orange-500 mb-3">OUR TOP RATED SERVICES</p>
-                    <h2 className="text-4xl font-bold mb-6 leading-snug">
+                    <p className="text-sm font-semibold text-primary mb-3">OUR TOP RATED SERVICES</p>
+                    <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-6 leading-snug text-primary">
                         We provide your all <br /> required handyman <br /> services into your location
                     </h2>
-                    <p className="text-gray-400 text-sm leading-relaxed mb-10">
+                    <p className="text-gray-400 text-xs md:text-sm lg:text-base leading-relaxed mb-10">
                         All-rounder Zurich is the leading premier Handyman Service in Switzerland.
                         We have been helping people with their home and office repairs in other countries.
                         Our handymen are multi-skilled, punctual, polite and will always leave your property clean and tidy.
@@ -47,14 +47,14 @@ const TopRatedServices = () => {
                         {[...services, ...services].map((service, i) => (
                             <div
                                 key={i}
-                                className="min-w-[250px] relative overflow-hidden rounded-2xl shadow-lg group flex-shrink-0"
+                                className="min-w-[250px] relative overflow-hidden rounded-2xl shadow-lg group flex-shrink-0 cursor-pointer"
                             >
                                 <img
                                     src={service?.serviceImageURL}
                                     alt={service?.serviceName}
                                     className="object-cover w-full h-64 group-hover:scale-110 transition-transform duration-500"
                                 />
-                                <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-70 p-4 flex items-center justify-between">
+                                <div className="absolute bottom-0 left-0 right-0 bg-primary bg-opacity-70 p-4 flex items-center justify-between">
                                     <div>
                                         {service.icon}
                                         <p className="text-white text-sm font-semibold mt-1">
@@ -73,7 +73,7 @@ const TopRatedServices = () => {
             <div className="text-center mt-16">
                 <Link
                     to="/services"
-                    className="items-center bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 rounded-full font-medium transition"
+                    className="items-center bg-primary hover:bg-orange-600 text-white px-6 py-3 rounded-full font-medium transition"
                 >
                     <span className="mr-2">→</span> View All Services
                 </Link>

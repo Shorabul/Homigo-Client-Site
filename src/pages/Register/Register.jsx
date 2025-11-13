@@ -55,6 +55,18 @@ const Register = () => {
                     .then(() => {
                         setLoading(false);
                         setUser(user);
+
+                        fetch("http://localhost:3000/users", {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify({
+                                name: name,
+                                email: user.email,
+                                photoURL: photo,
+                                createdAt: user.metadata.creationTime,
+                            }),
+                        });
+
                         navigate('/');
                         alert('Signup successful');
                     })
@@ -103,11 +115,20 @@ const Register = () => {
                             .providerData.find(p => p.providerId === 'google.com');
                         if (googleProvider && googleProvider.email) {
                             user.email = googleProvider.email;
-                            console.log(user.email);
                             // setUser(loggedInUser)
                         }
                     }
                 }
+                fetch("http://localhost:3000/users", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        name: user.displayName,
+                        email: user.email,
+                        photoURL: user.photoURL,
+                        createdAt: user.metadata.creationTime,
+                    }),
+                });
                 setUser(user);
                 navigate(location.state ? location.state : '/');
                 alert("Signup successful");

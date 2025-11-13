@@ -1,260 +1,349 @@
-import React from 'react';
-import { useContext } from 'react';
-import { Link, NavLink } from 'react-router';
-import { AuthContext } from '../../contexts/AuthContext';
-import { useState } from 'react';
+import React, { useContext, useState } from "react";
+import { Link, NavLink } from "react-router";
+import { AuthContext } from "../../contexts/AuthContext";
 import { TbLogout } from "react-icons/tb";
-import ThemeToggle from '../ThemToggle/ThemeToggle';
-
+import ThemeToggle from "../ThemToggle/ThemeToggle";
+import { FaFacebookF, FaTwitter, FaLinkedinIn, FaYoutube } from "react-icons/fa";
+import { RxCaretDown, RxCaretUp } from "react-icons/rx";
 const Navbar = () => {
     const [menutoggle, setMenuToggle] = useState(false);
     const [profileToggle, setProfileToggle] = useState(false);
+    const [dashboardToggle, setDashboardToggle] = useState(false);
     const { user, signOutUser } = useContext(AuthContext);
-    const links = <>
-        <NavLink to='/' className="flex bg-linear-to-r justify-center items-center gap-1">Home</NavLink>
-        <NavLink to='/services' className="flex justify-center items-center gap-1">Services</NavLink>
-        {user && <>
-            <NavLink to='/profile' className="flex justify-center items-center gap-1">Profile</NavLink>
-            <NavLink to='/add-service' className="flex justify-center items-center gap-1">Add Service</NavLink>
-            <NavLink to='/user/services' className="flex justify-center items-center gap-1">My Services</NavLink>
-            <NavLink to='/user/bookings' className="flex justify-center items-center gap-1">My Bookings</NavLink>
-        </>}
-    </>
+
     const handleLogout = () => {
         signOutUser()
-            .then(() => {
-                alert("You logged out successfully")
-            })
-            .catch(error => {
-                console.log(error);
-            });
-    }
+            .then(() => alert("You logged out successfully"))
+            .catch((error) => console.log(error));
+    };
 
     const handleMenuToggle = () => {
-        if (profileToggle) {
-            setProfileToggle(false);
-        }
+        if (profileToggle) setProfileToggle(false);
         setMenuToggle(!menutoggle);
-    }
+    };
+
     const handleProfileToggle = () => {
-        if (menutoggle) {
-            setMenuToggle(false);
-        }
+        if (menutoggle) setMenuToggle(false);
         setProfileToggle(!profileToggle);
-        // setProfileToggle(prev => !prev);
-        // setTimeout(() => setProfileToggle((prev) => !prev), 0);
-    }
+    };
+    const handledashboardToggle = () => {
+        if (profileToggle) setProfileToggle(false);
+        if (menutoggle) setMenuToggle(false);
+        setDashboardToggle(!dashboardToggle);
+    };
+
+    const links = <>
+        <div className="flex flex-col gap-4 md:hidden">
+            <NavLink to='/' className="hover:text-primary transition-colors">Home</NavLink>
+            <NavLink to='/services' className="hover:text-primary transition-colors">Services</NavLink>
+            {user && <>
+                <NavLink to='/profile' className="hover:text-primary transition-colors">Profile</NavLink>
+                <NavLink to='/add-service' className="hover:text-primary transition-colors">Add Service</NavLink>
+                <NavLink to='/user/services' className="hover:text-primary transition-colors">My Services</NavLink>
+                <NavLink to='/user/bookings' className="hover:text-primary transition-colors">My Bookings</NavLink>
+            </>}
+        </div>
+        <div className="hidden md:flex items-center gap-6 text-secondary-content font-medium">
+            <NavLink to='/' className="hover:text-primary transition-colors">Home</NavLink>
+            <NavLink to='/services' className="hover:text-primary transition-colors">Services</NavLink>
+
+            {user && (
+                <div className="relative">
+                    <button
+                        onClick={handledashboardToggle}
+                        className="cursor-pointer hover:text-primary transition-colors flex items-center"
+                    >
+                        Dashboard {dashboardToggle ? <RxCaretUp /> : <RxCaretDown />}
+                    </button>
+
+                    {dashboardToggle && (
+                        <ul className="absolute right-0 mt-2 menu p-2 shadow bg-base-100 rounded-box w-52 z-50">
+                            <li><NavLink to='/profile'>Profile</NavLink></li>
+                            <li><NavLink to='/add-service'>Add Service</NavLink></li>
+                            <li><NavLink to='/user/services'>My Services</NavLink></li>
+                            <li><NavLink to='/user/bookings'>My Bookings</NavLink></li>
+                        </ul>
+                    )}
+                </div>
+            )}
+
+        </div>
 
 
+    </>
 
 
 
     return (
-        <main className="relative container mx-auto">
-            <nav className=' w-full flex items-center justify-between p-4'>
-                <NavLink to='/'>
-                    <img className='w-10 h-10' src="https://i.ibb.co/TqtQSf4Z/logo.webp" alt="" />
-                </NavLink>
-                <div className="hidden md:flex items-center gap-4 lg:gap-8">
-                    {links}
-                </div>
-                {
-                    user ? <div className="hidden md:flex"
-                        onClick={handleProfileToggle}
-                    >
-                        <img
-                            className="h-10 w-10 rounded-full"
-                            src={`${user ? user.photoURL : 'https://i.ibb.co/kgVb18wv/user-icon.jpg'}`}
-                            // src='https://i.ibb.co/SXC1MkJy/do.webp'
-                            alt={user?.displayName} />
+        <header className="w-full shadow-md transition-all duration-500 ease-in-out">
+            {/* Top bar */}
+            <div className="bg-primary text-primary-content text-sm py-2 text-white">
+                <div className="container mx-auto flex justify-between items-center px-4">
+                    <p className="font-medium">Welcome to Our Homigo</p>
+                    <div className="flex items-center gap-3 text-white">
+                        <span className="hidden sm:inline">Follow Us On:</span>
+                        <FaLinkedinIn className="hover:text-secondary transition-colors hover:scale-110" />
+                        <FaTwitter className="hover:text-secondary transition-colors hover:scale-110" />
+                        <FaYoutube className="hover:text-secondary transition-colors hover:scale-110" />
+                        <FaFacebookF className="hover:text-secondary transition-colors hover:scale-110" />
                     </div>
-                        : <div className="hidden md:flex items-center gap-4">
+                </div>
+            </div>
+
+            {/* Main navbar */}
+            <nav className="py-4 bg-base-100 dark:bg-base-200 transition-colors duration-500">
+                <div className="container mx-auto flex justify-between items-center px-4">
+                    {/* Logo */}
+                    <Link to="/" className="flex items-center gap-2">
+                        <img
+                            src="https://i.ibb.co/TqtQSf4Z/logo.webp"
+                            alt="Logo"
+                            className="w-10 h-10"
+                        />
+                        <h2 className="text-lg font-bold text-secondary-content dark:text-white">
+                            Homigo
+                        </h2>
+                    </Link>
+
+                    {/* Links */}
+                    <div className="hidden md:flex items-center gap-6 text-secondary-content font-medium">
+                        {links}
+                    </div>
+
+                    {/* Right side */}
+                    <div className="hidden md:flex items-center gap-4">
+                        {user ? (
+                            <div
+                                onClick={handleProfileToggle}
+                                className="cursor-pointer hover:scale-105 transition-transform"
+                            >
+                                <img
+                                    src={user?.photoURL || "https://i.ibb.co/kgVb18wv/user-icon.jpg"}
+                                    alt={user?.displayName}
+                                    className="w-10 h-10 rounded-full border-2 border-primary shadow-md"
+                                />
+                            </div>
+                        ) : (
                             <Link
                                 to="/auth/login"
-                                className="px-8 py-2.5 rounded-full ml-4 bg-gradient-to-r from-primary to-secondary"
+                                className="px-5 py-2 rounded-full font-semibold text-white bg-primary hover:bg-error transition-all duration-500 shadow-md"
                             >
                                 Login
                             </Link>
-                            <ThemeToggle />
-                        </div>
-                }
-                <div className="flex items-center gap-3 md:hidden">
-                    <svg
-                        onClick={handleMenuToggle}
-                        className={`h-6 w-6 cursor-pointer `}
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        viewBox="0 0 24 24">
-                        <line x1="4" y1="6" x2="20" y2="6" />
-                        <line x1="4" y1="12" x2="20" y2="12" />
-                        <line x1="4" y1="18" x2="20" y2="18" />
-                    </svg>
-                </div>
-                {
-                    profileToggle && user && <div className="text-sm w-64 p-3 bg-white border border-gray-500/30 text-gray-800/80 rounded-md font-medium absolute top-34 right-0 z-2000">
-                        <ul className="flex flex-col gap-px">
-                            <li className="flex items-center justify-between cursor-pointer">
-                                <Link>{user?.displayName}</Link>
-                            </li>
-                            <li className="flex items-center justify-between cursor-pointer rounded">
-                                <p className="-mr-px">{user?.email}</p>
-                            </li>
-
-                            <li>
-                                <button
-                                    onClick={handleLogout}
-                                    className="-mr-px">
-                                    Logout
-                                </button>
-                            </li>
-                        </ul>
+                        )}
+                        <ThemeToggle />
                     </div>
-                }
 
-                {
-                    menutoggle && (
-                        <div
-                            className='absolute right-0 top-0 w-[60%]
-                    h-screen text-base flex flex-col md:hidden items-start gap-6 font-medium bg-gray-40 bg-yellow-600 z-1000'>
-                            <button className="absolute top-6 left-4"
+                    {/* Profile dropdown */}
+                    {profileToggle && user && (
+                        <div className="text-sm w-64 p-3 bg-base-100 dark:bg-base-200 border border-gray-300 text-base-content rounded-md font-medium absolute top-26 right-4 shadow-lg z-10">
+                            <ul className="flex flex-col gap-2">
+                                <li className="font-semibold">{user?.displayName}</li>
+                                <li className="text-xs opacity-80">{user?.email}</li>
+                                <li>
+                                    <button
+                                        onClick={handleLogout}
+                                        className="w-full text-left text-error hover:text-error-content transition-colors"
+                                    >
+                                        <TbLogout className="inline mr-2" /> Logout
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                    )}
+
+                    {/* Mobile Menu Icon */}
+                    <div className="block md:hidden">
+                        <svg
+                            onClick={handleMenuToggle}
+                            className="h-7 w-7 cursor-pointer text-secondary-content hover:text-primary transition-colors"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            viewBox="0 0 24 24"
+                        >
+                            <line x1="4" y1="6" x2="20" y2="6" />
+                            <line x1="4" y1="12" x2="20" y2="12" />
+                            <line x1="4" y1="18" x2="20" y2="18" />
+                        </svg>
+                    </div>
+
+                    {/* Mobile menu */}
+                    {menutoggle && (
+                        <div className="absolute right-0 top-9 w-full py-20 bg-base-100 dark:bg-base-200 text-base flex flex-col md:hidden font-medium bg- text-primary-content z-50 justify-center items-center shadow-lg">
+                            <button
+                                className="absolute top-6 left-4 text-primary hover:text-error transition-colors"
                                 onClick={handleMenuToggle}
                             >
-                                <svg className="h-6 w-6"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    strokeWidth="2"
-                                    viewBox="0 0 24 24">
-                                    <line x1="18" y1="6" x2="6" y2="18" />
-                                    <line x1="6" y1="6" x2="18" y2="18" />
-                                </svg>
+                                ✕
                             </button>
-
-                            <div className='mt-16 flex flex-col'>
+                            <div className="flex flex-col gap-4">
                                 {links}
-
-                                {user ? <button
-                                    onClick={handleLogout}
-                                    className="-mr-px">
-                                    Logout
-                                </button> : <Link
-                                    to="/auth/login"
-                                    className="px-8 py-2.5 rounded-full ml-4 bg-gradient-to-r from-primary to-secondary"
-                                >
-                                    Login
-                                </Link>}
+                                {user ? (
+                                    <button
+                                        onClick={handleLogout}
+                                        className="px-4 py-2 rounded-md bg-primary text-white hover:bg-error-content transition-colors"
+                                    >
+                                        Logout
+                                    </button>
+                                ) : (
+                                    <Link
+                                        to="/auth/login"
+                                        className="px-4 py-2 rounded-md bg-primary text-primary hover:bg-error transition-colors"
+                                    >
+                                        Login
+                                    </Link>
+                                )}
                                 <ThemeToggle />
                             </div>
-                        </div>)
-                }
+                        </div>
 
+                    )}
+
+                    {/* {dashboardToggle && <ul tabIndex={0} className="absolute top-21 z-10 right-43 dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
+                        <li><NavLink to='/profile'>Profile</NavLink></li>
+                        <li><NavLink to='/add-service'>Add Service</NavLink></li>
+                        <li><NavLink to='/user/services'>My Services</NavLink></li>
+                        <li><NavLink to='/user/bookings'>My Bookings</NavLink></li>
+                    </ul>} */}
+
+                </div>
             </nav>
-        </main>
+        </header>
+
+        // <header className="w-full shadow-md transition-all duration-500 ease-in-out">
+        //     {/*Top bar */}
+        //     <div className="bg-primary dark:bg-primary-conten text-white text-sm py-2">
+        //         <div className="container mx-auto flex justify-between items-center px-4">
+        //             <p>Welcome to Our Homigo</p>
+        //             <div className="flex items-center gap-3">
+        //                 <span>Follow Us On:</span>
+        //                 <FaLinkedinIn className="hover:scale-110 transition-transform" />
+        //                 <FaTwitter className="hover:scale-110 transition-transform" />
+        //                 <FaYoutube className="hover:scale-110 transition-transform" />
+        //                 <FaFacebookF className="hover:scale-110 transition-transform" />
+        //             </div>
+        //         </div>
+        //     </div>
+
+        //     {/* Main navbar */}
+        //     <nav className="py-4 transition-colors duration-500">
+        //         <div className="container mx-auto flex justify-between items-center px-4">
+        //             {/* Logo */}
+        //             <Link to="/" className="flex items-center gap-2">
+        //                 <img src="https://i.ibb.co/TqtQSf4Z/logo.webp" alt="Logo" className="w-10 h-10" />
+        //                 <div>
+        //                     <h2 className="text-lg font-bold text-secondary-content dark:text-white">Homigo</h2>
+
+        //                 </div>
+        //             </Link>
+
+        //             {/* Links */}
+        //             <div className="hidden md:flex items-center gap-6 text-secondary-content font-medium">
+        //                 {links}
+        //             </div>
+
+        //             {/* Right side */}
+        //             <div className="hidden md:flex items-center gap-4">
+        //                 {user ? (
+        //                     <div onClick={handleProfileToggle} className="cursor-pointer">
+        //                         <img
+        //                             src={user?.photoURL || "https://i.ibb.co/kgVb18wv/user-icon.jpg"}
+        //                             alt={user?.displayName}
+        //                             className="w-10 h-10 rounded-full border-2 border-primary transition-transform duration-500 hover:scale-105"
+        //                         />
+        //                     </div>
+        //                 ) : (
+        //                     <>
+        //                         <Link
+        //                             to="/auth/login"
+        //                             className="px-5 py-2 rounded-full font-semibold text-white bg-primary hover:bg-primary-content transition-all duration-500"
+        //                         >
+        //                             Login
+        //                         </Link>
+        //                     </>
+        //                 )}
+        //                 <ThemeToggle />
+        //             </div>
+
+        //             {
+        //                 profileToggle && user && <div className="text-sm w-64 p-3 bg-white border border-gray-500/30 text-gray-800/80 rounded-md font-medium absolute top-34 right-0 z-2000">
+        //                     <ul className="flex flex-col gap-px">
+        //                         <li className="flex items-center justify-between cursor-pointer">
+        //                             <Link>{user?.displayName}</Link>
+        //                         </li>
+        //                         <li className="flex items-center justify-between cursor-pointer rounded">
+        //                             <p className="-mr-px">{user?.email}</p>
+        //                         </li>
+
+        //                         <li>
+        //                             <button
+        //                                 onClick={handleLogout}
+        //                                 className="-mr-px">
+        //                                 Logout
+        //                             </button>
+        //                         </li>
+        //                     </ul>
+        //                 </div>
+        //             }
+
+        //             {/* Mobile Menu Icon */}
+        //             <div className="block md:hidden items-center gap-3">
+
+        //                 <svg
+        //                     onClick={handleMenuToggle}
+        //                     className="h-7 w-7 cursor-pointer"
+        //                     fill="none"
+        //                     stroke="currentColor"
+        //                     strokeWidth="2"
+        //                     viewBox="0 0 24 24"
+        //                 >
+        //                     <line x1="4" y1="6" x2="20" y2="6" />
+        //                     <line x1="4" y1="12" x2="20" y2="12" />
+        //                     <line x1="4" y1="18" x2="20" y2="18" />
+        //                 </svg>
+        //             </div>
+
+        //             {/* manu toggle for small */}
+        //             {
+        //                 menutoggle && (
+        //                     <div
+        //                         className='absolute right-0 top-14 w-full 
+        //             h-97 text-base flex flex-col md:hidden font-medium bg-gray-40 bg-primary z-1000 justify-center items-center'>
+        //                         <button className="absolute top-6 left-4"
+        //                             onClick={handleMenuToggle}
+        //                         >
+        //                             <svg className="h-6 w-6"
+        //                                 fill="none"
+        //                                 stroke="currentColor"
+        //                                 strokeWidth="2"
+        //                                 viewBox="0 0 24 24">
+        //                                 <line x1="18" y1="6" x2="6" y2="18" />
+        //                                 <line x1="6" y1="6" x2="18" y2="18" />
+        //                             </svg>
+        //                         </button>
+
+        //                         <div className='flex flex-col'>
+        //                             {links}
+
+        //                             {user ? <button
+        //                                 onClick={handleLogout}
+        //                                 className="">
+        //                                 Logout
+        //                             </button> : <Link
+        //                                 to="/auth/login"
+        //                                 className=""
+        //                             >
+        //                                 Login
+        //                             </Link>}
+        //                             <ThemeToggle />
+        //                         </div>
+        //                     </div>)
+        //             }
+        //         </div>
+        //     </nav>
+        // </header>
     );
-}
+};
+
 export default Navbar;
-{/* 
-    <div className="relative container mx-auto">
-            <nav className=' w-full flex items-center justify-between p-4'>
-
-
-<NavLink to='/'>
-    <img className='w-10 h-10 rounded-lg' src="https://i.ibb.co/5h8s3J5M/homigo-logo.png" alt="" />
-</NavLink>
-
-
-<div className="hidden md:flex items-center gap-4 lg:gap-8">
-    {links}
-</div>
-
-
-{
-    user ? <div className=""
-        onClick={handleProfileToggle}
-    >
-        <img
-            className="h-10 w-10 rounded-full"
-            src={user?.photoURL}
-            alt="" />
-    </div>
-        : <div className="hidden md:flex items-center gap-4">
-            <Link
-                to="/auth/login"
-                className="px-8 py-2.5 rounded-full ml-4 bg-gradient-to-r from-primary to-secondary"
-            >
-                Login
-            </Link>
-            <ThemeToggle />
-        </div>
-}
-
-{
-    profileToggle && user && <div className="text-sm w-64 p-3 bg-white border border-gray-500/30 text-gray-800/80 rounded-md font-medium absolute top-34 right-0">
-        <ul className="flex flex-col gap-px">
-            <li className="flex items-center justify-between gap-3 bg-gray-500/20 cursor-pointer px-3 py-2 rounded hover:bg-gray-500/20 transition">
-                <Link>{user?.displayName}</Link>
-            </li>
-            <li className="flex items-center justify-between gap-2 cursor-pointer px-3 py-2 rounded hover:bg-gray-500/20 transition">
-                <p className="-mr-px">{user?.email}</p>
-            </li>
-            <div className="w-full h-px bg-gray-300/70 my-2"></div>
-
-            <div className="w-full h-px bg-gray-300/50 my-2"></div>
-            <li className="flex items-center justify-between gap-2 cursor-pointer px-3 py-2 rounded hover:bg-gray-500/20 transition">
-                <button
-                    onClick={handleLogout}
-                    className="-mr-px">
-                    <TbLogout />
-                    <span>Logout</span>
-                </button>
-            </li>
-        </ul>
-    </div>
-}
-
-
-<div className="flex items-center gap-3 md:hidden">
-    <svg
-        onClick={handleMenuToggle}
-        className={`h-6 w-6 cursor-pointer `}
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        viewBox="0 0 24 24">
-        <line x1="4" y1="6" x2="20" y2="6" />
-        <line x1="4" y1="12" x2="20" y2="12" />
-        <line x1="4" y1="18" x2="20" y2="18" />
-    </svg>
-</div>
-
-
-{
-    menutoggle && (
-        <div
-            className='absoluteright-0 top-0 w-[50vh]
-                    h-screen text-base flex flex-col md:hidden items-start 
-                    justify-center gap-6 font-medium text-gray-800'>
-            <button className="absolute top-6 left-4"
-                onClick={handleMenuToggle}
-            >
-                <svg className="h-6 w-6"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    viewBox="0 0 24 24">
-                    <line x1="18" y1="6" x2="6" y2="18" />
-                    <line x1="6" y1="6" x2="18" y2="18" />
-                </svg>
-            </button>
-
-            {links}
-
-            <button
-                className="bg-black text-white px-8 py-2.5 rounded-full transition-all duration-500">
-                Login
-            </button>
-        </div>)
-}
-
-            </nav >
-        </div > */}

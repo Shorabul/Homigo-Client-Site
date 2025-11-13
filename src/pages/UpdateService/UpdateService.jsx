@@ -8,6 +8,7 @@ import {
     FiPhone,
     FiImage,
 } from "react-icons/fi";
+import { GrUpdate } from "react-icons/gr";
 
 const UpdateService = () => {
     const { id } = useParams();
@@ -49,7 +50,7 @@ const UpdateService = () => {
 
     return (<>
         <Motion.div
-            className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-12 px-4"
+            className="min-h-screen bg-gradient-to-br from-base-100 to-base-200 py-12 px-4"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6 }}
@@ -68,10 +69,231 @@ const UpdateService = () => {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.3 }}
                     >
-                        <div className="bg-orange-100 text-orange-600 p-3 rounded-full">
-                            <FiPlusCircle size={24} />
+                        <div className="bg-primary/10 text-primary p-3 rounded-full">
+                            <GrUpdate size={24} />
                         </div>
-                        <h2 className="text-3xl font-bold text-gray-800">Update Service</h2>
+                        <h2 className="text-3xl font-bold text-primary">Update Service</h2>
+                    </Motion.div>
+
+                    {/* Form */}
+                    <form onSubmit={handleUpdate} className="space-y-8">
+                        {/* Service Name & Category */}
+                        <Motion.div
+                            className="grid md:grid-cols-2 gap-6"
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.4 }}
+                        >
+                            <div>
+                                <label className="block text-sm font-semibold text-gray-600 mb-2">
+                                    Service Name
+                                </label>
+                                <input
+                                    type="text"
+                                    name="serviceName"
+                                    defaultValue={service.serviceName}
+                                    placeholder="Enter your service name"
+                                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary transition"
+                                    required
+                                />
+                            </div>
+
+                            <div>
+                                <label className="block text-sm font-semibold text-gray-600 mb-2">
+                                    Category
+                                </label>
+                                <input
+                                    type="text"
+                                    name="category"
+                                    defaultValue={service.category}
+                                    placeholder="e.g. Home Repair, Cleaning"
+                                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary transition"
+                                    required
+                                />
+                            </div>
+                        </Motion.div>
+
+                        {/* Price & Image URL */}
+                        <Motion.div
+                            className="grid md:grid-cols-2 gap-6"
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.5 }}
+                        >
+                            <div>
+                                <label className="block text-sm font-semibold text-gray-600 mb-2">
+                                    Price ($)
+                                </label>
+                                <input
+                                    type="number"
+                                    name="price"
+                                    defaultValue={service.price}
+                                    placeholder="Enter price"
+                                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary transition"
+                                    required
+                                />
+                            </div>
+
+                            <div>
+                                <label className="block text-sm font-semibold text-gray-600 mb-2 flex items-center gap-2">
+                                    <FiImage /> Image URL
+                                </label>
+                                <input
+                                    type="url"
+                                    name="serviceImageURL"
+                                    defaultValue={service.serviceImageURL}
+                                    placeholder="Paste image URL"
+                                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary transition"
+                                    required
+                                />
+                            </div>
+                        </Motion.div>
+
+                        {/* Description & Availability */}
+                        <Motion.div
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.6 }}
+                        >
+                            <div>
+                                <label className="block text-sm font-semibold text-gray-600 mb-2">
+                                    Description
+                                </label>
+                                <textarea
+                                    name="description"
+                                    defaultValue={service.description}
+                                    rows={4}
+                                    placeholder="Describe your service..."
+                                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary transition"
+                                    required
+                                />
+                            </div>
+
+                            <div>
+                                <label className="block text-sm font-semibold text-gray-600 mb-3">
+                                    Availability
+                                </label>
+                                <div className="flex flex-wrap items-center gap-2">
+                                    {[
+                                        "Monday",
+                                        "Tuesday",
+                                        "Wednesday",
+                                        "Thursday",
+                                        "Friday",
+                                        "Saturday",
+                                        "Sunday",
+                                    ].map((day) => (
+                                        <label
+                                            key={day}
+                                            className="flex items-center gap-2 bg-base-100 p-2 rounded-lg hover:bg-primary/10 cursor-pointer transition"
+                                        >
+                                            <input
+                                                type="checkbox"
+                                                checked={service.availability.includes(day)}
+                                                className="accent-primary"
+                                            />
+                                            <span className="text-sm">{day}</span>
+                                        </label>
+                                    ))}
+                                </div>
+                            </div>
+                        </Motion.div>
+
+                        {/* Location */}
+                        <Motion.div
+                            className="grid md:grid-cols-3 gap-6"
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.7 }}
+                        >
+                            <div>
+                                <label className="block text-sm font-semibold text-gray-600 mb-2 flex items-center gap-2">
+                                    <FiMapPin /> City
+                                </label>
+                                <input
+                                    type="text"
+                                    name="city"
+                                    defaultValue={service.city}
+                                    placeholder="City"
+                                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary transition"
+                                    required
+                                />
+                            </div>
+
+                            <div>
+                                <label className="block text-sm font-semibold text-gray-600 mb-2">
+                                    District
+                                </label>
+                                <input
+                                    type="text"
+                                    name="district"
+                                    defaultValue={service.district}
+                                    placeholder="District"
+                                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary transition"
+                                    required
+                                />
+                            </div>
+
+                            <div>
+                                <label className="block text-sm font-semibold text-gray-600 mb-2">
+                                    ZIP
+                                </label>
+                                <input
+                                    type="text"
+                                    name="zip"
+                                    defaultValue={service.zip}
+                                    placeholder="ZIP Code"
+                                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary transition"
+                                    required
+                                />
+                            </div>
+                        </Motion.div>
+
+                        {/* Submit */}
+                        <Motion.div
+                            className="text-center pt-4"
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.8 }}
+                        >
+                            <Motion.button
+                                type="submit"
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.97 }}
+                                className="inline-flex items-center justify-center gap-2 bg-primary hover:bg-primary/80 text-white font-semibold px-8 py-3 rounded-xl shadow-md transition-transform"
+                            >
+                                <GrUpdate /> Update Service
+                            </Motion.button>
+                        </Motion.div>
+                    </form>
+                </div>
+            </Motion.div>
+        </Motion.div>
+
+        <Motion.div
+            className="min-h-screen g-gradient-to-br from-base-100 to-base-200 py-12 px-4"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6 }}
+        >
+            <Motion.div
+                className="max-w-5xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden"
+                initial={{ y: 30, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ duration: 0.6, ease: "easeOut" }}
+            >
+                <div className="p-8 md:p-10">
+                    {/* Header */}
+                    <Motion.div
+                        className="flex items-center space-x-3 mb-8"
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.3 }}
+                    >
+                        <div className="bg-primary/10 text-primary p-3 rounded-full">
+                            <GrUpdate size={24} />
+                        </div>
+                        <h2 className="text-3xl font-bold text-primary">Update Service</h2>
                     </Motion.div>
 
                     {/* Form */}

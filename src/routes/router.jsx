@@ -13,6 +13,7 @@ import AddService from "../pages/AddService/AddService";
 import PrivateRoute from "./PrivateRoute";
 import UpdateService from "../pages/UpdateService/UpdateService";
 import Error from "../pages/Error/Error";
+import UpdateProfile from "../pages/UpdateProfile/UpdateProfile";
 
 export const router = createBrowserRouter([
     {
@@ -81,5 +82,10 @@ export const router = createBrowserRouter([
                 element: <Register></Register>
             }
         ]
+    }, {
+        path: '/update-profile',
+        element: <PrivateRoute>
+            <UpdateProfile></UpdateProfile>
+        </PrivateRoute>
     }
 ]);

@@ -72,7 +72,8 @@ const AddService = () => {
             });
 
             const data = await res.json();
-            if (data.insertedId || data.service?._id) {
+            console.log(data);
+            if (data?.result?.insertedId) {
                 toast.success("✅ Service added successfully!");
                 setFormData({
                     serviceName: "",
@@ -102,7 +103,7 @@ const AddService = () => {
 
     return (
         <Motion.div
-            className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-12 px-4"
+            className="min-h-screen bg-gradient-to-br from-base-100 to-base-200 py-12 px-4"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6 }}
@@ -121,15 +122,17 @@ const AddService = () => {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.3 }}
                     >
-                        <div className="bg-orange-100 text-orange-600 p-3 rounded-full">
+                        <div className="bg-primary/10 text-primary p-3 rounded-full">
                             <FiPlusCircle size={24} />
                         </div>
-                        <h2 className="text-3xl font-bold text-gray-800">Add New Service</h2>
+                        <h2 className="text-3xl font-bold text-primary">
+                            Add New Service
+                        </h2>
                     </Motion.div>
 
                     {/* Form */}
                     <form onSubmit={handleSubmit} className="space-y-8">
-                        {/* Service Name & Category*/}
+                        {/* Service Name & Category */}
                         <Motion.div
                             className="grid md:grid-cols-2 gap-6"
                             initial={{ opacity: 0, y: 10 }}
@@ -137,7 +140,7 @@ const AddService = () => {
                             transition={{ delay: 0.4 }}
                         >
                             <div>
-                                <label className="block text-sm font-semibold text-gray-600 mb-2">
+                                <label className="block text-sm font-semibold text-secondary-content  mb-2">
                                     Service Name
                                 </label>
                                 <input
@@ -146,13 +149,13 @@ const AddService = () => {
                                     value={formData.serviceName}
                                     onChange={handleChange}
                                     placeholder="Enter your service name"
-                                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-orange-400 focus:border-orange-400 transition"
+                                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary transition"
                                     required
                                 />
                             </div>
 
                             <div>
-                                <label className="block text-sm font-semibold text-gray-600 mb-2">
+                                <label className="block text-sm font-semibold text-secondary-content mb-2">
                                     Category
                                 </label>
                                 <input
@@ -161,13 +164,13 @@ const AddService = () => {
                                     value={formData.category}
                                     onChange={handleChange}
                                     placeholder="e.g. Home Repair, Cleaning"
-                                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-orange-400 focus:border-orange-400 transition"
+                                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary transition"
                                     required
                                 />
                             </div>
                         </Motion.div>
 
-                        {/* Service Price Image URL */}
+                        {/* Price & Image URL */}
                         <Motion.div
                             className="grid md:grid-cols-2 gap-6"
                             initial={{ opacity: 0, y: 10 }}
@@ -175,7 +178,7 @@ const AddService = () => {
                             transition={{ delay: 0.5 }}
                         >
                             <div>
-                                <label className="block text-sm font-semibold text-gray-600 mb-2">
+                                <label className="block text-sm font-semibold text-secondary-content mb-2">
                                     Price ($)
                                 </label>
                                 <input
@@ -184,13 +187,13 @@ const AddService = () => {
                                     value={formData.price}
                                     onChange={handleChange}
                                     placeholder="Enter price"
-                                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-orange-400 focus:border-orange-400 transition"
+                                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary transition"
                                     required
                                 />
                             </div>
 
                             <div>
-                                <label className="block text-sm font-semibold text-gray-600 mb-2 flex items-center gap-2">
+                                <label className="block text-sm font-semibold text-secondary-content mb-2 flex items-center gap-2">
                                     <FiImage /> Image URL
                                 </label>
                                 <input
@@ -199,20 +202,20 @@ const AddService = () => {
                                     value={formData.serviceImageURL}
                                     onChange={handleChange}
                                     placeholder="Paste image URL"
-                                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-orange-400 focus:border-orange-400 transition"
+                                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary transition"
                                     required
                                 />
                             </div>
                         </Motion.div>
 
-                        {/* Service Description & Availability*/}
+                        {/* Description & Availability */}
                         <Motion.div
                             initial={{ opacity: 0, y: 10 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.6 }}
                         >
                             <div>
-                                <label className="block text-sm font-semibold text-gray-600 mb-2">
+                                <label className="block text-sm font-semibold text-secondary-content mb-2">
                                     Description
                                 </label>
                                 <textarea
@@ -221,13 +224,13 @@ const AddService = () => {
                                     onChange={handleChange}
                                     rows={4}
                                     placeholder="Describe your service..."
-                                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-orange-400 focus:border-orange-400 transition"
+                                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary transition"
                                     required
                                 />
                             </div>
 
                             <div>
-                                <label className="block text-sm font-semibold text-gray-600 mb-3">
+                                <label className="block text-sm font-semibold text-secondary-content mb-3">
                                     Availability
                                 </label>
                                 <div className="flex flex-wrap items-center gap-2">
@@ -242,13 +245,13 @@ const AddService = () => {
                                     ].map((day) => (
                                         <label
                                             key={day}
-                                            className="flex items-center gap-2 bg-gray-50 p-2 rounded-lg hover:bg-orange-50 cursor-pointer transition"
+                                            className="flex items-center gap-2 bg-base-100 p-2 rounded-lg hover:bg-primary/10 cursor-pointer transition"
                                         >
                                             <input
                                                 type="checkbox"
                                                 checked={formData.availability.includes(day)}
                                                 onChange={() => handleAvailabilityChange(day)}
-                                                className="accent-orange-500"
+                                                className="accent-primary"
                                             />
                                             <span className="text-sm">{day}</span>
                                         </label>
@@ -257,7 +260,7 @@ const AddService = () => {
                             </div>
                         </Motion.div>
 
-                        {/* Location Section */}
+                        {/* Location */}
                         <Motion.div
                             className="grid md:grid-cols-3 gap-6"
                             initial={{ opacity: 0, y: 10 }}
@@ -265,7 +268,7 @@ const AddService = () => {
                             transition={{ delay: 0.7 }}
                         >
                             <div>
-                                <label className="block text-sm font-semibold text-gray-600 mb-2 flex items-center gap-2">
+                                <label className="block text-sm font-semibold text-secondary-content  mb-2 flex items-center gap-2">
                                     <FiMapPin /> City
                                 </label>
                                 <input
@@ -274,13 +277,13 @@ const AddService = () => {
                                     value={formData.city}
                                     onChange={handleChange}
                                     placeholder="City"
-                                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-orange-400 focus:border-orange-400 transition"
+                                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary transition"
                                     required
                                 />
                             </div>
 
                             <div>
-                                <label className="block text-sm font-semibold text-gray-600 mb-2">
+                                <label className="block text-sm font-semibold text-secondary-content mb-2">
                                     District
                                 </label>
                                 <input
@@ -289,13 +292,13 @@ const AddService = () => {
                                     value={formData.district}
                                     onChange={handleChange}
                                     placeholder="District"
-                                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-orange-400 focus:border-orange-400 transition"
+                                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary transition"
                                     required
                                 />
                             </div>
 
                             <div>
-                                <label className="block text-sm font-semibold text-gray-600 mb-2">
+                                <label className="block text-sm font-semibold text-secondary-content  mb-2">
                                     ZIP
                                 </label>
                                 <input
@@ -304,13 +307,13 @@ const AddService = () => {
                                     value={formData.zip}
                                     onChange={handleChange}
                                     placeholder="ZIP Code"
-                                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-orange-400 focus:border-orange-400 transition"
+                                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary transition"
                                     required
                                 />
                             </div>
                         </Motion.div>
 
-                        {/* Submit Button */}
+                        {/* Submit */}
                         <Motion.div
                             className="text-center pt-4"
                             initial={{ opacity: 0, y: 20 }}
@@ -321,7 +324,7 @@ const AddService = () => {
                                 type="submit"
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.97 }}
-                                className="inline-flex items-center justify-center gap-2 bg-orange-500 hover:bg-orange-600 text-white font-semibold px-8 py-3 rounded-xl shadow-md transition-transform"
+                                className="inline-flex items-center justify-center gap-2 bg-primary hover:bg-primary/80 text-white font-semibold px-8 py-3 rounded-xl shadow-md transition-transform"
                             >
                                 <FiPlusCircle /> Add Service
                             </Motion.button>
@@ -329,7 +332,8 @@ const AddService = () => {
                     </form>
                 </div>
             </Motion.div>
-        </Motion.div >
+        </Motion.div>
+
     );
 };
 
