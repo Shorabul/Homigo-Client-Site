@@ -11,6 +11,7 @@ import {
 import { GrUpdate } from "react-icons/gr";
 import { useContext } from "react";
 import { AuthContext } from "../../contexts/AuthContext";
+import { categories } from "../../constants/categories";
 
 const UpdateService = () => {
     const { id } = useParams();
@@ -53,6 +54,9 @@ const UpdateService = () => {
             price: form.price.value,
             description: form.description.value,
             serviceImageURL: form.serviceImageURL.value,
+            zip: form.zip.value,
+            city: form.city.value,
+            district: form.district.value,
         };
 
         fetch(`https://homigo-server-new.vercel.app/services/${id}`, {
@@ -69,7 +73,8 @@ const UpdateService = () => {
             });
     };
 
-    if (!service) return <p>Loading...</p>;
+    if (!service) return <div className="w-full h-[50%] flex justify-center items-center "><span className="loading loading-spinner text-[#ee3131]"></span></div>
+        ;
 
     return (<>
         <Motion.div
@@ -79,7 +84,7 @@ const UpdateService = () => {
             transition={{ duration: 0.6 }}
         >
             <Motion.div
-                className="max-w-5xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden"
+                className="max-w-5xl mx-auto rounded-2xl shadow-xl overflow-hidden"
                 initial={{ y: 30, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ duration: 0.6, ease: "easeOut" }}
@@ -92,10 +97,10 @@ const UpdateService = () => {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.3 }}
                     >
-                        <div className="bg-primary/10 text-primary p-3 rounded-full">
+                        <div className="bg-[#ee313120] text-[#ee3131] p-3 rounded-full">
                             <GrUpdate size={24} />
                         </div>
-                        <h2 className="text-3xl font-bold text-primary">Update Service</h2>
+                        <h2 className="text-3xl font-bold text-[#ee3131]">Update Service</h2>
                     </Motion.div>
 
                     {/* Form */}
@@ -108,7 +113,7 @@ const UpdateService = () => {
                             transition={{ delay: 0.4 }}
                         >
                             <div>
-                                <label className="block text-sm font-semibold text-gray-600 mb-2">
+                                <label className="block text-sm font-semibold text-base-content mb-2">
                                     Service Name
                                 </label>
                                 <input
@@ -116,23 +121,35 @@ const UpdateService = () => {
                                     name="serviceName"
                                     defaultValue={service.serviceName}
                                     placeholder="Enter your service name"
-                                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary transition"
+                                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-[#ee3131]focus:border-[#ee3131] transition"
                                     required
                                 />
                             </div>
 
                             <div>
-                                <label className="block text-sm font-semibold text-gray-600 mb-2">
+                                <label className="block text-sm font-semibold text-base-content mb-2">
                                     Category
                                 </label>
-                                <input
+                                {/* <input
                                     type="text"
                                     name="category"
+                                    value={service.category}
+                                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-[#ee3131]focus:border-[#ee3131] transition"
+                                    readOnly
+                                /> */}
+                                <select
+                                    name="category"
                                     defaultValue={service.category}
-                                    placeholder="e.g. Home Repair, Cleaning"
-                                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary transition"
+                                    className="appearance-none border border-neutral-content bg-base-300 rounded-md transition duration-200 select outline-[#ee313180] cursor-pointer"
                                     required
-                                />
+                                >
+                                    <option value="" disabled>Select a category</option>
+
+                                    {categories.map(cat => (
+                                        <option key={cat} value={cat}>{cat}</option>
+                                    ))}
+                                </select>
+
                             </div>
                         </Motion.div>
 
@@ -144,7 +161,7 @@ const UpdateService = () => {
                             transition={{ delay: 0.5 }}
                         >
                             <div>
-                                <label className="block text-sm font-semibold text-gray-600 mb-2">
+                                <label className="block text-sm font-semibold text-base-content mb-2">
                                     Price ($)
                                 </label>
                                 <input
@@ -152,13 +169,13 @@ const UpdateService = () => {
                                     name="price"
                                     defaultValue={service.price}
                                     placeholder="Enter price"
-                                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary transition"
+                                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-[#ee3131]focus:border-[#ee3131] transition"
                                     required
                                 />
                             </div>
 
                             <div>
-                                <label className="block text-sm font-semibold text-gray-600 mb-2 flex items-center gap-2">
+                                <label className="block text-sm font-semibold text-base-content mb-2 flex items-center gap-2">
                                     <FiImage /> Image URL
                                 </label>
                                 <input
@@ -166,7 +183,7 @@ const UpdateService = () => {
                                     name="serviceImageURL"
                                     defaultValue={service.serviceImageURL}
                                     placeholder="Paste image URL"
-                                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary transition"
+                                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-[#ee3131]focus:border-[#ee3131] transition"
                                     required
                                 />
                             </div>
@@ -179,7 +196,7 @@ const UpdateService = () => {
                             transition={{ delay: 0.6 }}
                         >
                             <div>
-                                <label className="block text-sm font-semibold text-gray-600 mb-2">
+                                <label className="block text-sm font-semibold text-base-content mb-2">
                                     Description
                                 </label>
                                 <textarea
@@ -187,13 +204,13 @@ const UpdateService = () => {
                                     defaultValue={service.description}
                                     rows={4}
                                     placeholder="Describe your service..."
-                                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary transition"
+                                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-[#ee3131]focus:border-[#ee3131] transition"
                                     required
                                 />
                             </div>
 
                             <div>
-                                <label className="block text-sm font-semibold text-gray-600 mb-3">
+                                <label className="block text-sm font-semibold text-base-content mb-3">
                                     Availability
                                 </label>
                                 <div className="flex flex-wrap items-center gap-2">
@@ -208,13 +225,13 @@ const UpdateService = () => {
                                     ].map((day) => (
                                         <label
                                             key={day}
-                                            className="flex items-center gap-2 bg-base-100 p-2 rounded-lg hover:bg-primary/10 cursor-pointer transition"
+                                            className="flex items-center gap-2 bg-base-300 p-2 rounded-lg hover:bg-[#ee313120] cursor-pointer transition"
                                         >
                                             <input
                                                 type="checkbox"
                                                 checked={availability.includes(day)}
                                                 onChange={() => handleAvailabilityChange(day)}
-                                                className="accent-primary"
+                                                className="accent-[#ee3131]"
                                             />
                                             <span className="text-sm">{day}</span>
                                         </label>
@@ -231,7 +248,7 @@ const UpdateService = () => {
                             transition={{ delay: 0.7 }}
                         >
                             <div>
-                                <label className="block text-sm font-semibold text-gray-600 mb-2 flex items-center gap-2">
+                                <label className="block text-sm font-semibold text-base-content mb-2 flex items-center gap-2">
                                     <FiMapPin /> City
                                 </label>
                                 <input
@@ -239,13 +256,13 @@ const UpdateService = () => {
                                     name="city"
                                     defaultValue={service.city}
                                     placeholder="City"
-                                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary transition"
+                                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-[#ee3131]focus:border-[#ee3131] transition"
                                     required
                                 />
                             </div>
 
                             <div>
-                                <label className="block text-sm font-semibold text-gray-600 mb-2">
+                                <label className="block text-sm font-semibold text-base-content mb-2">
                                     District
                                 </label>
                                 <input
@@ -253,13 +270,13 @@ const UpdateService = () => {
                                     name="district"
                                     defaultValue={service.district}
                                     placeholder="District"
-                                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary transition"
+                                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-[#ee3131]focus:border-[#ee3131] transition"
                                     required
                                 />
                             </div>
 
                             <div>
-                                <label className="block text-sm font-semibold text-gray-600 mb-2">
+                                <label className="block text-sm font-semibold text-base-content mb-2">
                                     ZIP
                                 </label>
                                 <input
@@ -267,7 +284,7 @@ const UpdateService = () => {
                                     name="zip"
                                     defaultValue={service.zip}
                                     placeholder="ZIP Code"
-                                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary transition"
+                                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-[#ee3131]focus:border-[#ee3131] transition"
                                     required
                                 />
                             </div>
@@ -284,7 +301,8 @@ const UpdateService = () => {
                                 type="submit"
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.97 }}
-                                className="inline-flex items-center justify-center gap-2 bg-primary hover:bg-primary/80 text-white font-semibold px-8 py-3 rounded-xl shadow-md transition-transform"
+                                className="inline-flex items-center justify-center gap-2 bg-[#ee3131] hover:bg-#ee313180]
+                                text-white font-semibold px-8 py-3 rounded-xl shadow-md transition-transform"
                             >
                                 <GrUpdate /> Update Service
                             </Motion.button>

@@ -22,12 +22,12 @@ const Footer = () => {
                             className="w-24 h-24"
                         />
                     </Link>
-                    <p className="text-sm mt-2 text-gray-600">
+                    <p className="text-sm mt-2 text-base-content/90">
                         Homigo connects you with trusted professionals for cleaning, repairs, and home services.
                     </p>
 
                     {/* Social Icons */}
-                    <div className="flex items-center gap-4 mt-4 text-primary">
+                    <div className="flex items-center gap-4 mt-4 text-[#ee3131]">
                         <Motion.a
                             href="#"
                             whileHover="hover"
@@ -69,8 +69,8 @@ const Footer = () => {
 
                 {/* Company Links */}
                 <div>
-                    <p className="text-lg text-gray-800">COMPANY</p>
-                    <ul className="mt-3 flex flex-col gap-2 text-sm">
+                    <p className="text-lg text-base-content">COMPANY</p>
+                    <ul className="mt-3 flex flex-col gap-2 text-sm text-base-content/90">
                         <li><a href="#">About</a></li>
                         <li><a href="#">Careers</a></li>
                         <li><a href="#">Press</a></li>
@@ -81,8 +81,8 @@ const Footer = () => {
 
                 {/* Support Links */}
                 <div>
-                    <p className="text-lg text-gray-800">SUPPORT</p>
-                    <ul className="mt-3 flex flex-col gap-2 text-sm">
+                    <p className="text-lg text-base-content">SUPPORT</p>
+                    <ul className="mt-3 flex flex-col gap-2 text-sm text-base-content/90">
                         <li><a href="#">Help Center</a></li>
                         <li><a href="#">Safety Information</a></li>
                         <li><a href="#">Cancellation Options</a></li>
@@ -93,17 +93,17 @@ const Footer = () => {
 
                 {/* Newsletter */}
                 <div className="max-w-80">
-                    <p className="text-lg text-gray-800">STAY UPDATED</p>
-                    <p className="mt-3 text-sm text-gray-600">
+                    <p className="text-lg text-base-content">STAY UPDATED</p>
+                    <p className="mt-3 text-sm text-base-content/90">
                         Subscribe to our newsletter for inspiration and special offers.
                     </p>
                     <div className="flex items-center mt-4">
                         <input
                             type="text"
-                            className="bg-white text-black rounded-l border border-gray-300  h-9 px-3 outline-none"
+                            className="bg-base-300 text-base-content rounded-l border border-gray-300  h-9 px-3 outline-none"
                             placeholder="Your email"
                         />
-                        <button className="flex items-center justify-center bg-primary h-9 w-9 aspect-square rounded-r">
+                        <button className="flex items-center justify-center brand-color-bg h-9 w-9 aspect-square rounded-r">
                             <svg
                                 className="w-4 h-4 text-white"
                                 xmlns="http://www.w3.org/2000/svg"
@@ -125,9 +125,9 @@ const Footer = () => {
 
             {/* Footer Bottom */}
             <hr className="border-gray-300 mt-8" />
-            <div className="flex flex-col md:flex-row gap-2 items-center justify-between py-5 text-sm text-gray-600 ">
+            <div className="flex flex-col md:flex-row gap-2 items-center justify-between py-5 text-sm text-base-content/90">
                 <p>
-                    © {new Date().getFullYear()} <a href="https://prebuiltui.com">PrebuiltUI</a>. All rights reserved.
+                    © {new Date().getFullYear()} <Link to='/'>Homigo</Link>. All rights reserved.
                 </p>
                 <ul className="flex items-center gap-4">
                     <li><a href="#">Privacy</a></li>

@@ -8,10 +8,12 @@ import {
     FiPhone,
     FiImage,
 } from "react-icons/fi";
-
+import { useNavigate } from "react-router";
+import { categories } from "../../constants/categories"
 const AddService = () => {
     const createdAt = new Date();
     const { user } = useContext(AuthContext);
+    const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
         serviceName: "",
@@ -75,7 +77,6 @@ const AddService = () => {
             });
 
             const data = await res.json();
-            console.log(data);
             if (data?.result?.insertedId) {
                 toast.success("✅ Service added successfully!");
                 setFormData({
@@ -95,6 +96,7 @@ const AddService = () => {
                     ratings: 0,
                     reviews: [],
                 });
+                navigate('/');
             } else {
                 toast.error("❌ Failed to add service");
             }
@@ -106,13 +108,14 @@ const AddService = () => {
 
     return (
         <Motion.div
-            className="min-h-screen bg-gradient-to-br from-base-100 to-base-200 py-12 px-4"
+            className="py-12 container mx-auto"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6 }}
         >
+            <p className="text-center font-semibold">Welcome back,<span className="text-[#ee3131] text-base md:text-lg">{user.displayName}</span></p>
             <Motion.div
-                className="max-w-5xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden"
+                className="max-w-5xl mx-auto rounded-2xl shadow-xl overflow-hidden"
                 initial={{ y: 30, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ duration: 0.6, ease: "easeOut" }}
@@ -125,12 +128,14 @@ const AddService = () => {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.3 }}
                     >
-                        <div className="bg-primary/10 text-primary p-3 rounded-full">
+                        <div className="bg-[#ee313120] text-[#ee3131] p-3 rounded-full">
                             <FiPlusCircle size={24} />
                         </div>
-                        <h2 className="text-3xl font-bold text-primary">
+                        <h2 className="text-3xl font-bold text-[#ee3131]">
                             Add New Service
                         </h2>
+
+
                     </Motion.div>
 
                     {/* Form */}
@@ -143,7 +148,7 @@ const AddService = () => {
                             transition={{ delay: 0.4 }}
                         >
                             <div>
-                                <label className="block text-sm font-semibold text-secondary-content  mb-2">
+                                <label className="block text-sm font-semibold text-base-content  mb-2">
                                     Service Name
                                 </label>
                                 <input
@@ -152,13 +157,13 @@ const AddService = () => {
                                     value={formData.serviceName}
                                     onChange={handleChange}
                                     placeholder="Enter your service name"
-                                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary transition"
+                                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-[#ee3131] focus:border-[#ee3131] transition"
                                     required
                                 />
                             </div>
 
-                            <div>
-                                <label className="block text-sm font-semibold text-secondary-content mb-2">
+                            {/* <div>
+                                <label className="block text-sm font-semibold text-base-content mb-2">
                                     Category
                                 </label>
                                 <input
@@ -167,10 +172,45 @@ const AddService = () => {
                                     value={formData.category}
                                     onChange={handleChange}
                                     placeholder="e.g. Home Repair, Cleaning"
-                                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary transition"
+                                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-[#ee3131] focus:border-[#ee3131] transition"
                                     required
                                 />
+                            </div> */}
+                            <div>
+                                <label className="block text-sm font-semibold text-base-content mb-2">
+                                    Category
+                                </label>
+                                <select
+                                    name="category"
+                                    value={formData.category}
+                                    onChange={handleChange}
+                                    className="appearance-none border border-neutral-content bg-base-300 rounded-md transition duration-200 select outline-[#ee313180] cursor-pointer"
+                                    required
+                                >
+                                    <option value="" disabled>Select a category</option>
+
+                                    {categories.map(cat => (
+                                        <option key={cat} value={cat}>{cat}</option>
+                                    ))}
+                                </select>
+
+
+                                {/* <select
+                                    name="category"
+                                    value={formData.category}
+                                    onChange={handleChange}
+                                    className="appearance-none border border-neutral-content bg-base-300 rounded-md transition duration-200 select outline-[#ee313180] cursor-pointer"
+                                    required
+                                >
+                                    <option value="" disabled>Select a category</option>
+                                    <option value="Home Repair">Home Repair</option>
+                                    <option value="Cleaning">Cleaning</option>
+                                    <option value="Gardening">Gardening</option>
+                                    <option value="Electrical">Electrical</option>
+                                    <option value="Plumbing">Plumbing</option>
+                                </select> */}
                             </div>
+
                         </Motion.div>
 
                         {/* Price & Image URL */}
@@ -181,7 +221,7 @@ const AddService = () => {
                             transition={{ delay: 0.5 }}
                         >
                             <div>
-                                <label className="block text-sm font-semibold text-secondary-content mb-2">
+                                <label className="block text-sm font-semibold text-base-content mb-2">
                                     Price ($)
                                 </label>
                                 <input
@@ -190,13 +230,13 @@ const AddService = () => {
                                     value={formData.price}
                                     onChange={handleChange}
                                     placeholder="Enter price"
-                                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary transition"
+                                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-[#ee3131] focus:border-[#ee3131] transition"
                                     required
                                 />
                             </div>
 
                             <div>
-                                <label className="block text-sm font-semibold text-secondary-content mb-2 flex items-center gap-2">
+                                <label className="block text-sm font-semibold text-base-content mb-2 flex items-center gap-2">
                                     <FiImage /> Image URL
                                 </label>
                                 <input
@@ -205,7 +245,7 @@ const AddService = () => {
                                     value={formData.serviceImageURL}
                                     onChange={handleChange}
                                     placeholder="Paste image URL"
-                                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary transition"
+                                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-[#ee3131] focus:border-[#ee3131] transition"
                                     required
                                 />
                             </div>
@@ -218,7 +258,7 @@ const AddService = () => {
                             transition={{ delay: 0.6 }}
                         >
                             <div>
-                                <label className="block text-sm font-semibold text-secondary-content mb-2">
+                                <label className="block text-sm font-semibold text-base-content mb-2">
                                     Description
                                 </label>
                                 <textarea
@@ -227,13 +267,13 @@ const AddService = () => {
                                     onChange={handleChange}
                                     rows={4}
                                     placeholder="Describe your service..."
-                                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary transition"
+                                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-[#ee3131] focus:border-[#ee3131] transition"
                                     required
                                 />
                             </div>
 
                             <div>
-                                <label className="block text-sm font-semibold text-secondary-content mb-3">
+                                <label className="block text-sm font-semibold text-base-content mb-3">
                                     Availability
                                 </label>
                                 <div className="flex flex-wrap items-center gap-2">
@@ -248,13 +288,13 @@ const AddService = () => {
                                     ].map((day) => (
                                         <label
                                             key={day}
-                                            className="flex items-center gap-2 bg-base-100 p-2 rounded-lg hover:bg-primary/10 cursor-pointer transition"
+                                            className="flex items-center gap-2 p-2 rounded-md hover:bg-[#ee313120] cursor-pointer transition"
                                         >
                                             <input
                                                 type="checkbox"
                                                 checked={formData.availability.includes(day)}
                                                 onChange={() => handleAvailabilityChange(day)}
-                                                className="accent-primary"
+                                                className="accent-[#ee3131]"
                                             />
                                             <span className="text-sm">{day}</span>
                                         </label>
@@ -271,7 +311,7 @@ const AddService = () => {
                             transition={{ delay: 0.7 }}
                         >
                             <div>
-                                <label className="block text-sm font-semibold text-secondary-content  mb-2 flex items-center gap-2">
+                                <label className="block text-sm font-semibold text-base-content  mb-2 flex items-center gap-2">
                                     <FiMapPin /> City
                                 </label>
                                 <input
@@ -280,13 +320,13 @@ const AddService = () => {
                                     value={formData.city}
                                     onChange={handleChange}
                                     placeholder="City"
-                                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary transition"
+                                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-[#ee3131] focus:border-[#ee3131] transition"
                                     required
                                 />
                             </div>
 
                             <div>
-                                <label className="block text-sm font-semibold text-secondary-content mb-2">
+                                <label className="block text-sm font-semibold text-base-content mb-2">
                                     District
                                 </label>
                                 <input
@@ -295,13 +335,13 @@ const AddService = () => {
                                     value={formData.district}
                                     onChange={handleChange}
                                     placeholder="District"
-                                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary transition"
+                                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-[#ee3131] focus:border-[#ee3131] transition"
                                     required
                                 />
                             </div>
 
                             <div>
-                                <label className="block text-sm font-semibold text-secondary-content  mb-2">
+                                <label className="block text-sm font-semibold text-base-content  mb-2">
                                     ZIP
                                 </label>
                                 <input
@@ -310,7 +350,7 @@ const AddService = () => {
                                     value={formData.zip}
                                     onChange={handleChange}
                                     placeholder="ZIP Code"
-                                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary transition"
+                                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-[#ee3131] focus:border-[#ee3131] transition"
                                     required
                                 />
                             </div>
@@ -327,7 +367,7 @@ const AddService = () => {
                                 type="submit"
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.97 }}
-                                className="inline-flex items-center justify-center gap-2 bg-primary hover:bg-primary/80 text-white font-semibold px-8 py-3 rounded-xl shadow-md transition-transform"
+                                className="cursor-pointer inline-flex items-center justify-center gap-2 brand-color-bg hover:brand-color-bg/80 text-white font-semibold px-8 py-3 rounded-xl shadow-md transition-transform"
                             >
                                 <FiPlusCircle /> Add Service
                             </Motion.button>

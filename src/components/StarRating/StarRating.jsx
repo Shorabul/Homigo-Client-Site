@@ -5,7 +5,7 @@ const StarRating = ({ onChange }) => {
 
     const handleClick = (value) => {
         setRating(value);
-        onChange(value); // send rating back to parent
+        onChange(value);
     };
 
     return (
@@ -15,7 +15,7 @@ const StarRating = ({ onChange }) => {
                     key={star}
                     type="button"
                     onClick={() => handleClick(star)}
-                    className="text-2xl focus:outline-none"
+                    className="text-2xl focus:outline-none cursor-pointer text-base-content/60"
                 >
                     {star <= rating ? "⭐" : "☆"}
                 </button>

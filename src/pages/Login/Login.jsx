@@ -149,9 +149,9 @@ const Login = () => {
                     onSubmit={handleLogin}
                     className="md:w-96 w-80 flex flex-col 
                     items-center justify-center">
-                    <h2 className="text-4xl text-gray-900 
+                    <h2 className="text-4xl text-base-content 
                     font-medium">Log In</h2>
-                    <p className="text-sm text-gray-500/90 
+                    <p className="text-sm text-base-content/90 
                     mt-3">Welcome back! Please log in to continue
                     </p>
 
@@ -159,7 +159,7 @@ const Login = () => {
                     <button
                         onClick={handleAuthGoogle}
                         type="button"
-                        className="w-full mt-8 bg-gray-500/10 
+                        className="w-full mt-8 bg-base-content/10 
                         flex items-center justify-center h-12 
                         rounded-full">
 
@@ -172,19 +172,19 @@ const Login = () => {
                     <div className="flex items-center gap-4 w-full 
                     my-5">
                         <div className="w-full h-px 
-                        bg-gray-300/90"></div>
+                        bg-base-content/90"></div>
                         <p className="w-full text-nowrap text-sm
-                         text-gray-500/90">or log in with email
+                         text-base-content/90">or log in with email
                         </p>
                         <div className="w-full h-px 
-                        bg-gray-300/90">
+                        bg-base-content/90">
 
                         </div>
                     </div>
 
                     <div
                         className="flex items-center w-full h-12
-                    bg-transparent border border-gray-300/60 
+                    bg-transparent border border-base-content/60 
                     rounded-full overflow-hidden pl-6 gap-2 mt-6">
                         <input
                             onChange={(e) => { setEmail(e.target.value) }} value={email}
@@ -192,8 +192,8 @@ const Login = () => {
                             name="email"
                             placeholder="Email"
                             className="bg-transparent 
-                            text-gray-500/80
-                        placeholder-gray-500/80 
+                            text-base-content/80
+                        placeholder-base-content/80 
                         outline-none text-sm w-full 
                         h-full" required />
                     </div>
@@ -203,7 +203,7 @@ const Login = () => {
                         items-center 
                         mt-6 w-full 
                         bg-transparent border
-                        border-gray-300/60 
+                        border-base-content/60 
                         h-12 rounded-full 
                         overflow-hidden pl-6 gap-2 
                         relative">
@@ -213,8 +213,8 @@ const Login = () => {
                             name="password"
                             placeholder="Password"
                             className="bg-transparent
-                            text-gray-500/80
-                            placeholder-gray-500/80
+                            text-base-content/80
+                            placeholder-base-content/80
                         outline-none text-sm w-full 
                         h-full" required
                         />
@@ -240,7 +240,7 @@ const Login = () => {
                     </div>
 
 
-                    <div className="w-full flex items-center justify-between mt-8 text-gray-500/80">
+                    <div className="w-full flex items-center justify-between mt-8 text-base-content/80">
                         <div className="flex items-center gap-2">
                             <input className="h-5" type="checkbox" id="checkbox" />
                             <label className="text-sm" htmlFor="checkbox">Remember me</label>
@@ -256,13 +256,12 @@ const Login = () => {
                     <button
                         type="submit"
                         className="mt-8 w-full h-11 rounded-full
-                         text-white bg-linear-to-r from-primary
-                          to-secondary hover:opacity-90 
-                          transition-opacity">
+                         text-white bg-[#ee3121] hover:opacity-90 
+                          transition-opacity font-semibold text-base lg:text-lg">
                         Login
                     </button>
-                    <p className="text-gray-500/90 text-sm mt-4">Don’t have an account?
-                        <Link to='/auth/register' className="text-indigo-400 hover:underline">Sign up</Link>
+                    <p className="text-base-content/90 text-sm mt-4">Don’t have an account?
+                        <Link to='/auth/register' className="text-info hover:underline"> Sign up</Link>
                     </p>
                 </form>
             </div>

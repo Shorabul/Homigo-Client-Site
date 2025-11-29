@@ -3,9 +3,12 @@ import { Link, NavLink } from "react-router";
 import { AuthContext } from "../../contexts/AuthContext";
 import { TbLogout } from "react-icons/tb";
 import ThemeToggle from "../ThemToggle/ThemeToggle";
-import { FaFacebookF, FaTwitter, FaLinkedinIn, FaYoutube } from "react-icons/fa";
+import { FaFacebookF, FaLinkedinIn, FaYoutube } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
+import { IoClose } from "react-icons/io5";
 import { RxCaretDown, RxCaretUp } from "react-icons/rx";
 import { toast } from 'react-hot-toast';
+
 const Navbar = () => {
     const [menutoggle, setMenuToggle] = useState(false);
     const [profileToggle, setProfileToggle] = useState(false);
@@ -36,35 +39,35 @@ const Navbar = () => {
     };
 
     const links = <>
-        <div className="flex flex-col gap-4 md:hidden">
-            <NavLink to='/' className="hover:text-primary transition-colors">Home</NavLink>
-            <NavLink to='/services' className="hover:text-primary transition-colors">Services</NavLink>
+        <div className="flex flex-col gap-4 md:hidden transition-color">
+            <NavLink to='/' className="hover:text-red-500 ">Home</NavLink>
+            <NavLink to='/services' className="hover:text-red-500 ">Services</NavLink>
             {user && <>
-                <NavLink to='/profile' className="hover:text-primary transition-colors">Profile</NavLink>
-                <NavLink to='/add-service' className="hover:text-primary transition-colors">Add Service</NavLink>
-                <NavLink to='/user/services' className="hover:text-primary transition-colors">My Services</NavLink>
-                <NavLink to='/user/bookings' className="hover:text-primary transition-colors">My Bookings</NavLink>
+                <NavLink to='/profile' className=" hover:text-red-500 ">Profile</NavLink>
+                <NavLink to='/add-service' className=" hover:text-red-500 ">Add Service</NavLink>
+                <NavLink to='/user/services' className=" hover:text-red-500 ">My Services</NavLink>
+                <NavLink to='/user/bookings' className=" hover:text-red-500 ">My Bookings</NavLink>
             </>}
         </div>
-        <div className="hidden md:flex items-center gap-6 text-secondary-content font-medium">
-            <NavLink to='/' className="hover:text-primary transition-colors">Home</NavLink>
-            <NavLink to='/services' className="hover:text-primary transition-colors">Services</NavLink>
+        <div className="hidden md:flex items-center gap-6 text-base-content transition-colors">
+            <NavLink to='/' className="cursor-pointer hover:text-red-500">Home</NavLink>
+            <NavLink to='/services' className="cursor-pointer hover:text-red-500">Services</NavLink>
 
             {user && (
                 <div className="relative">
                     <button
                         onClick={handledashboardToggle}
-                        className="cursor-pointer hover:text-primary transition-colors flex items-center"
+                        className="cursor-pointer hover:text-red-500 flex items-center"
                     >
                         Dashboard {dashboardToggle ? <RxCaretUp /> : <RxCaretDown />}
                     </button>
 
                     {dashboardToggle && (
-                        <ul className="absolute right-0 mt-2 menu p-2 shadow bg-base-100 rounded-box w-52 z-50">
-                            <li><NavLink to='/profile'>Profile</NavLink></li>
-                            <li><NavLink to='/add-service'>Add Service</NavLink></li>
-                            <li><NavLink to='/user/services'>My Services</NavLink></li>
-                            <li><NavLink to='/user/bookings'>My Bookings</NavLink></li>
+                        <ul className="bg-base-300 absolute right-0 mt-2 menu p-2 shadow rounded-box w-52 z-50">
+                            <li><NavLink to='/profile' className="hover:text-red-500 ">Profile</NavLink></li>
+                            <li><NavLink to='/add-service' className="hover:text-red-500">Add Service</NavLink></li>
+                            <li><NavLink to='/user/services' className="hover:text-red-500 ">My Services</NavLink></li>
+                            <li><NavLink to='/user/bookings' className="hover:text-red-500 ">My Bookings</NavLink></li>
                         </ul>
                     )}
                 </div>
@@ -80,41 +83,43 @@ const Navbar = () => {
     return (
         <header className="w-full shadow-md transition-all duration-500 ease-in-out">
             {/* Top bar */}
-            <div className="bg-primary text-primary-content text-sm py-2 text-white">
+            <div className="text-sm py-2 text-white brand-color-bg">
                 <div className="container mx-auto flex justify-between items-center px-4">
                     <p className="font-medium">Welcome to Our Homigo</p>
-                    <div className="flex items-center gap-3 text-white">
+                    <div className="flex items-center gap-3">
                         <span className="hidden sm:inline">Follow Us On:</span>
-                        <FaLinkedinIn className="hover:text-secondary transition-colors hover:scale-110" />
-                        <FaTwitter className="hover:text-secondary transition-colors hover:scale-110" />
-                        <FaYoutube className="hover:text-secondary transition-colors hover:scale-110" />
-                        <FaFacebookF className="hover:text-secondary transition-colors hover:scale-110" />
+                        <FaLinkedinIn className="cursor-pointer hover:text-base-content transition-colors hover:scale-110" />
+                        <FaXTwitter className="cursor-pointer hover:text-base-content transition-colors hover:scale-110" />
+                        <FaYoutube className="cursor-pointer hover:text-base-content transition-colors hover:scale-110" />
+                        <FaFacebookF className="cursor-pointer hover:text-base-content transition-colors hover:scale-110" />
                     </div>
                 </div>
             </div>
 
             {/* Main navbar */}
-            <nav className="bg-base-100 dark:bg-base-200 transition-colors duration-500">
-                <div className="container mx-auto flex justify-between items-center px-4">
+            <nav className="container mx-auto rounded-2xl transition-colors duration-500">
+                <div className="flex justify-between items-center px-4">
                     {/* Logo */}
                     <Link to="/" className="flex items-center gap-2">
                         <img
                             src="https://i.ibb.co/Y4pSn57k/Homigo-logo.png"
                             alt="Homigo Logo"
-                            className="w-24 h-24"
+                            className="w-16 h-16 md:w-20 md:h-20 lg:w-24 lg:h-24"
                         />
-                        <h2 className="text-lg font-bold text-secondary-content dark:text-white">
-                            Homigo
-                        </h2>
+
                     </Link>
 
                     {/* Links */}
-                    <div className="hidden md:flex items-center gap-6 text-secondary-content font-medium">
+                    <div className="hidden md:flex items-center gap-6">
                         {links}
                     </div>
 
                     {/* Right side */}
                     <div className="hidden md:flex items-center gap-4">
+                        <div className="bg-red-400 p-2 lg:p-3 rounded-md flex items-center justify-center">
+
+                            <ThemeToggle />
+                        </div>
                         {user ? (
                             <div
                                 onClick={handleProfileToggle}
@@ -123,30 +128,30 @@ const Navbar = () => {
                                 <img
                                     src={user?.photoURL || "https://i.ibb.co/kgVb18wv/user-icon.jpg"}
                                     alt={user?.displayName}
-                                    className="w-10 h-10 rounded-full border-2 border-primary shadow-md"
+                                    className="w-10 h-10 rounded-full border-2 border-[#ee3131] shadow-md"
                                 />
                             </div>
                         ) : (
                             <Link
                                 to="/auth/login"
-                                className="px-5 py-2 rounded-full font-semibold text-white bg-primary hover:bg-error transition-all duration-500 shadow-md"
+                                className="py-2 px-4 lg:px-5 lg:py-3 rounded-md font-semibold text-white brand-color-bg  transition-all duration-500 shadow-md text-sm md:text-base"
                             >
                                 Login
                             </Link>
                         )}
-                        <ThemeToggle />
+
                     </div>
 
                     {/* Profile dropdown */}
                     {profileToggle && user && (
-                        <div className="text-sm w-64 p-3 bg-base-100 dark:bg-base-200 border border-gray-300 text-base-content rounded-md font-medium absolute top-26 right-4 shadow-lg z-10">
-                            <ul className="flex flex-col gap-2">
+                        <div className="bg-base-300 text-sm sm:text-base md:text-lg w-64 p-3 rounded-md absolute top-26 right-4 shadow-lg z-10 text-base-content transition-colors">
+                            <ul className="flex flex-col gap-2 items-start">
                                 <li className="font-semibold">{user?.displayName}</li>
                                 <li className="text-xs opacity-80">{user?.email}</li>
                                 <li>
                                     <button
                                         onClick={handleLogout}
-                                        className="w-full text-left text-error hover:text-error-content transition-colors"
+                                        className="flex items-center justify-center hover:text-red-500 "
                                     >
                                         <TbLogout className="inline mr-2" /> Logout
                                     </button>
@@ -159,7 +164,7 @@ const Navbar = () => {
                     <div className="block md:hidden">
                         <svg
                             onClick={handleMenuToggle}
-                            className="h-7 w-7 cursor-pointer text-secondary-content hover:text-primary transition-colors"
+                            className="h-7 w-7 cursor-pointer transition-colors"
                             fill="none"
                             stroke="currentColor"
                             strokeWidth="2"
@@ -173,26 +178,26 @@ const Navbar = () => {
 
                     {/* Mobile menu */}
                     {menutoggle && (
-                        <div className="absolute right-0 top-9 w-full py-20 bg-base-100 dark:bg-base-200 text-base flex flex-col md:hidden font-medium bg- text-primary-content z-50 justify-center items-center shadow-lg">
+                        <div className="bg-base-300 absolute right-0 top-9 w-full py-20 flex flex-col md:hidden font-medium  z-50 justify-center items-center shadow-lg transition-all duration-500 ">
                             <button
-                                className="absolute top-6 left-4 text-primary hover:text-error transition-colors"
+                                className="absolute top-6 left-4 transition-colors"
                                 onClick={handleMenuToggle}
                             >
-                                ✕
+                                <IoClose size={24} />
                             </button>
-                            <div className="flex flex-col items-center text-center justify-center gap-4">
+                            <div className="flex flex-col items-start text-left justify-center gap-4">
                                 {links}
                                 {user ? (
                                     <button
                                         onClick={handleLogout}
-                                        className="px-4 py-2 rounded-md bg-primary text-white hover:bg-error-content transition-colors"
+                                        className="flex items-center justify-center hover:text-red-500 "
                                     >
-                                        Logout
+                                        <TbLogout className="inline mr-2" /> <span>Logout</span>
                                     </button>
                                 ) : (
                                     <Link
                                         to="/auth/login"
-                                        className="px-4 py-2 rounded-md bg-primary text-primary hover:bg-error transition-colors"
+                                        className="flex items-center justify-center hover:text-red-500 "
                                     >
                                         Login
                                     </Link>
@@ -202,14 +207,6 @@ const Navbar = () => {
                         </div>
 
                     )}
-
-                    {/* {dashboardToggle && <ul tabIndex={0} className="absolute top-21 z-10 right-43 dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
-                        <li><NavLink to='/profile'>Profile</NavLink></li>
-                        <li><NavLink to='/add-service'>Add Service</NavLink></li>
-                        <li><NavLink to='/user/services'>My Services</NavLink></li>
-                        <li><NavLink to='/user/bookings'>My Bookings</NavLink></li>
-                    </ul>} */}
-
                 </div>
             </nav>
         </header>

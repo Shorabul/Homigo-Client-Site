@@ -1,5 +1,6 @@
-// ThemeToggle.jsx
+
 import { useEffect, useState } from "react";
+import { MdLightMode, MdNightlight } from "react-icons/md";
 
 export default function ThemeToggle() {
     const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
@@ -15,10 +16,21 @@ export default function ThemeToggle() {
     };
 
     return (
-        <input
-            onChange={(e) => handleTheme(e.target.checked)}
-            type="checkbox"
-            defaultChecked={localStorage.getItem('theme') === "dark"}
-            className="toggle" />
+        <label className="swap swap-rotate">
+            <input
+                type="checkbox"
+                defaultChecked={localStorage.getItem("theme") === "dark"}
+                onChange={(e) => handleTheme(e.target.checked)}
+            />
+
+
+            <MdLightMode className="swap-on fill-yellow-400 w-5 h-5"></MdLightMode>
+
+
+
+            <MdNightlight className="swap-off w-5 h-5" />
+
+        </label>
+
     );
 }

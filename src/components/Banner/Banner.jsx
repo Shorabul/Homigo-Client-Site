@@ -6,10 +6,12 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "./Banner.css";
 import { Link } from "react-router";
+import { FaArrowRightLong } from "react-icons/fa6";
 
 
 const Banner = () => {
     const [slides, setSlides] = useState([]);
+
 
     useEffect(() => {
         fetch("https://homigo-server-new.vercel.app/services/banner") // adjust port if needed
@@ -27,16 +29,16 @@ const Banner = () => {
                     // dynamicBullets: true
                 }}
                 autoplay={{
-                    delay: 3000,
+                    delay: 5000,
                     // disableOnInteraction: false
                 }}
                 modules={[Pagination, Autoplay]}
                 className="w-full h-full"
             >
                 {slides.map((slide, i) => (
-                    <SwiperSlide key={i}>
+                    <SwiperSlide key={slide._id}>
                         <div
-                            className="relative h-full w-full bg-cover bg-center"
+                            className="relative h-full w-full bg-cover"
                             style={{ backgroundImage: `url(${slide?.serviceImageURL})` }}
                         >
                             {/* Dark overlay */}
@@ -46,18 +48,21 @@ const Banner = () => {
                             <div className="flex justify-center items-center">
                                 {/* Animated vertical line */}
                                 <Motion.div
+                                    key={i}
                                     initial={{ scaleX: -0 }}
                                     animate={{ scaleX: 1 }}
+
                                     transition={{ duration: 1, ease: "easeInOut", delay: 0.3 }}
-                                    className="absolute top-1/4 w-1/2 h-3 bg-white origin-top z-10"
+                                    className="absolute top-0 right-0 w-1/2 h-3 bg-[#ee3131] origin-top z-10"
                                 />
 
                                 {/* Animated horizontal line */}
                                 <Motion.div
+                                    key={slide._id}
                                     initial={{ scaleX: -0 }}
                                     animate={{ scaleX: 1 }}
                                     transition={{ duration: 1, ease: "easeInOut", delay: 0.3 }}
-                                    className="absolute bottom-1/4 w-1/2 h-3 bg-primary origin-left z-10"
+                                    className="absolute left-0 bottom-0 w-1/2 h-3 brand-color-bg origin-left z-10"
                                 />
                             </div>
 
@@ -70,9 +75,6 @@ const Banner = () => {
                                     transition={{ duration: 1, ease: "easeOut", delay: 0.8 }}
                                     className="text-left text-white px-8"
                                 >
-                                    <p className="text-white font-semibold uppercase tracking-wider mb-2">
-                                        Hello
-                                    </p>
                                     <h1 className="slide-title font-extrabold leading-tight mb-4">
                                         {slide?.serviceName}
                                     </h1>
@@ -80,8 +82,8 @@ const Banner = () => {
                                         {slide?.description}
                                     </p>
                                     <div className="flex items-center gap-4">
-                                        <Link to='/services' className="slide-btn bg-primary text-white rounded-md text-xs md:text-sm font-semibold transition-all duration-300 shadow-lg py-2 px-3 md:px-6 md:py-3">
-                                            OUR SERVICES
+                                        <Link to='/services' className="slide-btn brand-color-bg text-white rounded-md text-xs md:text-sm font-semibold transition-all duration-300 shadow-lg py-2 px-3 md:px-6 md:py-3 flex items-center gap-2">
+                                            <span>OUR SERVICES</span> <FaArrowRightLong />
                                         </Link>
                                         {/* <button className="flex items-center gap-2 border border-primary text-primary transition-all px-6 py-3 rounded-md text-sm font-semibold">
                                             ▶ Watch Our Story

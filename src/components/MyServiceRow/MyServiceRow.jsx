@@ -37,20 +37,23 @@ const MyServiceRow = ({ service, index, handleDelete }) => {
             <td>
                 {providerName}
                 <br />
-                <span className="badge badge-primary badge-sm">{providerEmail}</span>
+                <span className="badge bg-[#ee313180] badge-sm">{providerEmail}</span>
             </td>
-            <td className="text-primary font-semibold">${price}</td>
-            <th className="flex gap-2">
-                <button className="btn btn-primary btn-xs">Details</button>
+            <td className="text-[#ee3131] font-semibold">${price}</td>
+            <th className="flex gap-2 ">
+                <Link
+
+                    to={`/serviceDetails/${_id}`}
+                    className="btn bg-[#ee3131] btn-xs text-white">Details</Link>
                 <Link
                     to={`/update-service/${_id}`}
-                    className="btn btn-primary btn-xs"
+                    className="btn bg-green-500 btn-xs text-white"
                 >
                     Update
                 </Link>
                 <button
                     onClick={() => handleDelete(_id)}
-                    className="btn btn-error btn-xs"
+                    className="btn btn-error btn-xs text-white"
                 >
                     Remove
                 </button>

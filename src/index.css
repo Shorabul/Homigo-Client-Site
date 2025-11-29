@@ -1,27 +1,20 @@
-/* @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap'); */
+/* @import "tailwindcss";
 
-@import "tailwindcss";
-
-@plugin "daisyui" {
-    themes: light --default, dark --prefersdark;
-}
+@plugin "daisyui";
 
 @plugin "daisyui/theme" {
     name: "light";
     default: true;
 
-    /* Brand colors */
     --color-primary: #ee3131;
-    --color-primary-content: #788094;
+    --color-primary-content: #f2f2f2;
 
-    --color-secondary: #101010;
-    --color-secondary-content: #666666;
+    --color-secondary: #212121;
+    --color-secondary-content: #3a3a3a;
 
-    --color-accent: #2563eb;
-    /* blue accent */
+    --color-accent: #fff;
     --color-accent-content: #ffffff;
 
-    /* Neutral + base */
     --color-neutral: #3d4451;
     --color-neutral-content: #ffffff;
 
@@ -30,7 +23,6 @@
     --color-base-300: #e5e6e6;
     --color-base-content: #1f2937;
 
-    /* Status colors */
     --color-info: #3abff8;
     --color-info-content: #ffffff;
 
@@ -47,29 +39,23 @@
 @plugin "daisyui/theme" {
     name: "dark";
 
-    /* Brand colors */
     --color-primary: #ee3131;
-    /* same red */
-    --color-primary-content: #ffffff;
-    /* contrast on dark */
+    --color-primary-content: #1a1a1a;
 
-    --color-secondary: #788094;
-    --color-secondary-content: #e5e7eb;
+    --color-secondary: #ffffff;
+    --color-secondary-content: #dfdfdf;
 
-    --color-accent: #22d3ee;
-    /* cyan accent */
+    --color-accent: #121212;
     --color-accent-content: #1f2937;
 
-    /* Neutral + base */
     --color-neutral: #191d24;
     --color-neutral-content: #a6adbb;
 
-    --color-base-100: #1d232a;
+    --color-base-100: #101010;
     --color-base-200: #191d24;
     --color-base-300: #15191e;
     --color-base-content: #a6adbb;
 
-    /* Status colors */
     --color-info: #0ca5e9;
     --color-info-content: #ffffff;
 
@@ -81,15 +67,29 @@
 
     --color-error: #f43f5e;
     --color-error-content: #ffffff;
-}
+} */
 
+@import "tailwindcss";
+
+@plugin "daisyui" {
+    themes: light --default, dark --prefersdark;
+}
 
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
 nav a.active {
-    @apply text-primary
+    @apply text-[#ee3131];
 }
 
-/* * {
-    font-family: "Lora", serif;
-} */
+.brand-color-bg {
+    @apply bg-[#ee3131];
+}
+
+.brand-color-text {
+    @apply text-[#ee3131];
+}
+
+html,
+body {
+    transition: background-color 0.5s ease, color 0.5s ease;
+}

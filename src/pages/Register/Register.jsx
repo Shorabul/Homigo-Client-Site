@@ -68,8 +68,8 @@ const Register = () => {
                             }),
                         });
 
+                        toast.success('Signup successful');
                         navigate('/');
-                        toast.s('Signup successful');
                     })
                     .catch((error) => {
                         console.error(error);
@@ -180,17 +180,17 @@ const Register = () => {
                     className="md:w-96 w-80 flex flex-col 
                     items-center justify-center">
 
-                    <h2 className="text-4xl text-gray-900 
+                    <h2 className="text-4xl text-base-content 
                     font-medium">Register</h2>
 
-                    <p className="text-sm text-gray-500/90 
+                    <p className="text-sm text-base-content/90 
                     mt-3">Create new account</p>
 
                     {/* google */}
                     <button
                         onClick={handleAuthGoogle}
                         type="button"
-                        className="w-full mt-8 bg-gray-500/10 
+                        className="w-full mt-8 bg-base-content/10 
                         flex items-center justify-center h-12 
                         rounded-full">
 
@@ -205,61 +205,61 @@ const Register = () => {
                         w-full my-5">
 
                         <div
-                            className="w-full h-px bg-gray-300/90">
+                            className="w-full h-px bg-base-content/90">
                         </div>
 
                         <p className="w-full text-nowrap text-sm
-                        text-gray-500/90">
+                        text-base-content/90">
                             or sign up with email
                         </p>
 
                         <div
                             className="w-full h-px
-                            bg-gray-300/90">
+                            bg-base-content/90">
                         </div>
                     </div>
 
                     <div
                         className="flex items-center w-full h-12
-                    bg-transparent border border-gray-300/60 
+                    bg-transparent border border-base-content/60 
                     rounded-full overflow-hidden pl-6 gap-2">
                         <input
                             type="text"
                             name="name"
                             placeholder="Name"
                             className="bg-transparent 
-                            text-gray-500/80
-                        placeholder-gray-500/80 
+                            text-base-content/80
+                        placeholder-base-content/80 
                         outline-none text-sm w-full 
                         h-full" required />
                     </div>
 
                     <div
                         className="flex items-center w-full h-12
-                    bg-transparent border border-gray-300/60 
+                    bg-transparent border border-base-content/60 
                     rounded-full overflow-hidden pl-6 gap-2 mt-6">
                         <input
                             type="url"
                             name="photoURL"
                             placeholder="Photo URL"
                             className="bg-transparent 
-                            text-gray-500/80
-                        placeholder-gray-500/80 
+                            text-base-content/80
+                        placeholder-base-content/80 
                         outline-none text-sm w-full 
                         h-full" required />
                     </div>
 
                     <div
                         className="flex items-center w-full h-12
-                    bg-transparent border border-gray-300/60 
+                    bg-transparent border border-base-content/60 
                     rounded-full overflow-hidden pl-6 gap-2 mt-6">
                         <input
                             type="email"
                             name="email"
                             placeholder="Email"
                             className="bg-transparent 
-                            text-gray-500/80
-                        placeholder-gray-500/80 
+                            text-base-content/80
+                        placeholder-base-content/80 
                         outline-none text-sm w-full 
                         h-full" required />
                     </div>
@@ -269,7 +269,7 @@ const Register = () => {
                     items-center 
                     mt-6 w-full 
                     bg-transparent border
-                    border-gray-300/60 
+                    border-base-content/60 
                     h-12 rounded-full 
                     overflow-hidden pl-6 gap-2 
                     relative">
@@ -279,8 +279,8 @@ const Register = () => {
                             name="password"
                             placeholder="Password"
                             className="bg-transparent
-                        text-gray-500/80
-                        placeholder-gray-500/80
+                        text-base-content/80
+                        placeholder-base-content/80
                         outline-none text-sm w-full 
                         h-full" required
                         />
@@ -310,7 +310,7 @@ const Register = () => {
                     items-center 
                     mt-6 w-full 
                     bg-transparent border
-                    border-gray-300/60 
+                    border-base-content/60 
                     h-12 rounded-full 
                     overflow-hidden pl-6 gap-2 
                     relative">
@@ -320,8 +320,8 @@ const Register = () => {
                             name="confirmPassword"
                             placeholder="Confirm Password"
                             className="bg-transparent
-                        text-gray-500/80
-                        placeholder-gray-500/80
+                        text-base-content/80
+                        placeholder-base-content/80
                         outline-none text-sm w-full 
                         h-full" required
                         />
@@ -355,18 +355,17 @@ const Register = () => {
                     <button
                         type="submit"
                         className="mt-8 w-full h-11 rounded-full
-                         text-white bg-linear-to-r from-primary
-                          to-secondary hover:opacity-90 
-                          transition-opacity">
+                         text-white bg-[#ee3131] hover:opacity-90 
+                          transition-opacity font-semibold">
                         Register
                     </button>
                     <p
-                        className="text-gray-500/90 text-sm 
+                        className="text-base-content/90 text-sm 
                     mt-4">Already have an account?
                         <Link
                             to='/auth/login'
-                            className="text-indigo-400 
-                        hover:underline">Log In</Link>
+                            className="text-info
+                        hover:underline"> Log In</Link>
                     </p>
                 </form>
             </div>

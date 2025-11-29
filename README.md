@@ -4,7 +4,8 @@ Homigo is a modern web application that connects users with trusted local servic
 
 ---
 
-## 🌐 Live: Site https://clinquant-cucurucho-5c7604.netlify.app/
+## 🌐 Live: Site https://homi-go.netlify.app/
+
 ---
 
 ## ✨ Key Features

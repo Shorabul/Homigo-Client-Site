@@ -135,8 +135,8 @@ const MyBookings = () => {
             text: "You won't be able to revert this!",
             icon: "warning",
             showCancelButton: true,
-            confirmButtonColor: "#2563eb", // brand primary
-            cancelButtonColor: "#d33",
+            confirmButtonColor: "#ee3131", // brand primary
+            cancelButtonColor: "#666666",
             confirmButtonText: "Yes, delete it!",
         }).then((result) => {
             if (result.isConfirmed) {
@@ -166,8 +166,10 @@ const MyBookings = () => {
     if (loading) {
         return (
             <div className="flex justify-center items-center h-64">
-                <span className="loading loading-spinner text-primary"></span>
-                <p className="ml-3 text-primary font-medium">Loading bookings...</p>
+
+                <span className="loading loading-spinner text-[#ee3131]"></span>
+
+                <p className="ml-3 text-[#ee3131] font-medium">Loading bookings...</p>
             </div>
         );
     }
@@ -179,11 +181,11 @@ const MyBookings = () => {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6 }}
         >
-            <h1 className="text-center text-3xl font-bold text-primary mb-6">
+            <h1 className="text-center text-3xl font-bold text-[#ee3131] mb-6">
                 My Bookings
             </h1>
             <table className="table table-zebra w-full">
-                <thead className="bg-primary text-white">
+                <thead className="brand-color-bg text-white">
                     <tr>
                         <th>SL No.</th>
                         <th>Service</th>

@@ -57,11 +57,14 @@
 import React, { useState, useEffect, useContext } from "react";
 import { motion as Motion } from "framer-motion";
 import { AuthContext } from "../../contexts/AuthContext";
+import { Link } from "react-router";
 
 const MyBookingsRow = ({ booking, index, handleDelete }) => {
-    const { _id, userEmail, serviceId, bookingDate, price } = booking;
+    const { _id, userEmail, serviceId, bookingDate, price, } = booking;
+    console.log(booking);
     const [service, setService] = useState(null);
     const { user } = useContext(AuthContext);
+    const [loading, setLoading] = useState(true);
     useEffect(() => {
         fetch(`https://homigo-server-new.vercel.app/services/${serviceId}`, {
             headers: {
@@ -70,9 +73,24 @@ const MyBookingsRow = ({ booking, index, handleDelete }) => {
             }
         })
             .then((res) => res.json())
-            .then((data) => setService(data))
-            .catch((err) => console.error("Error loading service details:", err));
+            .then((data) => {
+                setService(data);
+                setLoading(false);
+            })
+            .catch((err) => {
+                console.error("Error loading service details:", err);
+                setLoading(false);
+            });
     }, [serviceId, user.accessToken]);
+
+    if (loading) {
+        return (
+            <section className="text-[#ee3131] text-center">
+                <span className="loading loading-spinner loading-xltext-[#ee3131]"></span>
+                <p className="ml-3 text-[#ee3131] font-medium">Loading Booking...</p>
+            </section>
+        );
+    }
     return (
         <Motion.tr
             initial={{ opacity: 0, y: 15 }}
@@ -97,14 +115,17 @@ const MyBookingsRow = ({ booking, index, handleDelete }) => {
             <td>
                 {userEmail}
                 <br />
-                <span className="badge badge-primary badge-sm">{bookingDate}</span>
+                <span className="badge bg-[#ee313180] badge-sm">{bookingDate}</span>
             </td>
-            <td className="text-primary font-semibold">${price}</td>
+            <td className="text-[#ee3131] font-semibold">${price}</td>
             <th className="flex gap-2">
-                <button className="btn btn-primary btn-xs">Details</button>
+                <Link
+
+                    to={`/serviceDetails/${serviceId}`}
+                    className="btn bg-[#ee3131] btn-xs text-white">Details</Link>
                 <button
                     onClick={() => handleDelete(_id)}
-                    className="btn btn-error btn-xs"
+                    className="btn btn-error btn-xs text-white"
                 >
                     Delete
                 </button>
