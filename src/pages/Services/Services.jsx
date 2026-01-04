@@ -1,20 +1,24 @@
-import React, { useEffect, useState } from 'react';
-import ServiceCard from '../../components/ServiceCard/ServiceCard';
-import { motion as Motion } from "framer-motion";
-import { RxCaretDown, RxCaretUp } from "react-icons/rx";
+import React, { useState, useEffect } from 'react';
+import { motion as Motion } from 'framer-motion';
+import ServiceCard, { ServiceCardSkeleton } from '../../components/ServiceCard/ServiceCard';
+import { FaSearch, FaFilter } from 'react-icons/fa';
 
 const Services = () => {
     const [services, setServices] = useState([]);
-    const [filteredServices, setFilteredServices] = useState([]);
-    const [selectedCategory, setSelectedCategory] = useState("All");
-    const [sortOrder, setSortOrder] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [searchTerm, setSearchTerm] = useState('');
+    const [selectedCategory, setSelectedCategory] = useState('all');
+    const [priceRange, setPriceRange] = useState([0, 500]);
+    const [sortBy, setSortBy] = useState('newest');
+    const itemsPerPage = 12;
+
     useEffect(() => {
+        setLoading(true);
         fetch("https://homigo-server-new.vercel.app/services")
             .then((res) => res.json())
             .then((data) => {
                 setServices(data);
-                setFilteredServices(data);
                 setLoading(false);
             })
             .catch((err) => {
@@ -24,146 +28,216 @@ const Services = () => {
     }, []);
 
 
-    const categories = ["All", ...new Set(services.map(s => s.category || "Other"))];
+    const filteredServices = services.filter(service => {
+        const matchesSearch = service.serviceName.toLowerCase().includes(searchTerm.toLowerCase());
+        const matchesCategory = selectedCategory === 'all' || service.category === selectedCategory;
+        const matchesPrice = service.price >= priceRange[0] && service.price <= priceRange[1];
+        return matchesSearch && matchesCategory && matchesPrice;
+    });
 
-
-    const handleCategoryFilter = (category) => {
-        setSelectedCategory(category);
-        if (category === "All") {
-            setFilteredServices(services);
-        } else {
-            setFilteredServices(services.filter(s => s.category === category));
+    const sortedServices = [...filteredServices].sort((a, b) => {
+        switch (sortBy) {
+            case 'price-low':
+                return a.price - b.price;
+            case 'price-high':
+                return b.price - a.price;
+            case 'rating':
+                return (b.rating || 0) - (a.rating || 0);
+            default:
+                return 0;
         }
-    };
+    });
 
-    const handleSortByPrice = () => {
-        const newOrder = sortOrder === "asc" ? "desc" : "asc";
-        setSortOrder(newOrder);
+    const paginatedServices = sortedServices.slice(
+        (currentPage - 1) * itemsPerPage,
+        currentPage * itemsPerPage
+    );
 
-        const sorted = [...filteredServices].sort((a, b) => {
-            const priceA = Number(a.price);
-            const priceB = Number(b.price);
-            return newOrder === "asc" ? priceA - priceB : priceB - priceA;
-        });
-
-        setFilteredServices(sorted);
-    };
-
+    const totalPages = Math.ceil(sortedServices.length / itemsPerPage);
 
     return (
-        <>
-            {
-                loading ? <div className="flex justify-center items-center h-64">
+        <main className="min-h-screen bg-base-100 py-8">
+            <div className="container mx-auto px-4">
+                {/* Header */}
+                <Motion.div
+                    initial={{ opacity: 0, y: -20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="mb-12"
+                >
+                    <h1 className="text-4xl font-bold mb-2">Our Services</h1>
+                    <p className="text-base-content/70">Find the perfect service provider for your needs</p>
+                </Motion.div>
 
-                    <span className="loading loading-spinner text-[#ee3131]"></span>
+                <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+                    {/* Sidebar Filters */}
+                    <Motion.div
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        className="lg:col-span-1"
+                    >
+                        <div className="bg-base-200 p-6 rounded-xl sticky top-20">
+                            <h2 className="font-bold text-lg mb-4 flex items-center gap-2">
+                                <FaFilter /> Filters
+                            </h2>
 
-                    <p className="ml-3 text-[#ee3131] font-medium">Loading Services...</p>
-                </div> : <div>
-                    {/* Hero Section */}
-                    <div className="relative h-56 sm:h-66 md:h-76 lg:h-86 xl:h-96 w-full opacity-90">
-                        <img src="https://images.unsplash.com/photo-1520372561567-bac27b0e5fa1?q=80&w=2784&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="example" className="w-full h-full object-cover" />
-                        <div className="absolute inset-0 bg-black/60">
-                        </div>
-                        <div className="absolute text-white top-1/3 left-1/5 font-bold">
-                            <Motion.p
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.7 }}
-                                className='text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl'
-                            >
-                                Our Services
-                            </Motion.p>
+                            {/* Search */}
+                            <div className="mb-6">
+                                <label className="font-semibold text-sm mb-2 block">Search</label>
+                                <input
+                                    type="text"
+                                    placeholder="Service name..."
+                                    value={searchTerm}
+                                    onChange={(e) => {
+                                        setSearchTerm(e.target.value);
+                                        setCurrentPage(1);
+                                    }}
+                                    className="input input-bordered w-full"
+                                />
+                            </div>
 
-                            <Motion.p
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 1 }}
-                                className='text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl'
-                            >
-                                All By Category
-                            </Motion.p>
-                            <Motion.p
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 1 }}
-                                className='text-xs sm:text-sm md:text-base mt-3 opacity-90'
-                            >
-                                Choose the service you need from our curated list.
-                            </Motion.p>
-                        </div>
-                    </div>
+                            {/* Category */}
+                            <div className="mb-6">
+                                <label className="font-semibold text-sm mb-2 block">Category</label>
+                                <select
+                                    value={selectedCategory}
+                                    onChange={(e) => {
+                                        setSelectedCategory(e.target.value);
+                                        setCurrentPage(1);
+                                    }}
+                                    className="select select-bordered w-full"
+                                >
+                                    <option value="all">All</option>
+                                    {services
+                                        .map(s => s.category)
+                                        .filter(Boolean)
+                                        .filter((v, i, a) => a.indexOf(v) === i)
+                                        .map(cat => (
+                                            <option key={cat} value={cat}>
+                                                {cat}
+                                            </option>
+                                        ))}
+                                </select>
+                            </div>
 
-                    {/* Filters */}
-                    <div className="container mx-auto mt-10 px-4 flex flex-wrap gap-4 items-center">
-                        {/* Category Select */}
-                        {/* <div className="hidden md:flex justify-center items-center gap-2">
-                    {categories.map((cat) => (
-                        <button
-                            key={cat}
-                            onClick={() => handleCategoryFilter(cat)}
-                            className={`px-4 py-2 rounded-lg border transition duration-200
-                                ${selectedCategory === cat
-                                    ? "bg-primary text-white border-primary"
-                                    : "bg-white text-gray-700 border-gray-300 hover:border-primary"}`}
-                        >
-                            {cat}
-                        </button>
-                    ))}
-                </div> */}
+                            {/* Price Range */}
+                            <div className="mb-6">
+                                <label className="font-semibold text-sm mb-2 block">Price Range</label>
+                                <div className="flex gap-2 mb-3">
+                                    <input
+                                        type="number"
+                                        min="0"
+                                        value={priceRange[0]}
+                                        onChange={(e) => {
+                                            setPriceRange([parseInt(e.target.value), priceRange[1]]);
+                                            setCurrentPage(1);
+                                        }}
+                                        className="input input-bordered input-sm w-1/2"
+                                    />
+                                    <input
+                                        type="number"
+                                        max="1000"
+                                        value={priceRange[1]}
+                                        onChange={(e) => {
+                                            setPriceRange([priceRange[0], parseInt(e.target.value)]);
+                                            setCurrentPage(1);
+                                        }}
+                                        className="input input-bordered input-sm w-1/2"
+                                    />
+                                </div>
+                                <input
+                                    type="range"
+                                    min="0"
+                                    max="500"
+                                    value={priceRange[1]}
+                                    onChange={(e) => {
+                                        setPriceRange([priceRange[0], parseInt(e.target.value)]);
+                                        setCurrentPage(1);
+                                    }}
+                                    className="range range-sm w-full"
+                                />
+                            </div>
 
-                        <div className="">
-                            <select
-                                id="category"
-                                value={selectedCategory}
-                                onChange={(e) => handleCategoryFilter(e.target.value)}
-                                className="select select-error cursor-pointer appearance-none border border-neutral-content bg-base-300 rounded-md transition-all duration-200"
-                            >
-                                {categories.map((cat) => (
-                                    <option key={cat} value={cat}>
-                                        {cat}
-                                    </option>
-                                ))}
-                            </select>
-                            {/* <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none">
-                        ▼
-                    </span> */}
-                        </div>
+                            {/* Sort */}
+                            <div className="mb-6">
+                                <label className="font-semibold text-sm mb-2 block">Sort By</label>
+                                <select
+                                    value={sortBy}
+                                    onChange={(e) => setSortBy(e.target.value)}
+                                    className="select select-bordered w-full"
+                                >
+                                    <option value="newest">Newest</option>
+                                    <option value="price-low">Price: Low to High</option>
+                                    <option value="price-high">Price: High to Low</option>
+                                    <option value="rating">Highest Rating</option>
+                                </select>
+                            </div>
 
-
-                        {/* Sort Button */}
-                        <div className="ml-auto">
                             <button
-                                onClick={handleSortByPrice}
-                                className="cursor-pointer px-4 py-2 rounded-md brand-color-bg text-white transition"
+                                onClick={() => {
+                                    setSearchTerm('');
+                                    setSelectedCategory('all');
+                                    setPriceRange([0, 500]);
+                                    setSortBy('newest');
+                                    setCurrentPage(1);
+                                }}
+                                className="btn btn-outline btn-error btn-block"
                             >
-                                Sort by Price {sortOrder === "asc" ? "↑" : sortOrder === "desc" ? "↓" : ""}
+                                Reset Filters
                             </button>
                         </div>
-                    </div>
-                    {/* Services List */}
-                    <div className="container mx-auto mt-10 px-4">
-                        {/* <h1 className="text-4xl font-bold text-center text-primary mb-10">
-                    Our Services
-                </h1> */}
+                    </Motion.div>
 
-                        {filteredServices.length === 0 ? (
-                            <p className="text-center text-base-content">No services found.</p>
-                        ) : (
+                    {/* Services Grid */}
+                    <div className="lg:col-span-3">
+                        {/* Results Info */}
+                        <div className="mb-6 flex justify-between items-center">
+                            <p className="text-base-content/70">
+                                Showing {paginatedServices.length === 0 ? '0' : (currentPage - 1) * itemsPerPage + 1}-{Math.min(currentPage * itemsPerPage, sortedServices.length)} of {sortedServices.length} results
+                            </p>
+                        </div>
+
+                        {/* Services Grid */}
+                        {loading ? (
+                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                                {[...Array(6)].map((_, i) => <ServiceCardSkeleton key={i} />)}
+                            </div>
+                        ) : paginatedServices.length > 0 ? (
                             <Motion.div
-                                initial={{ opacity: 0, y: 30 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.4 }}
-                                className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8"
                             >
-                                {filteredServices.map((service) => (
+                                {paginatedServices.map((service) => (
                                     <ServiceCard key={service._id} service={service} />
                                 ))}
                             </Motion.div>
+                        ) : (
+                            <div className="text-center py-12 bg-base-200 rounded-xl">
+                                <p className="text-lg text-base-content/70">No services found matching your criteria</p>
+                            </div>
+                        )}
+
+                        {/* Pagination */}
+                        {totalPages > 1 && (
+                            <div className="flex justify-center gap-2 flex-wrap">
+                                {[...Array(totalPages)].map((_, i) => (
+                                    <button
+                                        key={i + 1}
+                                        onClick={() => setCurrentPage(i + 1)}
+                                        className={`btn btn-sm ${currentPage === i + 1
+                                            ? 'btn-error'
+                                            : 'btn-ghost'
+                                            }`}
+                                    >
+                                        {i + 1}
+                                    </button>
+                                ))}
+                            </div>
                         )}
                     </div>
                 </div>
-            }
-        </>
+            </div>
+        </main>
     );
 };
 
