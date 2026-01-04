@@ -96,13 +96,13 @@ const Overview = () => {
     );
 
     return (
-        <div className="space-y-8">
+        <div className="space-y-8 container mx-auto">
             {/* Page Header */}
             <Motion.div
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
             >
-                <h1 className="text-4xl font-bold text-base-content">Dashboard Overview</h1>
+                <h1 className="text-3xl font-bold text-base-content">Dashboard Overview</h1>
                 <p className="text-base-content/70 mt-2">Welcome back, {user?.displayName}!</p>
             </Motion.div>
 

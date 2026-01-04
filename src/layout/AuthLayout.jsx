@@ -18,7 +18,7 @@ const AuthLayout = () => {
         <div className='min-h-screen relative flex justify-center items-center'>
             {/* name and logo */}
             {(navigation.state === "loading" || showLoader) && <PageLoader />}
-            <div className="flex items-center gap-3 absolute top-5 left-5">
+            <div className="absolute top-5 left-10">
                 <Link to='/'>
                     <img className='w-20 h-20 rounded-lg' src="https://i.ibb.co/Y4pSn57k/Homigo-logo.png" alt="Homigo Logo"
                     />

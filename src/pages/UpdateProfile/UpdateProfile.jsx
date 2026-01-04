@@ -33,7 +33,7 @@ const UpdateProfile = () => {
                 <div className="flex items-center justify-between">
                     <Link
                         to="/profile"
-                        className="flex items-center gap-2 text-[#ee3131] hover:text-[#ee3131] transition-colors font-medium"
+                        className="flex items-center gap-2 text-red-500 hover:text-red-500 transition-colors font-medium"
                     >
                         <FaArrowLeft /> Back to Profile
                     </Link>
@@ -41,8 +41,8 @@ const UpdateProfile = () => {
 
                 {/* Header */}
                 <div className="text-center space-y-3">
-                    <FaUserCircle className="text-5xl text-[#ee3131] mx-auto" />
-                    <h2 className="text-xl md:text-2xl font-bold text-[#ee3131]">
+                    <FaUserCircle className="text-5xl text-red-500 mx-auto" />
+                    <h2 className="text-xl md:text-2xl font-bold text-red-500">
                         Update Your <span className='text-base-content'>Profile</span>
                     </h2>
                     <p className="base-content text-sm">
@@ -87,7 +87,7 @@ const UpdateProfile = () => {
                             <img
                                 src={photoURL}
                                 alt="Preview"
-                                className="w-28 h-28 rounded-full object-cover border-4 border-[#ee3131] mt-3 shadow-md"
+                                className="w-28 h-28 rounded-full object-cover border-4 border-red-500 mt-3 shadow-md"
                             />
                         </div>
                     )}
@@ -95,7 +95,7 @@ const UpdateProfile = () => {
                     {/* Submit */}
                     <button
                         type="submit"
-                        className="w-full bg-[#ee3131] text-white font-semibold px-5 py-2.5 rounded-lg transition-all duration-200 hover:bg-[#ee3131]/80 hover:scale-[1.02] shadow-md"
+                        className="w-full bg-red-500 text-white font-semibold px-5 py-2.5 rounded-lg transition-all duration-200 hover:bg-red-500/80 hover:scale-[1.02] shadow-md"
                     >
                         Save Changes
                     </button>

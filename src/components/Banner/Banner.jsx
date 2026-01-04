@@ -11,13 +11,41 @@ import { FaArrowRightLong } from "react-icons/fa6";
 
 const Banner = () => {
     const [slides, setSlides] = useState([]);
+    const [loading, setLoading] = useState(true);
 
 
     useEffect(() => {
-        fetch("https://homigo-server-new.vercel.app/services/banner") // adjust port if needed
+        fetch("https://homigo-server-new.vercel.app/services/banner")
             .then((res) => res.json())
-            .then((data) => setSlides(data));
+            .then((data) => {
+                setSlides(data);
+                setLoading(false);
+            });
     }, []);
+
+    if (loading) {
+        return (
+            <div className="relative w-full h-[90vh] bg-base-200 animate-pulse flex justify-center items-center">
+                <div className="w-full h-full relative">
+                    {/* Background skeleton */}
+                    <div className="absolute inset-0 bg-base-300"></div>
+
+                    {/* Dark overlay */}
+                    <div className="absolute inset-0 bg-black/40"></div>
+
+                    {/* Content skeleton */}
+                    <div className="absolute inset-0 flex flex-col justify-center items-start px-10 gap-4">
+                        <div className="h-10 w-2/3 bg-base-100/40 rounded"></div>
+                        <div className="h-4 w-1/2 bg-base-100/30 rounded"></div>
+                        <div className="h-4 w-1/3 bg-base-100/20 rounded"></div>
+
+                        <div className="mt-6 h-10 w-40 bg-base-200 rounded"></div>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
     return (
         <div className="relative w-full h-[90vh] overflow-hidden flex justify-center">
             <Swiper

@@ -56,8 +56,40 @@ const Services = () => {
     const totalPages = Math.ceil(sortedServices.length / itemsPerPage);
 
     return (
-        <main className="min-h-screen bg-base-100 py-8">
-            <div className="container mx-auto px-4">
+        <main className="min-h-screen bg-base-100">
+            <div className="relative h-56 sm:h-66 md:h-76 lg:h-86 xl:h-96 w-full opacity-90">
+                <img src="https://images.unsplash.com/photo-1520372561567-bac27b0e5fa1?q=80&w=2784&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="example" className="w-full h-full object-cover" />
+                <div className="absolute inset-0 bg-black/60">
+                </div>
+                {/* <div className="absolute text-white top-1/3 left-1/5 font-bold">
+                    <Motion.p
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.7 }}
+                        className='text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl'
+                    >
+                        Our Services
+                    </Motion.p>
+
+                    <Motion.p
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 1 }}
+                        className='text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl'
+                    >
+                        All By Category
+                    </Motion.p>
+                    <Motion.p
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 1 }}
+                        className='text-xs sm:text-sm md:text-base mt-3 opacity-90'
+                    >
+                        Choose the service you need from our curated list.
+                    </Motion.p>
+                </div> */}
+            </div>
+            <div className="container mx-auto px-4 py-8">
                 {/* Header */}
                 <Motion.div
                     initial={{ opacity: 0, y: -20 }}
@@ -75,7 +107,7 @@ const Services = () => {
                         animate={{ opacity: 1, x: 0 }}
                         className="lg:col-span-1"
                     >
-                        <div className="bg-base-200 p-6 rounded-xl sticky top-20">
+                        <div className="bg-base-200 p-6 rounded-xl sticky top-40">
                             <h2 className="font-bold text-lg mb-4 flex items-center gap-2">
                                 <FaFilter /> Filters
                             </h2>
@@ -180,7 +212,7 @@ const Services = () => {
                                     setSortBy('newest');
                                     setCurrentPage(1);
                                 }}
-                                className="btn btn-outline btn-error btn-block"
+                                className="btn text-red-500 border-red-500 hover:bg-red-500 hover:text-white btn-block"
                             >
                                 Reset Filters
                             </button>

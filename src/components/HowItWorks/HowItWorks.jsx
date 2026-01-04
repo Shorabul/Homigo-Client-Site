@@ -22,7 +22,7 @@ const steps = [
 
 const HowItWorks = () => {
     return (
-        <section className="py-16 px-4 md:px-8 text-[#ee3131] container mx-auto">
+        <section className="py-16 px-4 text-[#ee3131] container mx-auto">
             <div className="text-center mb-12">
                 <p
                     className="text-sm sm:text-base md:text-lg font-semibold text-[#ee3131] mb-3 inline-table border-b-2 pb-0.5"

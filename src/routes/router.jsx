@@ -14,11 +14,21 @@ import PrivateRoute from "./PrivateRoute";
 import UpdateService from "../pages/UpdateService/UpdateService";
 import Error from "../pages/Error/Error";
 import UpdateProfile from "../pages/UpdateProfile/UpdateProfile";
+import About from "../pages/About/About";
+import AuthGate from "../layout/AuthGate";
+import DashboardLayout from "../layout/DashboardLayout";
+import Overview from "../pages/Overview/Overview";
+import CreateBlog from "../pages/CreateBlog/CreateBlog";
+import Blog from "../pages/Blog/Blog";
+import BlogDetails from "../pages/BlogDetails/BlogDetails";
+import ContactUs from "../pages/ContactUs/ContactUs";
 
 export const router = createBrowserRouter([
     {
         path: '/',
-        element: <MainLayout></MainLayout>,
+        element: (<AuthGate>
+            <MainLayout></MainLayout>
+        </AuthGate>),
         errorElement: <Error></Error>,
         children: [
             {
@@ -30,44 +40,79 @@ export const router = createBrowserRouter([
                 element: <Services></Services>,
             },
             {
-                path: '/profile',
+                path: '/about',
+                element: <About></About>,
+            },
+            {
+                path: '/serviceDetails/:id',
+                element: <ServiceDetails></ServiceDetails>
+            },
+            {
+                path: '/blogs',
+                element: <Blog></Blog>
+            },
+            {
+                path: '/blog/:id',
+                element: <BlogDetails></BlogDetails>
+            },
+            {
+                path: '/contact-us',
+                element: <ContactUs></ContactUs>
+            }
+
+        ]
+    },
+    {
+        path: '/dashboard',
+        element: (<PrivateRoute>
+            <DashboardLayout></DashboardLayout>
+        </PrivateRoute>),
+        children: [
+            {
+                path: '/dashboard/overview',
+                element: (<PrivateRoute>
+                    <Overview></Overview>
+                </PrivateRoute>)
+            },
+            {
+                path: '/dashboard/profile',
                 element: (<PrivateRoute>
                     <Profile></Profile>
                 </PrivateRoute>)
             },
             {
-                path: '/add-service',
-                element: (<PrivateRoute>
-                    <AddService></AddService>
-                </PrivateRoute>)
-            },
-            {
-                path: '/user/services',
-                element: (<PrivateRoute>
-                    <MyServices></MyServices>
-                </PrivateRoute>)
-            },
-            {
-                path: '/user/bookings',
+                path: '/dashboard/user/bookings',
                 element: (<PrivateRoute>
                     <MyBookings></MyBookings>
                 </PrivateRoute>)
             },
             {
-                path: '/serviceDetails/:id',
-                element: (<PrivateRoute>
-                    <ServiceDetails></ServiceDetails>
-                </PrivateRoute>)
-            }, {
-                path: '/update-service/:id',
+                path: '/dashboard/update-service/:id',
                 element: (<PrivateRoute>
                     <UpdateService></UpdateService>
                 </PrivateRoute>)
-            }
-
+            },
+            {
+                path: '/dashboard/add-service',
+                element: (<PrivateRoute>
+                    <AddService></AddService>
+                </PrivateRoute>)
+            },
+            {
+                path: '/dashboard/user/services',
+                element: (<PrivateRoute>
+                    <MyServices></MyServices>
+                </PrivateRoute>)
+            },
+            {
+                path: '/dashboard/create-blog',
+                element: (<PrivateRoute>
+                    <CreateBlog></CreateBlog>
+                </PrivateRoute>)
+            },
         ]
-    }
-    , {
+    },
+    {
         path: '/auth',
         element: <AuthLayout></AuthLayout>,
         errorElement: <Error></Error>,
@@ -81,7 +126,8 @@ export const router = createBrowserRouter([
                 element: <Register></Register>
             }
         ]
-    }, {
+    },
+    {
         path: '/update-profile',
         element: <PrivateRoute>
             <UpdateProfile></UpdateProfile>

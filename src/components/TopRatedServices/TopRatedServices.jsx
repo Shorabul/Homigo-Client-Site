@@ -23,24 +23,24 @@ const TopRatedServices = () => {
 
     return (
         <>
-            {loading ? <div className="flex justify-center items-center h-64">
+            {loading ? <div className="flex justify-center items-center h-64 w-full">
 
-                <span className="loading loading-spinner text-[#ee3131]"></span>
+                <span className="loading loading-spinner text-red-500"></span>
 
-                <p className="ml-3 text-[#ee3131] font-medium">Loading Top Rated Services...</p>
+                <p className="ml-3 text-red-500 font-medium">Loading Top Rated Services...</p>
             </div>
-                : <section className="text-white py-20 overflow-hidden">
-                    <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center">
+                : <section className="text-white py-20 w-full">
+                    <div className="container mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center">
                         {/* Left Text Block */}
                         <div>
-                            <p className="text-sm sm:text-base md:text-lg font-semibold text-[#ee3131] mb-3 inline-table border-b-2 pb-0.5">
+                            <p className="text-sm sm:text-base md:text-lg font-semibold text-red-500 mb-3 inline-table border-b-2 pb-0.5">
                                 <span className="flex items-center">
                                     <HiOutlineLightBulb className="size-4 sm:size-5 md:size-6" />
                                     <span>OUR TOP RATED SERVICES</span>
                                 </span>
                             </p>
                             <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-6 leading-snug text-base-content">
-                                Highest <span className="text-[#ee3131]">rated</span> company
+                                Highest <span className="text-red-500">rated</span> services
                             </h2>
                             <p className="text-base-content text-xs md:text-sm lg:text-base leading-relaxed lg:mb-30">
                                 All-rounder Zurich is the leading premier Handyman Service in Switzerland.

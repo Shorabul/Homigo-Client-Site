@@ -4,6 +4,7 @@ import TopRatedServices from '../../components/TopRatedServices/TopRatedServices
 import WhyChooseUs from '../../components/WhyChooseUs/WhyChooseUs';
 import CustomersReview from '../../components/CustomersReview/CustomersReview';
 import HowItWorks from '../../components/HowItWorks/HowItWorks';
+import FAQ from '../../components/FAQ/FAQ';
 
 const Home = () => {
     return (
@@ -13,6 +14,7 @@ const Home = () => {
             <WhyChooseUs></WhyChooseUs>
             <CustomersReview></CustomersReview>
             <HowItWorks></HowItWorks>
+            <FAQ></FAQ>
         </div>
     );
 };

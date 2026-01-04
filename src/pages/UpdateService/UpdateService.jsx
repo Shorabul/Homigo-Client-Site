@@ -73,18 +73,18 @@ const UpdateService = () => {
             });
     };
 
-    if (!service) return <div className="w-full h-[50%] flex justify-center items-center "><span className="loading loading-spinner text-[#ee3131]"></span></div>
+    if (!service) return <div className="w-full h-[50%] flex justify-center items-center "><span className="loading loading-spinner text-red-500"></span></div>
         ;
 
     return (<>
         <Motion.div
-            className="min-h-screen bg-gradient-to-br from-base-100 to-base-200 py-12 px-4"
+            className="container mx-auto"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6 }}
         >
             <Motion.div
-                className="max-w-5xl mx-auto rounded-2xl shadow-xl overflow-hidden"
+                className="rounded-xl shadow-sm overflow-hidden"
                 initial={{ y: 30, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ duration: 0.6, ease: "easeOut" }}
@@ -97,10 +97,10 @@ const UpdateService = () => {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.3 }}
                     >
-                        <div className="bg-[#ee313120] text-[#ee3131] p-3 rounded-full">
+                        {/* <div className="bg-[#ee313120] text-red-500 p-3 rounded-full">
                             <GrUpdate size={24} />
-                        </div>
-                        <h2 className="text-3xl font-bold text-[#ee3131]">Update Service</h2>
+                        </div> */}
+                        <h2 className="text-3xl font-bold text-red-500">Update Service</h2>
                     </Motion.div>
 
                     {/* Form */}
@@ -121,7 +121,7 @@ const UpdateService = () => {
                                     name="serviceName"
                                     defaultValue={service.serviceName}
                                     placeholder="Enter your service name"
-                                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-[#ee3131]focus:border-[#ee3131] transition"
+                                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-red-500focus:border-red-500 transition"
                                     required
                                 />
                             </div>
@@ -134,7 +134,7 @@ const UpdateService = () => {
                                     type="text"
                                     name="category"
                                     value={service.category}
-                                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-[#ee3131]focus:border-[#ee3131] transition"
+                                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-red-500focus:border-red-500 transition"
                                     readOnly
                                 /> */}
                                 <select
@@ -169,7 +169,7 @@ const UpdateService = () => {
                                     name="price"
                                     defaultValue={service.price}
                                     placeholder="Enter price"
-                                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-[#ee3131]focus:border-[#ee3131] transition"
+                                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-red-500focus:border-red-500 transition"
                                     required
                                 />
                             </div>
@@ -183,7 +183,7 @@ const UpdateService = () => {
                                     name="serviceImageURL"
                                     defaultValue={service.serviceImageURL}
                                     placeholder="Paste image URL"
-                                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-[#ee3131]focus:border-[#ee3131] transition"
+                                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-red-500focus:border-red-500 transition"
                                     required
                                 />
                             </div>
@@ -204,7 +204,7 @@ const UpdateService = () => {
                                     defaultValue={service.description}
                                     rows={4}
                                     placeholder="Describe your service..."
-                                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-[#ee3131]focus:border-[#ee3131] transition"
+                                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-red-500focus:border-red-500 transition"
                                     required
                                 />
                             </div>
@@ -231,7 +231,7 @@ const UpdateService = () => {
                                                 type="checkbox"
                                                 checked={availability.includes(day)}
                                                 onChange={() => handleAvailabilityChange(day)}
-                                                className="accent-[#ee3131]"
+                                                className="accent-red-500"
                                             />
                                             <span className="text-sm">{day}</span>
                                         </label>
@@ -256,7 +256,7 @@ const UpdateService = () => {
                                     name="city"
                                     defaultValue={service.city}
                                     placeholder="City"
-                                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-[#ee3131]focus:border-[#ee3131] transition"
+                                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-red-500focus:border-red-500 transition"
                                     required
                                 />
                             </div>
@@ -270,7 +270,7 @@ const UpdateService = () => {
                                     name="district"
                                     defaultValue={service.district}
                                     placeholder="District"
-                                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-[#ee3131]focus:border-[#ee3131] transition"
+                                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-red-500focus:border-red-500 transition"
                                     required
                                 />
                             </div>
@@ -284,7 +284,7 @@ const UpdateService = () => {
                                     name="zip"
                                     defaultValue={service.zip}
                                     placeholder="ZIP Code"
-                                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-[#ee3131]focus:border-[#ee3131] transition"
+                                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-red-500focus:border-red-500 transition"
                                     required
                                 />
                             </div>
@@ -301,7 +301,7 @@ const UpdateService = () => {
                                 type="submit"
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.97 }}
-                                className="inline-flex items-center justify-center gap-2 bg-[#ee3131] hover:bg-#ee313180]
+                                className="inline-flex items-center justify-center gap-2 bg-red-500 hover:bg-#ee313180]
                                 text-white font-semibold px-8 py-3 rounded-xl shadow-md transition-transform"
                             >
                                 <GrUpdate /> Update Service

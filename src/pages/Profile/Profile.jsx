@@ -19,26 +19,25 @@ const Profile = () => {
     }, [user]);
 
     return (
-        <div className="w-10/12 mx-auto space-y-10 md:space-y-20 animate-fadeIn mt-10">
+        <div className="container mx-auto space-y-10 md:space-y-20 animate-fadeIn">
             {/* Header */}
-            <h2 className="text-base-content  font-bold text-left md:text-center text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl tracking-wide animate-slideDown">
-                Profiles
-            </h2>
 
             {/* Profile Card */}
-            <div className="space-y-4 bg-base-100 p-6 rounded-2xl shadow-lg text-base-content transition-all duration-500 hover:shadow-xl animate-scaleUp">
-
+            <div className="space-y-4 bg-base-100 p-6 rounded-xl shadow-lg text-base-content transition-all duration-500 hover:shadow-xl animate-scaleUp">
+                <h1 className="text-3xl font-bold text-red-500 mb-6">
+                    Profiles
+                </h1>
                 {/* Avatar + Badge */}
                 <div className="relative mb-5 flex justify-between items-start">
                     <div className="relative group">
                         <img
                             src={user?.photoURL || "https://i.ibb.co/0jTpW8n/default-user.png"}
                             alt={user?.displayName || "User"}
-                            className="w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 rounded-full border-4 border-[#ee3131] shadow-md object-cover transform transition-transform duration-500 group-hover:scale-105"
+                            className="w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 rounded-full border-4 border-red-500 shadow-md object-cover transform transition-transform duration-500 group-hover:scale-105"
                         />
                         <Link
                             to="/update-profile"
-                            className="absolute bottom-2 right-2 text-[#ee3131] bg-base-content p-2 rounded-full shadow-md opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                            className="absolute bottom-2 right-2 text-red-500 bg-base-content p-2 rounded-full shadow-md opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                         >
                             <HiCamera />
                         </Link>
@@ -49,7 +48,7 @@ const Profile = () => {
                 <div className="space-y-4">
                     {/* Name */}
                     <div className="flex items-center gap-3 bg-base-200 dark:bg-base-300 rounded-md px-5 py-4 shadow transition-transform duration-300 hover:scale-[1.02] hover:shadow-lg animate-fadeInUp">
-                        <FaUser className="text-[#ee3131] size-5 lg:size-7" />
+                        <FaUser className="text-red-500 size-5 lg:size-7" />
                         <div>
                             <h3 className="text-base-content font-semibold">Title / Name</h3>
                             <p className="text-base-content/90">{user?.displayName || "Anonymous User name"}</p>
@@ -58,7 +57,7 @@ const Profile = () => {
 
                     {/* Email */}
                     <div className="flex items-center gap-3 bg-base-200 dark:bg-base-300 rounded-md px-5 py-4 shadow transition-transform duration-300 hover:scale-[1.02] hover:shadow-lg animate-fadeInUp delay-100">
-                        <FaAt className="text-[#ee3131] size-5 lg:size-7" />
+                        <FaAt className="text-red-500 size-5 lg:size-7" />
                         <div>
                             <h3 className="text-base-content font-semibold">Email Address</h3>
                             <p className="text-base-content/90">{user?.email || "Anonymous User email"}</p>
@@ -67,7 +66,7 @@ const Profile = () => {
 
                     {/* Phone */}
                     <div className="flex items-center gap-3 bg-base-200 dark:bg-base-300 rounded-md px-5 py-4 shadow transition-transform duration-300 hover:scale-[1.02] hover:shadow-lg animate-fadeInUp delay-200">
-                        <FaPhoneAlt className="text-[#ee3131] size-5 lg:size-7" />
+                        <FaPhoneAlt className="text-red-500 size-5 lg:size-7" />
                         <div>
                             <h3 className="text-base-content font-semibold">Mobile Number</h3>
                             <p className="text-base-content/90">{user?.phoneNumber || "+00000000000"}</p>
@@ -75,9 +74,9 @@ const Profile = () => {
                     </div>
                     {/* lastSignInTime */}
                     <div className="flex items-center gap-3 bg-base-200 dark:bg-base-300 rounded-md px-5 py-4 shadow transition-transform duration-300 hover:scale-[1.02] hover:shadow-lg animate-fadeInUp delay-200">
-                        <IoIosTime className="text-[#ee3131] size-5 lg:size-7" />
+                        <IoIosTime className="text-red-500 size-5 lg:size-7" />
                         <div>
-                            <h3 className="text-base-content font-semibold">lastSignInTime</h3>
+                            <h3 className="text-base-content font-semibold">Last Signin Time</h3>
                             <p className="text-base-content/90">Last Login: {lastLogin}</p>
                         </div>
                     </div>

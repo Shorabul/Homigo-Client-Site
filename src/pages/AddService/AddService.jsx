@@ -5,11 +5,11 @@ import { motion as Motion } from "framer-motion";
 import {
     FiPlusCircle,
     FiMapPin,
-    FiPhone,
-    FiImage,
+    FiTrash2,
 } from "react-icons/fi";
 import { useNavigate } from "react-router";
 import { categories } from "../../constants/categories"
+
 const AddService = () => {
     const createdAt = new Date();
     const { user } = useContext(AuthContext);
@@ -20,7 +20,7 @@ const AddService = () => {
         category: "",
         price: "",
         description: "",
-        serviceImageURL: "",
+        serviceImages: [""], // Start with 1 empty field
         providerName: "",
         providerEmail: "",
         city: "",
@@ -49,6 +49,36 @@ const AddService = () => {
         setFormData((prev) => ({ ...prev, [name]: value }));
     };
 
+    // Add image input field
+    const handleAddImage = () => {
+        if (formData.serviceImages.length >= 5) {
+            toast.error("Maximum 5 images allowed");
+            return;
+        }
+        setFormData((prev) => ({
+            ...prev,
+            serviceImages: [...prev.serviceImages, ""],
+        }));
+    };
+
+    // Update image URL
+    const handleImageChange = (index, value) => {
+        const updatedImages = [...formData.serviceImages];
+        updatedImages[index] = value;
+        setFormData((prev) => ({
+            ...prev,
+            serviceImages: updatedImages,
+        }));
+    };
+
+    // Remove image input field
+    const handleRemoveImage = (index) => {
+        setFormData((prev) => ({
+            ...prev,
+            serviceImages: prev.serviceImages.filter((_, i) => i !== index),
+        }));
+    };
+
     const handleAvailabilityChange = (day) => {
         setFormData((prev) => ({
             ...prev,
@@ -61,9 +91,20 @@ const AddService = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        // Validate images - filter out empty ones
+        const validImages = formData.serviceImages.filter((img) => img.trim() !== "");
+
+        if (validImages.length < 2) {
+            toast.error("Please add at least 2 images");
+            return;
+        }
+
         const newService = {
             ...formData,
             price: parseFloat(formData.price),
+            serviceImages: validImages,
+            // Use first image as primary display image
+            serviceImageURL: validImages[0],
         };
 
         try {
@@ -84,7 +125,7 @@ const AddService = () => {
                     category: "",
                     price: "",
                     description: "",
-                    serviceImageURL: "",
+                    serviceImages: ["", ""],
                     providerName: user?.displayName || "",
                     providerEmail: user?.email || "",
                     city: "",
@@ -108,19 +149,18 @@ const AddService = () => {
 
     return (
         <Motion.div
-            className="py-12 container mx-auto"
+            className="container mx-auto"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6 }}
         >
-            <p className="text-center font-semibold">Welcome back,<span className="text-[#ee3131] text-base md:text-lg">{user.displayName}</span></p>
             <Motion.div
-                className="max-w-5xl mx-auto rounded-2xl shadow-xl overflow-hidden"
+                className="rounded-xl shadow-sm overflow-hidden"
                 initial={{ y: 30, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ duration: 0.6, ease: "easeOut" }}
             >
-                <div className="p-8 md:p-10">
+                <div className="p-8 md:p-10 bg-base-100">
                     {/* Header */}
                     <Motion.div
                         className="flex items-center space-x-3 mb-8"
@@ -128,14 +168,9 @@ const AddService = () => {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.3 }}
                     >
-                        <div className="bg-[#ee313120] text-[#ee3131] p-3 rounded-full">
-                            <FiPlusCircle size={24} />
-                        </div>
-                        <h2 className="text-3xl font-bold text-[#ee3131]">
+                        <h2 className="text-3xl font-bold text-red-500">
                             Add New Service
                         </h2>
-
-
                     </Motion.div>
 
                     {/* Form */}
@@ -148,7 +183,7 @@ const AddService = () => {
                             transition={{ delay: 0.4 }}
                         >
                             <div>
-                                <label className="block text-sm font-semibold text-base-content  mb-2">
+                                <label className="block text-sm font-semibold text-base-content mb-2">
                                     Service Name
                                 </label>
                                 <input
@@ -157,25 +192,11 @@ const AddService = () => {
                                     value={formData.serviceName}
                                     onChange={handleChange}
                                     placeholder="Enter your service name"
-                                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-[#ee3131] focus:border-[#ee3131] transition"
+                                    className="w-full px-4 py-3 rounded-xl border border-base-300 focus:ring-2 focus:ring-red-500 focus:border-red-500 transition bg-base-200"
                                     required
                                 />
                             </div>
 
-                            {/* <div>
-                                <label className="block text-sm font-semibold text-base-content mb-2">
-                                    Category
-                                </label>
-                                <input
-                                    type="text"
-                                    name="category"
-                                    value={formData.category}
-                                    onChange={handleChange}
-                                    placeholder="e.g. Home Repair, Cleaning"
-                                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-[#ee3131] focus:border-[#ee3131] transition"
-                                    required
-                                />
-                            </div> */}
                             <div>
                                 <label className="block text-sm font-semibold text-base-content mb-2">
                                     Category
@@ -184,122 +205,161 @@ const AddService = () => {
                                     name="category"
                                     value={formData.category}
                                     onChange={handleChange}
-                                    className="appearance-none border border-neutral-content bg-base-300 rounded-md transition duration-200 select outline-[#ee313180] cursor-pointer"
+                                    className="appearance-none border border-base-300 bg-base-200 rounded-xl transition duration-200 select outline-red-500 cursor-pointer w-full px-4 h-12"
                                     required
                                 >
                                     <option value="" disabled>Select a category</option>
-
                                     {categories.map(cat => (
                                         <option key={cat} value={cat}>{cat}</option>
                                     ))}
                                 </select>
-
-
-                                {/* <select
-                                    name="category"
-                                    value={formData.category}
-                                    onChange={handleChange}
-                                    className="appearance-none border border-neutral-content bg-base-300 rounded-md transition duration-200 select outline-[#ee313180] cursor-pointer"
-                                    required
-                                >
-                                    <option value="" disabled>Select a category</option>
-                                    <option value="Home Repair">Home Repair</option>
-                                    <option value="Cleaning">Cleaning</option>
-                                    <option value="Gardening">Gardening</option>
-                                    <option value="Electrical">Electrical</option>
-                                    <option value="Plumbing">Plumbing</option>
-                                </select> */}
                             </div>
-
                         </Motion.div>
 
-                        {/* Price & Image URL */}
+                        {/* Price */}
                         <Motion.div
-                            className="grid md:grid-cols-2 gap-6"
                             initial={{ opacity: 0, y: 10 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.5 }}
                         >
-                            <div>
-                                <label className="block text-sm font-semibold text-base-content mb-2">
-                                    Price ($)
-                                </label>
-                                <input
-                                    type="number"
-                                    name="price"
-                                    value={formData.price}
-                                    onChange={handleChange}
-                                    placeholder="Enter price"
-                                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-[#ee3131] focus:border-[#ee3131] transition"
-                                    required
-                                />
-                            </div>
-
-                            <div>
-                                <label className="block text-sm font-semibold text-base-content mb-2 flex items-center gap-2">
-                                    <FiImage /> Image URL
-                                </label>
-                                <input
-                                    type="url"
-                                    name="serviceImageURL"
-                                    value={formData.serviceImageURL}
-                                    onChange={handleChange}
-                                    placeholder="Paste image URL"
-                                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-[#ee3131] focus:border-[#ee3131] transition"
-                                    required
-                                />
-                            </div>
+                            <label className="block text-sm font-semibold text-base-content mb-2">
+                                Price ($)
+                            </label>
+                            <input
+                                type="number"
+                                name="price"
+                                value={formData.price}
+                                onChange={handleChange}
+                                placeholder="Enter price"
+                                className="w-full px-4 py-3 rounded-xl border border-base-300 focus:ring-2 focus:ring-red-500 focus:border-red-500 transition bg-base-200"
+                                required
+                            />
                         </Motion.div>
 
-                        {/* Description & Availability */}
+                        {/* Service Images Section */}
+                        <Motion.div
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.55 }}
+                            className="bg-base-200 rounded-xl p-6 border-2 border-dashed border-base-300"
+                        >
+                            <div className="mb-6">
+                                <label className="block text-sm font-semibold text-base-content mb-1">
+                                    Service Images
+                                </label>
+                                <p className="text-xs text-base-content/60">
+                                    Minimum 2 images required | Maximum 5 images | Current: {formData.serviceImages.filter(img => img.trim()).length}
+                                </p>
+                            </div>
+
+                            {/* Image URLs List */}
+                            <div className="space-y-3 mb-4">
+                                {formData.serviceImages.map((image, index) => (
+                                    <Motion.div
+                                        key={index}
+                                        initial={{ opacity: 0, x: -20 }}
+                                        animate={{ opacity: 1, x: 0 }}
+                                        exit={{ opacity: 0, x: -20 }}
+                                        transition={{ delay: index * 0.05 }}
+                                        className="flex items-center gap-3"
+                                    >
+                                        <span className="text-sm font-bold text-red-500 min-w-8 text-center">
+                                            {index + 1}
+                                        </span>
+                                        <input
+                                            type="url"
+                                            value={image}
+                                            onChange={(e) => handleImageChange(index, e.target.value)}
+                                            placeholder={`Image URL ${index + 1}`}
+                                            className="flex-1 px-4 py-3 rounded-lg border border-base-300 focus:ring-2 focus:ring-red-500 focus:border-red-500 transition bg-base-100"
+                                        />
+                                        {formData.serviceImages.length > 1 && (
+                                            <Motion.button
+                                                type="button"
+                                                onClick={() => handleRemoveImage(index)}
+                                                whileHover={{ scale: 1.1 }}
+                                                whileTap={{ scale: 0.9 }}
+                                                className="p-2.5 rounded-lg bg-red-100 text-red-500 hover:bg-red-500 hover:text-white transition"
+                                            >
+                                                <FiTrash2 size={18} />
+                                            </Motion.button>
+                                        )}
+                                    </Motion.div>
+                                ))}
+                            </div>
+
+                            {/* Add Image Button */}
+                            {formData.serviceImages.length < 5 && (
+                                <Motion.button
+                                    type="button"
+                                    onClick={handleAddImage}
+                                    whileHover={{ scale: 1.05 }}
+                                    whileTap={{ scale: 0.95 }}
+                                    className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-lg font-semibold bg-red-500 text-white hover:bg-red-600 transition border-2 border-dashed border-red-300"
+                                >
+                                    <FiPlusCircle size={18} /> Add Another Image
+                                </Motion.button>
+                            )}
+
+                            {formData.serviceImages.length >= 5 && (
+                                <p className="text-sm text-base-content/60 text-center py-3">
+                                    Maximum 5 images reached
+                                </p>
+                            )}
+                        </Motion.div>
+
+                        {/* Description */}
                         <Motion.div
                             initial={{ opacity: 0, y: 10 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.6 }}
                         >
-                            <div>
-                                <label className="block text-sm font-semibold text-base-content mb-2">
-                                    Description
-                                </label>
-                                <textarea
-                                    name="description"
-                                    value={formData.description}
-                                    onChange={handleChange}
-                                    rows={4}
-                                    placeholder="Describe your service..."
-                                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-[#ee3131] focus:border-[#ee3131] transition"
-                                    required
-                                />
-                            </div>
+                            <label className="block text-sm font-semibold text-base-content mb-2">
+                                Description
+                            </label>
+                            <textarea
+                                name="description"
+                                value={formData.description}
+                                onChange={handleChange}
+                                rows={4}
+                                placeholder="Describe your service..."
+                                className="w-full px-4 py-3 rounded-xl border border-base-300 focus:ring-2 focus:ring-red-500 focus:border-red-500 transition bg-base-200"
+                                required
+                            />
+                        </Motion.div>
 
-                            <div>
-                                <label className="block text-sm font-semibold text-base-content mb-3">
-                                    Availability
-                                </label>
-                                <div className="flex flex-wrap items-center gap-2">
-                                    {[
-                                        "Monday",
-                                        "Tuesday",
-                                        "Wednesday",
-                                        "Thursday",
-                                        "Friday",
-                                        "Saturday",
-                                        "Sunday",
-                                    ].map((day) => (
-                                        <label
-                                            key={day}
-                                            className="flex items-center gap-2 p-2 rounded-md hover:bg-[#ee313120] cursor-pointer transition"
-                                        >
-                                            <input
-                                                type="checkbox"
-                                                checked={formData.availability.includes(day)}
-                                                onChange={() => handleAvailabilityChange(day)}
-                                                className="accent-[#ee3131]"
-                                            />
-                                            <span className="text-sm">{day}</span>
-                                        </label>
-                                    ))}
-                                </div>
+                        {/* Availability */}
+                        <Motion.div
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.65 }}
+                        >
+                            <label className="block text-sm font-semibold text-base-content mb-3">
+                                Availability
+                            </label>
+                            <div className="flex flex-wrap items-center gap-2">
+                                {[
+                                    "Monday",
+                                    "Tuesday",
+                                    "Wednesday",
+                                    "Thursday",
+                                    "Friday",
+                                    "Saturday",
+                                    "Sunday",
+                                ].map((day) => (
+                                    <label
+                                        key={day}
+                                        className="flex items-center gap-2 p-2 px-3 rounded-lg hover:bg-red-100 cursor-pointer transition border border-base-300 bg-base-200"
+                                    >
+                                        <input
+                                            type="checkbox"
+                                            checked={formData.availability.includes(day)}
+                                            onChange={() => handleAvailabilityChange(day)}
+                                            className="accent-red-500"
+                                        />
+                                        <span className="text-sm font-medium">{day}</span>
+                                    </label>
+                                ))}
                             </div>
                         </Motion.div>
 
@@ -311,8 +371,8 @@ const AddService = () => {
                             transition={{ delay: 0.7 }}
                         >
                             <div>
-                                <label className="block text-sm font-semibold text-base-content  mb-2 flex items-center gap-2">
-                                    <FiMapPin /> City
+                                <label className="block text-sm font-semibold text-base-content mb-2">
+                                    City
                                 </label>
                                 <input
                                     type="text"
@@ -320,7 +380,7 @@ const AddService = () => {
                                     value={formData.city}
                                     onChange={handleChange}
                                     placeholder="City"
-                                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-[#ee3131] focus:border-[#ee3131] transition"
+                                    className="w-full px-4 py-3 rounded-xl border border-base-300 focus:ring-2 focus:ring-red-500 focus:border-red-500 transition bg-base-200"
                                     required
                                 />
                             </div>
@@ -335,13 +395,13 @@ const AddService = () => {
                                     value={formData.district}
                                     onChange={handleChange}
                                     placeholder="District"
-                                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-[#ee3131] focus:border-[#ee3131] transition"
+                                    className="w-full px-4 py-3 rounded-xl border border-base-300 focus:ring-2 focus:ring-red-500 focus:border-red-500 transition bg-base-200"
                                     required
                                 />
                             </div>
 
                             <div>
-                                <label className="block text-sm font-semibold text-base-content  mb-2">
+                                <label className="block text-sm font-semibold text-base-content mb-2">
                                     ZIP
                                 </label>
                                 <input
@@ -350,7 +410,7 @@ const AddService = () => {
                                     value={formData.zip}
                                     onChange={handleChange}
                                     placeholder="ZIP Code"
-                                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-[#ee3131] focus:border-[#ee3131] transition"
+                                    className="w-full px-4 py-3 rounded-xl border border-base-300 focus:ring-2 focus:ring-red-500 focus:border-red-500 transition bg-base-200"
                                     required
                                 />
                             </div>
@@ -367,7 +427,7 @@ const AddService = () => {
                                 type="submit"
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.97 }}
-                                className="cursor-pointer inline-flex items-center justify-center gap-2 brand-color-bg hover:brand-color-bg/80 text-white font-semibold px-8 py-3 rounded-xl shadow-md transition-transform"
+                                className="cursor-pointer inline-flex items-center justify-center gap-2 brand-color-bg hover:bg-red-600 text-white font-semibold px-8 py-3 rounded-xl shadow-md transition-transform"
                             >
                                 <FiPlusCircle /> Add Service
                             </Motion.button>
@@ -376,7 +436,6 @@ const AddService = () => {
                 </div>
             </Motion.div>
         </Motion.div>
-
     );
 };
 

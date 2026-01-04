@@ -65,54 +65,61 @@ const MyServices = () => {
         return (
             <div className="flex justify-center items-center h-64">
 
-                <span className="loading loading-spinner text-[#ee3131]"></span>
+                <span className="loading loading-spinner text-red-500"></span>
 
-                <p className="ml-3 text-[#ee3131] font-medium">Loading Services...</p>
+                <p className="ml-3 text-red-500 font-medium">Loading Services...</p>
             </div>
         );
     }
 
     return (
         <Motion.div
-            className="overflow-x-auto max-w-5xl mx-auto mt-10 p-6 rounded-xl shadow-lg"
+            className="overflow-x-auto container mx-auto p-6 rounded-xl shadow-sm"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6 }}
         >
-            <h1 className="text-center text-3xl font-bold text-[#ee3131] mb-6">
+            <h1 className="text-3xl font-bold text-red-500 mb-6">
                 My Services
             </h1>
-            <table className="table table-zebra w-full">
-                {/* head */}
-                <thead className="bg-[#ee3131] text-white">
-                    <tr>
-                        <th>SL No.</th>
-                        <th>Service</th>
-                        <th>Provider</th>
-                        <th>Price</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {myServices.map((service, index) => (
-                        <MyServiceRow
-                            key={service._id}
-                            index={index + 1}
-                            service={service}
-                            handleDelete={handleDelete}
-                        />
-                    ))}
-                </tbody>
-                <tfoot className="">
-                    <tr>
-                        <th>Total</th>
-                        <th>{myServices.length}</th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                    </tr>
-                </tfoot>
-            </table>
+
+            <div className="overflow-x-auto w-full">
+                <table className="table table-zebra min-w-[700px]">
+                    {/* head */}
+                    <thead className="bg-red-500 text-white">
+                        <tr>
+                            <th>SL No.</th>
+                            <th>Service</th>
+                            <th>Provider</th>
+                            <th>Price</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {myServices.map((service, index) => (
+                            <MyServiceRow
+                                key={service._id}
+                                index={index + 1}
+                                service={service}
+                                handleDelete={handleDelete}
+                            />
+                        ))}
+                    </tbody>
+
+                    <tfoot>
+                        <tr>
+                            <th>Total</th>
+                            <th>{myServices.length}</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+
+
         </Motion.div>
     );
 };

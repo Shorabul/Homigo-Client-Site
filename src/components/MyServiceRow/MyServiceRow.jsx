@@ -39,12 +39,12 @@ const MyServiceRow = ({ service, index, handleDelete }) => {
                 <br />
                 <span className="badge bg-[#ee313180] badge-sm">{providerEmail}</span>
             </td>
-            <td className="text-[#ee3131] font-semibold">${price}</td>
+            <td className="text-red-500 font-semibold">${price}</td>
             <th className="flex gap-2 ">
                 <Link
 
                     to={`/serviceDetails/${_id}`}
-                    className="btn bg-[#ee3131] btn-xs text-white">Details</Link>
+                    className="btn bg-red-500 btn-xs text-white">Details</Link>
                 <Link
                     to={`/update-service/${_id}`}
                     className="btn bg-green-500 btn-xs text-white"
